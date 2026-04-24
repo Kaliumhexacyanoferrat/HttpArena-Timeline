@@ -155,8 +155,6 @@ The structure of the json files should look like this:
 
 {
 
-&#x20; "metric": "rps",
-
 &#x20; "data": \[
 
 &#x20;   \["2025-01-01T10:22:00Z", { "rps": 43000, "avg\_latency": ..., ... } ],
