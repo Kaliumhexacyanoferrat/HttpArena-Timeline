@@ -31,7 +31,7 @@
 
 <header>
   <span class="logo">⚡ HTTP Arena Timeline</span>
-  <a href="https://github.com/nicholasgasior/httparena" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://github.com/Kaliumhexacyanoferrat/HttpArena-Timeline" target="_blank" rel="noopener">GitHub</a>
 </header>
 
 {#if error}
