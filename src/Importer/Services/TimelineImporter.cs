@@ -9,6 +9,7 @@ namespace Importer.Services;
 public class TimelineImporter(string repoPath, string outputPath, string startingCommit)
 {
     private readonly Dictionary<string, Dictionary<string, List<(DateTimeOffset Timestamp, MetricsEntry Entry)>>> _newData = new();
+    private readonly Dictionary<string, string> _frameworkLanguages = new();
     private bool _isIncremental;
 
     private static readonly char[] InvalidChars = Path.GetInvalidFileNameChars();
@@ -24,12 +25,21 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         using var repo = new Repository(repoPath);
 
         Console.WriteLine("Walking git history...");
-        if (!WalkHistory(repo)) return;
+        var hasNewCommits = WalkHistory(repo);
 
-        Console.WriteLine($"Writing output to {outputPath}...");
-        await WriteOutputAsync();
+        if (hasNewCommits)
+        {
+            Console.WriteLine($"Writing output to {outputPath}...");
+            await WriteOutputAsync();
+            SaveLastCommit(repo.Head.Tip.Sha);
+        }
+        else if (!File.Exists(Path.Combine(outputPath, "index.json")))
+        {
+            // No new commits but index is missing — generate it from existing data on disk.
+            Console.WriteLine("Generating index.json from existing data...");
+            await WriteIndexFromDiskAsync();
+        }
 
-        SaveLastCommit(repo.Head.Tip.Sha);
         Console.WriteLine("Done.");
     }
 
@@ -120,6 +130,13 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
             var framework = fwProp.GetString();
             if (string.IsNullOrEmpty(framework)) continue;
 
+            if (!_frameworkLanguages.ContainsKey(framework))
+            {
+                var lang = entry.TryGetProperty("language", out var lp) && lp.ValueKind == JsonValueKind.String
+                    ? lp.GetString() ?? "Unknown" : "Unknown";
+                _frameworkLanguages[framework] = lang;
+            }
+
             var metrics = ParseMetrics(entry);
             var frameworkData = _newData.TryGetValue(framework, out var fd) ? fd : (_newData[framework] = new());
             var testData = frameworkData.TryGetValue(testFile, out var td) ? td : (frameworkData[testFile] = []);
@@ -187,6 +204,130 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
 
         var totalFiles = _newData.Values.Sum(d => d.Count);
         Console.WriteLine($"  Wrote {totalFiles} files for {_newData.Count} frameworks.");
+
+        await WriteIndexAsync();
+    }
+
+    private async Task WriteIndexAsync()
+    {
+        // For incremental: merge new data into existing index. For full rebuild: start fresh.
+        var index = _isIncremental ? LoadExistingIndex() : new Dictionary<string, (string Language, SortedSet<string> Tests)>();
+
+        foreach (var (fw, tests) in _newData)
+        {
+            var lang = _frameworkLanguages.GetValueOrDefault(fw, "Unknown");
+            if (index.TryGetValue(fw, out var existing))
+                foreach (var t in tests.Keys) existing.Tests.Add(t);
+            else
+                index[fw] = (lang, new SortedSet<string>(tests.Keys));
+        }
+
+        var allTests = index.Values.SelectMany(v => v.Tests).Distinct().OrderBy(t => t).ToList();
+
+        var indexPath = Path.Combine(outputPath, "index.json");
+        await using var stream = File.Create(indexPath);
+        await using var writer = new Utf8JsonWriter(stream, WriterOptions);
+
+        writer.WriteStartObject();
+        writer.WriteStartObject("frameworks");
+        foreach (var (fw, (lang, tests)) in index.OrderBy(kv => kv.Key))
+        {
+            writer.WriteStartObject(fw);
+            writer.WriteString("language", lang);
+            writer.WriteStartArray("tests");
+            foreach (var t in tests) writer.WriteStringValue(t);
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+        }
+        writer.WriteEndObject();
+        writer.WriteStartArray("tests");
+        foreach (var t in allTests) writer.WriteStringValue(t);
+        writer.WriteEndArray();
+        writer.WriteEndObject();
+
+        await writer.FlushAsync();
+        Console.WriteLine($"  Wrote index.json ({index.Count} frameworks, {allTests.Count} tests).");
+    }
+
+    private async Task WriteIndexFromDiskAsync()
+    {
+        // Build index by scanning the data directory (used when index.json is missing but data exists).
+        if (!Directory.Exists(outputPath)) return;
+
+        var index = new Dictionary<string, (string Language, SortedSet<string> Tests)>();
+        foreach (var fwDir in Directory.EnumerateDirectories(outputPath))
+        {
+            var fw = Path.GetFileName(fwDir);
+            var tests = new SortedSet<string>(
+                Directory.EnumerateFiles(fwDir, "*.json")
+                         .Select(f => Path.GetFileNameWithoutExtension(f)!));
+
+            // Try to get language from first data file
+            var lang = "Unknown";
+            var firstFile = Directory.EnumerateFiles(fwDir, "*.json").FirstOrDefault();
+            if (firstFile != null)
+            {
+                try
+                {
+                    using var doc = JsonDocument.Parse(File.ReadAllBytes(firstFile));
+                    var firstPoint = doc.RootElement.GetProperty("data").EnumerateArray().FirstOrDefault();
+                    if (firstPoint.ValueKind != JsonValueKind.Undefined
+                        && firstPoint[1].TryGetProperty("language", out var lp))
+                        lang = lp.GetString() ?? "Unknown";
+                }
+                catch { /* ignore */ }
+            }
+
+            index[fw] = (lang, tests);
+        }
+
+        _isIncremental = false; // Write fresh index
+        // Temporarily populate _newData so WriteIndexAsync can use it, but skip file writing
+        // Instead, write the index directly here
+        var allTests = index.Values.SelectMany(v => v.Tests).Distinct().OrderBy(t => t).ToList();
+        var indexPath = Path.Combine(outputPath, "index.json");
+        await using var stream = File.Create(indexPath);
+        await using var writer = new Utf8JsonWriter(stream, WriterOptions);
+        writer.WriteStartObject();
+        writer.WriteStartObject("frameworks");
+        foreach (var (fw, (lang, tests)) in index.OrderBy(kv => kv.Key))
+        {
+            writer.WriteStartObject(fw);
+            writer.WriteString("language", lang);
+            writer.WriteStartArray("tests");
+            foreach (var t in tests) writer.WriteStringValue(t);
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+        }
+        writer.WriteEndObject();
+        writer.WriteStartArray("tests");
+        foreach (var t in allTests) writer.WriteStringValue(t);
+        writer.WriteEndArray();
+        writer.WriteEndObject();
+        await writer.FlushAsync();
+        Console.WriteLine($"  Wrote index.json ({index.Count} frameworks, {allTests.Count} tests).");
+    }
+
+    private Dictionary<string, (string Language, SortedSet<string> Tests)> LoadExistingIndex()
+    {
+        var result = new Dictionary<string, (string, SortedSet<string>)>();
+        var indexPath = Path.Combine(outputPath, "index.json");
+        if (!File.Exists(indexPath)) return result;
+
+        using var doc = JsonDocument.Parse(File.ReadAllBytes(indexPath));
+        if (!doc.RootElement.TryGetProperty("frameworks", out var fws)) return result;
+
+        foreach (var fw in fws.EnumerateObject())
+        {
+            var lang = fw.Value.TryGetProperty("language", out var lp) ? lp.GetString() ?? "Unknown" : "Unknown";
+            var tests = new SortedSet<string>();
+            if (fw.Value.TryGetProperty("tests", out var tp))
+                foreach (var t in tp.EnumerateArray())
+                    if (t.GetString() is { } s) tests.Add(s);
+            result[fw.Name] = (lang, tests);
+        }
+
+        return result;
     }
 
     private void CleanFrameworkDirectories()
