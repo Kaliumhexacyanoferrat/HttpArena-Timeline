@@ -25,4 +25,7 @@ export default defineConfig({
     }
   ],
   base: process.env.BASE_PATH ?? '/',
+  define: {
+    __BUILD_TIME__: JSON.stringify(Date.now()),
+  },
 })
