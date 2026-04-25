@@ -105,7 +105,7 @@
       ],
       axes,
       scales,
-      cursor: { drag: { x: true, y: false } },
+      cursor: { drag: { x: false, y: false } },
       legend: { show: true },
     }
 
