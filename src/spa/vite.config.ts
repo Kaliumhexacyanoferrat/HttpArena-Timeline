@@ -13,12 +13,13 @@ export default defineConfig({
       name: 'serve-data',
       configureServer(server) {
         server.middlewares.use('/data', (req, res, next) => {
-          const filePath = join(dataDir, decodeURIComponent(req.url ?? '/'))
+          const filePath = join(dataDir, decodeURIComponent((req.url ?? '/').split('?')[0]))
           if (existsSync(filePath) && statSync(filePath).isFile()) {
             res.setHeader('Content-Type', 'application/json')
             createReadStream(filePath).pipe(res as NodeJS.WritableStream)
           } else {
-            next()
+            res.statusCode = 404
+            res.end()
           }
         })
       }
