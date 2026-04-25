@@ -161,6 +161,7 @@
       }
     })
     observer.observe(container)
+    rebuild(test, frameworks, metrics)
   })
 
   onDestroy(() => {
