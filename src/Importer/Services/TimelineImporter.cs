@@ -355,16 +355,27 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         List<(DateTimeOffset Timestamp, JsonElement Entry)> existing,
         List<(DateTimeOffset Timestamp, MetricsEntry Entry)> newPoints)
     {
-        var allExisting = existing.Select(p  => (p.Timestamp,  Write: (Action<Utf8JsonWriter>)(w => p.Entry.WriteTo(w))));
-        var allNew      = newPoints.Select(p => (p.Timestamp,  Write: (Action<Utf8JsonWriter>)(w => WriteMetrics(w, p.Entry))));
+        var allExisting = existing.Select(p  => (p.Timestamp, Rps: GetRps(p.Entry),  Write: (Action<Utf8JsonWriter>)(w => p.Entry.WriteTo(w))));
+        var allNew      = newPoints.Select(p => (p.Timestamp, Rps: p.Entry.Rps,      Write: (Action<Utf8JsonWriter>)(w => WriteMetrics(w, p.Entry))));
         var sorted      = allExisting.Concat(allNew).OrderBy(p => p.Timestamp).ToList();
+
+        var filtered = new List<(DateTimeOffset Timestamp, Action<Utf8JsonWriter> Write)>();
+        (DateTimeOffset Timestamp, long Rps)? prev = null;
+        foreach (var (ts, rps, write) in sorted)
+        {
+            if (prev is null || prev.Value.Rps != rps || (ts - prev.Value.Timestamp).TotalDays >= 7)
+            {
+                filtered.Add((ts, write));
+                prev = (ts, rps);
+            }
+        }
 
         await using var stream = File.Create(outputFile);
         await using var writer = new Utf8JsonWriter(stream, WriterOptions);
 
         writer.WriteStartObject();
         writer.WriteStartArray("data");
-        foreach (var (ts, write) in sorted)
+        foreach (var (ts, write) in filtered)
         {
             writer.WriteStartArray();
             writer.WriteStringValue(ts.ToUniversalTime().ToString("o"));
@@ -376,6 +387,9 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
 
         await writer.FlushAsync();
     }
+
+    private static long GetRps(JsonElement entry) =>
+        entry.TryGetProperty("rps", out var v) && v.ValueKind == JsonValueKind.Number ? v.GetInt64() : 0;
 
     private static void WriteMetrics(Utf8JsonWriter w, MetricsEntry m)
     {
