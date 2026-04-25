@@ -30,6 +30,11 @@ html, body {
   flex-direction: column;
 }
 
+@media (max-width: 639px) {
+  html, body { height: auto; min-height: 100%; }
+  #app       { height: auto; min-height: 100%; }
+}
+
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }

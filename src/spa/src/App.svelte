@@ -114,6 +114,24 @@
     overflow: hidden;
   }
 
+  @media (max-width: 639px) {
+    .layout {
+      grid-template-columns: 1fr;
+      flex: none;
+      overflow: visible;
+    }
+
+    aside {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      overflow: visible;
+    }
+
+    .aside-label { display: none; }
+
+    main { overflow: visible; }
+  }
+
   .loading, .error {
     flex: 1;
     display: flex;

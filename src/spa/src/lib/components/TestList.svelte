@@ -39,6 +39,18 @@
     transition: background 0.1s, color 0.1s;
   }
 
+  @media (max-width: 639px) {
+    .test-list {
+      flex-direction: row;
+      overflow-x: auto;
+      padding: 6px 8px;
+      scrollbar-width: none;
+      gap: 4px;
+    }
+    .test-list::-webkit-scrollbar { display: none; }
+    button { flex-shrink: 0; overflow: visible; text-overflow: unset; }
+  }
+
   button:hover {
     background: var(--surface-hover);
     color: var(--text);

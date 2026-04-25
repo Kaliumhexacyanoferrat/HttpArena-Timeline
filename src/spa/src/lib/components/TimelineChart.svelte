@@ -18,6 +18,8 @@
   // Stale-check key to avoid updating the chart with results from a superseded request.
   let currentKey = ''
 
+  function chartHeight() { return window.innerWidth < 640 ? 260 : 360 }
+
   $: rebuild(test, frameworks, metrics)
 
   async function rebuild(t: string, fws: string[], mets: string[]) {
@@ -91,7 +93,7 @@
 
     const opts: uPlot.Options = {
       width:  container.clientWidth || 800,
-      height: 360,
+      height: chartHeight(),
       series: [
         { label: 'Time' },
         ...series.map(s => ({
@@ -157,7 +159,7 @@
   onMount(() => {
     observer = new ResizeObserver(() => {
       if (chart && container) {
-        chart.setSize({ width: container.clientWidth, height: 360 })
+        chart.setSize({ width: container.clientWidth, height: chartHeight() })
       }
     })
     observer.observe(container)
@@ -187,6 +189,10 @@
     flex: 1;
     min-height: 0;
     padding: 12px 16px;
+  }
+
+  @media (max-width: 639px) {
+    .chart-wrap { flex: none; }
   }
 
   .chart-container {
