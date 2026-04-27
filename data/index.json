@@ -85,6 +85,7 @@
         "baseline-h2c-4096",
         "baseline-h3-64",
         "crud-4096",
+        "crud-512",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -105,8 +106,30 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
+        "stream-grpc-64",
+        "stream-grpc-tls-64",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256",
         "upload-256",
         "upload-32"
+      ]
+    },
+    "aspnet-minimal + caddy": {
+      "language": "C#",
+      "tests": [
+        "gateway-h3-256",
+        "gateway-h3-64"
+      ]
+    },
+    "aspnet-minimal + nginx": {
+      "language": "C#",
+      "tests": [
+        "gateway-64-1024",
+        "gateway-64-512",
+        "production-stack-1024",
+        "production-stack-256"
       ]
     },
     "aspnet-minimal-aot": {
@@ -541,6 +564,15 @@
         "echo-ws-512"
       ]
     },
+    "grpc-go": {
+      "language": "Go",
+      "tests": [
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256"
+      ]
+    },
     "h2o": {
       "language": "C",
       "tests": [
@@ -614,6 +646,10 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256",
         "upload-256",
         "upload-32"
       ]
@@ -645,6 +681,12 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "stream-grpc-64",
+        "stream-grpc-tls-64",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256",
         "upload-256",
         "upload-32"
       ]
@@ -954,6 +996,10 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256",
         "upload-256",
         "upload-32"
       ]
@@ -1012,10 +1058,12 @@
         "async-db-1024",
         "baseline-4096",
         "baseline-512",
+        "crud-4096",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
         "json-comp-512",
+        "json-tls-4096",
         "limited-conn-4096",
         "limited-conn-512",
         "static-1024",
@@ -1276,8 +1324,13 @@
       "tests": [
         "baseline-4096",
         "baseline-512",
+        "limited-conn-4096",
+        "limited-conn-512",
         "pipelined-4096",
-        "pipelined-512"
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800"
       ]
     },
     "uvicorn": {
@@ -1357,9 +1410,14 @@
     "baseline-h2c-4096",
     "baseline-h3-64",
     "crud-4096",
+    "crud-512",
     "echo-ws-16384",
     "echo-ws-4096",
     "echo-ws-512",
+    "gateway-64-1024",
+    "gateway-64-512",
+    "gateway-h3-256",
+    "gateway-h3-64",
     "json-4096",
     "json-comp-16384",
     "json-comp-4096",
@@ -1371,12 +1429,20 @@
     "limited-conn-512",
     "pipelined-4096",
     "pipelined-512",
+    "production-stack-1024",
+    "production-stack-256",
     "static-1024",
     "static-4096",
     "static-6800",
     "static-h2-1024",
     "static-h2-256",
     "static-h3-64",
+    "stream-grpc-64",
+    "stream-grpc-tls-64",
+    "unary-grpc-1024",
+    "unary-grpc-256",
+    "unary-grpc-tls-1024",
+    "unary-grpc-tls-256",
     "upload-256",
     "upload-32"
   ]

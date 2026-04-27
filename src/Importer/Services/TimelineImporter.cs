@@ -49,6 +49,8 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         _isIncremental = lastCommit != null;
 
         CommitFilter filter;
+        Commit? snapshotCommit = null;
+
         if (_isIncremental)
         {
             var lastProcessed = repo.Lookup<Commit>(lastCommit!);
@@ -67,12 +69,12 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         }
         else
         {
-            var startCommit = repo.Lookup<Commit>(startingCommit)
+            snapshotCommit = repo.Lookup<Commit>(startingCommit)
                 ?? throw new InvalidOperationException($"Starting commit '{startingCommit}' not found.");
             filter = new CommitFilter
             {
                 IncludeReachableFrom = repo.Head.Tip,
-                ExcludeReachableFrom = startCommit.Parents.Any() ? startCommit.Parents : null,
+                ExcludeReachableFrom = snapshotCommit.Parents.Any() ? snapshotCommit.Parents : null,
                 SortBy = CommitSortStrategies.Time | CommitSortStrategies.Reverse
             };
             Console.WriteLine("  Full import.");
@@ -80,6 +82,11 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
 
         var commits = repo.Commits.QueryBy(filter).ToList();
         Console.WriteLine($"  Found {commits.Count} commits to process.");
+
+        // For a full (non-incremental) import, snapshot the starting commit's full tree
+        // so tests that existed before the start commit but haven't changed since are captured.
+        if (snapshotCommit is not null)
+            SnapshotCommit(snapshotCommit);
 
         var processed = 0;
         foreach (var commit in commits)
@@ -90,6 +97,21 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         }
         Console.WriteLine($"  Processed {processed} commits.");
         return true;
+    }
+
+    private void SnapshotCommit(Commit commit)
+    {
+        var timestamp = commit.Author.When;
+        if (commit.Tree["site/data"]?.Target is not Tree dataTree) return;
+
+        foreach (var entry in dataTree)
+        {
+            if (entry.TargetType != TreeEntryTargetType.Blob) continue;
+            var path = $"site/data/{entry.Name}";
+            if (!IsRelevantDataFile(path)) continue;
+            if (entry.Target is not Blob blob) continue;
+            ProcessDataFile(path, blob.GetContentText(), timestamp);
+        }
     }
 
     private void ProcessCommit(Repository repo, Commit commit)
