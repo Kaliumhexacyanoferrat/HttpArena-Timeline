@@ -23,14 +23,14 @@ jobs:
       - name: Checkout HttpArena
         uses: actions/checkout@v4
         with:
-          repository: Kaliumhexacyanoferrat/HttpArena
+          repository: MDA2AV/HttpArena
           path: HttpArena
           fetch-depth: 0   # importer walks the full git history
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
 
       - name: Run importer
         run: |
@@ -70,7 +70,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
           cache-dependency-path: src/spa/package-lock.json
 
