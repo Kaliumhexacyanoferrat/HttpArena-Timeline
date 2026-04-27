@@ -15,7 +15,6 @@
 
   $: suggestions = Object.keys(frameworks)
     .filter(fw => !$selectedFrameworks.includes(fw) && fw.toLowerCase().includes(query.toLowerCase()))
-    .slice(0, 12)
 
   function add(fw: string) {
     selectedFrameworks.update(fws => [...fws, fw])
