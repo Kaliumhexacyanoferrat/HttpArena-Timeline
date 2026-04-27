@@ -7,20 +7,20 @@
   $: testSet = new Set(tests)
 
   $: groups = (() => {
-    const result: { name: string; tests: string[] }[] = []
+    const result: { name: string; tests: string[]; color: string; bg: string }[] = []
     const seen = new Set<string>()
 
     for (const cat of CATEGORIES) {
       const matching = cat.tests.filter(t => testSet.has(t)).sort()
       if (matching.length > 0) {
-        result.push({ name: cat.name, tests: matching })
+        result.push({ name: cat.name, tests: matching, color: cat.color, bg: cat.bg })
         matching.forEach(t => seen.add(t))
       }
     }
 
     const uncategorized = tests.filter(t => !seen.has(t))
     if (uncategorized.length > 0) {
-      result.push({ name: 'Other', tests: uncategorized })
+      result.push({ name: 'Other', tests: uncategorized, color: 'var(--text-muted)', bg: 'transparent' })
     }
 
     return result
@@ -48,7 +48,11 @@
 <nav class="test-list">
   {#each groups as group (group.name)}
     <div class="group">
-      <button class="group-header" on:click={() => toggle(group.name)}>
+      <button
+        class="group-header"
+        style="--cat-color:{group.color};--cat-bg:{group.bg}"
+        on:click={() => toggle(group.name)}
+      >
         <span class="chevron" class:open={expanded.has(group.name)}>›</span>
         {group.name}
       </button>
@@ -89,8 +93,8 @@
     width: 100%;
     padding: 7px 12px;
     border: none;
-    background: none;
-    color: var(--text);
+    background: var(--cat-bg);
+    color: var(--cat-color);
     font-size: 11px;
     font-weight: 700;
     font-family: inherit;
@@ -99,7 +103,7 @@
     cursor: pointer;
     text-align: left;
     border-top: 1px solid var(--border);
-    transition: background 0.1s;
+    transition: filter 0.1s;
   }
 
   .group:first-child .group-header {
@@ -107,13 +111,13 @@
   }
 
   .group-header:hover {
-    background: var(--surface-hover);
+    filter: brightness(1.15);
   }
 
   .chevron {
     font-size: 14px;
     line-height: 1;
-    color: var(--text-muted);
+    opacity: 0.7;
     transform: rotate(0deg);
     transition: transform 0.15s;
     display: inline-block;
@@ -152,8 +156,8 @@
   }
 
   .test-btn.active {
-    background: var(--accent-subtle);
-    color: var(--accent);
+    background: rgba(255,255,255,0.08);
+    color: #fff;
     font-weight: 500;
   }
 
