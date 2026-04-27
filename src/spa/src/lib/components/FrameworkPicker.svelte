@@ -19,7 +19,6 @@
   function add(fw: string) {
     selectedFrameworks.update(fws => [...fws, fw])
     query = ''
-    open = false
   }
 
   function remove(fw: string) {
