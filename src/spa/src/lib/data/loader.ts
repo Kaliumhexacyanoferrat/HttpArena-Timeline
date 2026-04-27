@@ -8,7 +8,7 @@ const timelineCache = new Map<string, TimelineFile | null>()
 
 export async function loadIndex(): Promise<DataIndex> {
   if (indexCache) return indexCache
-  const res = await fetch(`${base}data/index.json${v}`)
+  const res = await fetch(`${base}data/index.json`, { cache: 'no-cache' })
   if (!res.ok) throw new Error(`Failed to load index: ${res.status}`)
   indexCache = await res.json() as DataIndex
   return indexCache
