@@ -15,7 +15,8 @@
   onMount(async () => {
     try {
       index = await loadIndex()
-      if (!$selectedTest && index.tests.length > 0) selectedTest.set(index.tests[0])
+      if (!$selectedTest && index.tests.length > 0)
+        selectedTest.set(index.tests.includes('baseline-4096') ? 'baseline-4096' : index.tests[0])
     } catch (e) {
       error = String(e)
     }
