@@ -31,8 +31,22 @@
 </script>
 
 <header>
-  <span class="logo">⚡ HTTP Arena Timeline</span>
-  <a href="https://github.com/Kaliumhexacyanoferrat/HttpArena-Timeline" target="_blank" rel="noopener">GitHub</a>
+  <a class="logo" href="https://www.http-arena.com" target="_blank" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+      <path d="M16 1 L19 21 L16 23 L13 21 Z" fill="currentColor"/>
+      <line x1="16" y1="4" x2="16" y2="19" stroke="currentColor" stroke-width="0.8" opacity="0.3"/>
+      <path d="M7 22.5 Q7 21 9 21 L23 21 Q25 21 25 22.5 Q25 24 23 24 L9 24 Q7 24 7 22.5 Z" fill="currentColor"/>
+      <rect x="14" y="24" width="4" height="4" rx="0.5" fill="currentColor"/>
+      <line x1="14" y1="25.5" x2="18" y2="25.5" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+      <line x1="14" y1="27" x2="18" y2="27" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+      <ellipse cx="16" cy="30" rx="2.5" ry="1.8" fill="currentColor"/>
+    </svg>
+    <span class="logo-text">HTTP Arena <span class="logo-sub">Timeline</span></span>
+  </a>
+  <nav class="header-nav">
+    <a href="https://www.http-arena.com" target="_blank" rel="noopener">http-arena.com</a>
+    <a href="https://github.com/Kaliumhexacyanoferrat/HttpArena-Timeline" target="_blank" rel="noopener">GitHub</a>
+  </nav>
 </header>
 
 {#if error}
@@ -65,24 +79,47 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px;
-    height: 48px;
+    padding: 0 20px;
+    height: 52px;
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .logo {
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--text);
+    text-decoration: none;
   }
 
-  header a {
+  .logo-text {
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-sub {
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .header-nav a {
     color: var(--text-muted);
     font-size: 13px;
     text-decoration: none;
+    transition: color 0.15s;
   }
-  header a:hover { color: var(--text); }
+  .header-nav a:hover { color: var(--text); }
 
   .layout {
     display: grid;

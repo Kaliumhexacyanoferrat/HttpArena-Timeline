@@ -208,7 +208,9 @@
 
   :global(.u-legend) {
     font-size: 12px !important;
-    background: #0f172a !important;
+    background: rgba(15, 23, 42, 0.85) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid #334155;
     border-radius: 6px;
     padding: 4px 8px;
