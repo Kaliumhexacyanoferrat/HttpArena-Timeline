@@ -1,0 +1,151 @@
+{
+  "data": [
+    [
+      "2026-03-15T14:50:17.0000000+00:00",
+      {
+        "rps": 2124790,
+        "avg_latency_ms": 1.86,
+        "p99_latency_ms": 10.8,
+        "cpu_pct": 6238.1,
+        "memory_bytes": 193462272,
+        "connections": 4096,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 164020000,
+        "input_bw_bps": 164130000,
+        "reconnects": 1061335,
+        "status_2xx": 10623951,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-03-16T18:24:20.0000000+00:00",
+      {
+        "rps": 1384802,
+        "avg_latency_ms": 2.92,
+        "p99_latency_ms": 28.4,
+        "cpu_pct": 4423.2,
+        "memory_bytes": 4402341478,
+        "connections": 4096,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 106870000,
+        "input_bw_bps": 106970000,
+        "reconnects": 692307,
+        "status_2xx": 6924012,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-03-23T21:22:00.0000000+00:00",
+      {
+        "rps": 1384802,
+        "avg_latency_ms": 2.92,
+        "p99_latency_ms": 28.4,
+        "cpu_pct": 4423.2,
+        "memory_bytes": 4402341478,
+        "connections": 4096,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 106870000,
+        "input_bw_bps": 106970000,
+        "reconnects": 692307,
+        "status_2xx": 6924012,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-03-25T18:10:20.0000000+00:00",
+      {
+        "rps": 1380101,
+        "avg_latency_ms": 2.92,
+        "p99_latency_ms": 28.4,
+        "cpu_pct": 4522.8,
+        "memory_bytes": 4724464025,
+        "connections": 4096,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 106570000,
+        "input_bw_bps": 106610000,
+        "reconnects": 689703,
+        "status_2xx": 6900505,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-01T21:52:13.0000000+00:00",
+      {
+        "rps": 1380101,
+        "avg_latency_ms": 2.92,
+        "p99_latency_ms": 28.4,
+        "cpu_pct": 4522.8,
+        "memory_bytes": 4724464025,
+        "connections": 4096,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 106570000,
+        "input_bw_bps": 106610000,
+        "reconnects": 689703,
+        "status_2xx": 6900505,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-04T15:52:00.0000000+00:00",
+      {
+        "rps": 1376127,
+        "avg_latency_ms": 0.651,
+        "p99_latency_ms": 4.65,
+        "cpu_pct": 3525,
+        "memory_bytes": 2254857830,
+        "connections": 4096,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 106270000,
+        "input_bw_bps": 106300000,
+        "reconnects": 687722,
+        "status_2xx": 6880639,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-06T15:32:37.0000000+00:00",
+      {
+        "rps": 1478652,
+        "avg_latency_ms": 2.74,
+        "p99_latency_ms": 27.1,
+        "cpu_pct": 3577.5,
+        "memory_bytes": 2254857830,
+        "connections": 4096,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 114200000,
+        "input_bw_bps": 114220000,
+        "reconnects": 739109,
+        "status_2xx": 7393261,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ]
+  ]
+}

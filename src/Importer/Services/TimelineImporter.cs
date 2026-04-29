@@ -11,6 +11,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
     private readonly Dictionary<string, Dictionary<string, List<(DateTimeOffset Timestamp, MetricsEntry Entry)>>> _newData = new();
     private readonly Dictionary<string, string> _frameworkLanguages = new();
     private bool _isIncremental;
+    private string? _mainTipSha;
 
     private static readonly char[] InvalidChars = Path.GetInvalidFileNameChars();
     private static readonly JsonWriterOptions WriterOptions = new()
@@ -31,7 +32,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         {
             Console.WriteLine($"Writing output to {outputPath}...");
             await WriteOutputAsync();
-            SaveLastCommit(repo.Head.Tip.Sha);
+            SaveLastCommit(_mainTipSha!);
         }
         else if (!File.Exists(Path.Combine(outputPath, "index.json")))
         {
@@ -45,42 +46,36 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
 
     private bool WalkHistory(Repository repo)
     {
+        var mainBranch = repo.Branches["main"]
+            ?? throw new InvalidOperationException("Branch 'main' not found.");
+        var mainTip = mainBranch.Tip;
+        _mainTipSha = mainTip.Sha;
+
         var lastCommit = LoadLastCommit();
         _isIncremental = lastCommit != null;
 
-        CommitFilter filter;
+        List<Commit> commits;
         Commit? snapshotCommit = null;
 
         if (_isIncremental)
         {
             var lastProcessed = repo.Lookup<Commit>(lastCommit!);
-            if (lastProcessed?.Id == repo.Head.Tip.Id)
+            if (lastProcessed?.Id == mainTip.Id)
             {
                 Console.WriteLine("  Already up-to-date.");
                 return false;
             }
-            filter = new CommitFilter
-            {
-                IncludeReachableFrom = repo.Head.Tip,
-                ExcludeReachableFrom = lastProcessed,
-                SortBy = CommitSortStrategies.Time | CommitSortStrategies.Reverse
-            };
+            commits = WalkFirstParent(mainTip, stopAt: lastProcessed?.Sha);
             Console.WriteLine("  Incremental update.");
         }
         else
         {
             snapshotCommit = repo.Lookup<Commit>(startingCommit)
                 ?? throw new InvalidOperationException($"Starting commit '{startingCommit}' not found.");
-            filter = new CommitFilter
-            {
-                IncludeReachableFrom = repo.Head.Tip,
-                ExcludeReachableFrom = snapshotCommit.Parents.Any() ? snapshotCommit.Parents : null,
-                SortBy = CommitSortStrategies.Time | CommitSortStrategies.Reverse
-            };
+            commits = WalkFirstParent(mainTip, stopAt: snapshotCommit.Parents.FirstOrDefault()?.Sha);
             Console.WriteLine("  Full import.");
         }
 
-        var commits = repo.Commits.QueryBy(filter).ToList();
         Console.WriteLine($"  Found {commits.Count} commits to process.");
 
         // For a full (non-incremental) import, snapshot the starting commit's full tree
@@ -97,6 +92,20 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         }
         Console.WriteLine($"  Processed {processed} commits.");
         return true;
+    }
+
+    private static List<Commit> WalkFirstParent(Commit tip, string? stopAt)
+    {
+        var commits = new List<Commit>();
+        var current = tip;
+        while (current != null)
+        {
+            if (current.Sha == stopAt) break;
+            commits.Add(current);
+            current = current.Parents.FirstOrDefault();
+        }
+        commits.Reverse();
+        return commits;
     }
 
     private void SnapshotCommit(Commit commit)

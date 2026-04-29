@@ -1,0 +1,88 @@
+{
+  "data": [
+    [
+      "2026-03-13T13:32:51.0000000+00:00",
+      {
+        "rps": 217,
+        "avg_latency_ms": 527,
+        "p99_latency_ms": 4380,
+        "cpu_pct": 963,
+        "memory_bytes": 16213501542,
+        "connections": 512,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 30960,
+        "input_bw_bps": 4240000000,
+        "reconnects": 0,
+        "status_2xx": 1086,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-03-23T21:22:00.0000000+00:00",
+      {
+        "rps": 217,
+        "avg_latency_ms": 527,
+        "p99_latency_ms": 4380,
+        "cpu_pct": 963,
+        "memory_bytes": 16213501542,
+        "connections": 512,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 30960,
+        "input_bw_bps": 4240000000,
+        "reconnects": 0,
+        "status_2xx": 1086,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-03-28T12:10:16.0000000+00:00",
+      {
+        "rps": 640,
+        "avg_latency_ms": 675.21,
+        "p99_latency_ms": 3950,
+        "cpu_pct": 6650.1,
+        "memory_bytes": 8482560409,
+        "connections": 512,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 91290,
+        "input_bw_bps": 12500000000,
+        "reconnects": 0,
+        "status_2xx": 3261,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-04T15:52:00.0000000+00:00",
+      {
+        "rps": 517,
+        "avg_latency_ms": 869.46,
+        "p99_latency_ms": 2990,
+        "cpu_pct": 3861,
+        "memory_bytes": 5368709120,
+        "connections": 512,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 73800,
+        "input_bw_bps": 10100000000,
+        "reconnects": 0,
+        "status_2xx": 2589,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ]
+  ]
+}
