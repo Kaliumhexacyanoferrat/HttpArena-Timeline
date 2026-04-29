@@ -10,7 +10,7 @@ var outputPath = args.Length > 1
 
 var startingCommit = args.Length > 2
     ? args[2]
-    : "ad48b80cac2904883a71eb644c98cc3d27924d1c";
+    : "52364a30cd8da20f91eda4b2f85fc49faf1c0249";
 
 Console.WriteLine($"Repository: {repoPath}");
 Console.WriteLine($"Output:     {outputPath}");
