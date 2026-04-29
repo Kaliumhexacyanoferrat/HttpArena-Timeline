@@ -62,6 +62,90 @@
         "status_4xx": 0,
         "status_5xx": 0
       }
+    ],
+    [
+      "2026-04-04T15:52:00.0000000+00:00",
+      {
+        "rps": 412932,
+        "avg_latency_ms": 19.84,
+        "p99_latency_ms": 24.7,
+        "cpu_pct": 6511.7,
+        "memory_bytes": 2469606195,
+        "connections": 512,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 16,
+        "bandwidth_bps": 59840000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 2064661,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-06T15:32:37.0000000+00:00",
+      {
+        "rps": 420172,
+        "avg_latency_ms": 19.5,
+        "p99_latency_ms": 28.7,
+        "cpu_pct": 6554,
+        "memory_bytes": 2469606195,
+        "connections": 512,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 16,
+        "bandwidth_bps": 60890000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 2100860,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-19T15:35:58.0000000+00:00",
+      {
+        "rps": 145799,
+        "avg_latency_ms": 55.99,
+        "p99_latency_ms": 80.7,
+        "cpu_pct": 6326.4,
+        "memory_bytes": 5153960755,
+        "connections": 512,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 16,
+        "bandwidth_bps": 24320000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 728997,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-26T23:35:46.0000000+00:00",
+      {
+        "rps": 145799,
+        "avg_latency_ms": 55.99,
+        "p99_latency_ms": 80.7,
+        "cpu_pct": 6326.4,
+        "memory_bytes": 5153960755,
+        "connections": 512,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 16,
+        "bandwidth_bps": 24320000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 728997,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
     ]
   ]
 }
