@@ -11,8 +11,6 @@ permissions:
 jobs:
   import:
     runs-on: ubuntu-latest
-    outputs:
-      changed: ${{ steps.commit.outputs.changed }}
 
     steps:
       - name: Checkout HttpArena-Timeline
@@ -42,7 +40,6 @@ jobs:
             "$GITHUB_WORKSPACE/HttpArena-Timeline/data"
 
       - name: Commit and push data changes
-        id: commit
         working-directory: HttpArena-Timeline
         run: |
           git config user.name "github-actions[bot]"
@@ -50,45 +47,7 @@ jobs:
           git add data/
           if git diff --staged --quiet; then
             echo "No new benchmark data."
-            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "chore: update benchmark data $(date -u +%Y-%m-%d)"
             git push
-            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
-
-  # Redeploy the SPA whenever new data was committed.
-  # (A GITHUB_TOKEN push does not re-trigger deploy.yml, so we do it here.)
-  deploy:
-    needs: import
-    if: needs.import.outputs.changed == 'true'
-    runs-on: ubuntu-latest
-
-    steps:
-      # Fresh checkout picks up the data commit from the import job above.
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-          cache-dependency-path: src/spa/package-lock.json
-
-      - name: Install dependencies
-        working-directory: src/spa
-        run: npm ci
-
-      - name: Build SPA
-        working-directory: src/spa
-        run: npm run build
-        env:
-          BASE_PATH: /${{ github.event.repository.name }}/
-
-      - name: Copy data into dist
-        run: cp -r data src/spa/dist/data
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: src/spa/dist
