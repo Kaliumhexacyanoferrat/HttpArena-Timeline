@@ -27,8 +27,10 @@
   })()
 
   let expanded = new Set<string>()
+  let autoExpandedForTest: string | null = null
 
-  $: if ($selectedTest) {
+  $: if ($selectedTest && $selectedTest !== autoExpandedForTest) {
+    autoExpandedForTest = $selectedTest
     for (const group of groups) {
       if (group.tests.includes($selectedTest)) {
         expanded = new Set([...expanded, group.name])
