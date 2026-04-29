@@ -133,7 +133,7 @@
     border-radius: 6px;
     list-style: none;
     padding: 4px;
-    min-width: 200px;
+    min-width: 280px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     max-height: 260px;
     overflow-y: auto;
@@ -156,8 +156,13 @@
   }
   .dropdown button:hover { background: var(--surface-hover); }
 
+  .fw-name {
+    text-align: left;
+  }
+
   .lang {
     color: var(--text-muted);
     font-size: 11px;
+    white-space: nowrap;
   }
 </style>
