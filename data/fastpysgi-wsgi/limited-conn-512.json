@@ -1,28 +1,7 @@
 {
   "data": [
     [
-      "2026-03-28T01:26:13.0000000+00:00",
-      {
-        "rps": 991128,
-        "avg_latency_ms": 0.498,
-        "p99_latency_ms": 3.6,
-        "cpu_pct": 6534.9,
-        "memory_bytes": 484861542,
-        "connections": 512,
-        "threads": 64,
-        "duration_ms": 5000,
-        "pipeline": 1,
-        "bandwidth_bps": 155880000,
-        "input_bw_bps": 76560000,
-        "reconnects": 495559,
-        "status_2xx": 4955644,
-        "status_3xx": 0,
-        "status_4xx": 0,
-        "status_5xx": 0
-      }
-    ],
-    [
-      "2026-03-29T13:56:39.0000000+00:00",
+      "2026-04-01T09:56:28.0000000+00:00",
       {
         "rps": 992611,
         "avg_latency_ms": 0.497,
