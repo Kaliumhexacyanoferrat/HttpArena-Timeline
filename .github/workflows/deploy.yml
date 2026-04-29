@@ -30,9 +30,6 @@ jobs:
       - name: Build SPA
         working-directory: src/spa
         run: npm run build
-        env:
-          # Sets the base path so assets resolve correctly under /HttpArena-Timeline/.
-          BASE_PATH: /${{ github.event.repository.name }}/
 
       - name: Copy data into dist
         run: cp -r data src/spa/dist/data
@@ -42,3 +39,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: src/spa/dist
+          cname: timeline.http-arena.com
