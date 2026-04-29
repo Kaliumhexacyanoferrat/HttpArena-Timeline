@@ -102,7 +102,7 @@
           width:  2,
           dash:   s.dash,
           scale:  METRIC_BY_KEY[s.metricKey]?.scale ?? 'count',
-          spanGaps: false,
+          spanGaps: true,
         }))
       ],
       axes,
