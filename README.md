@@ -2,7 +2,7 @@
 
 A historical view of [HTTP Arena](https://www.http-arena.com) benchmark results, allowing framework maintainers and users to track performance changes over time.
 
-**[Open the Timeline →](https://kaliumhexacyanoferrat.github.io/HttpArena-Timeline/)**
+**[Open the Timeline →](https://timeline.http-arena.com/)**
 
 ---
 

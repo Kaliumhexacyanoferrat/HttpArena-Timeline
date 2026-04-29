@@ -1,0 +1,42 @@
+name: Deploy to GitHub Pages
+
+on:
+  schedule:
+    - cron: '10 2 * * *'  # 02:10 UTC, 10 minutes after the import workflow (02:00 UTC)
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: src/spa/package-lock.json
+
+      - name: Install dependencies
+        working-directory: src/spa
+        run: npm ci
+
+      - name: Build SPA
+        working-directory: src/spa
+        run: npm run build
+
+      - name: Copy data into dist
+        run: cp -r data src/spa/dist/data
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: src/spa/dist
+          cname: timeline.http-arena.com
