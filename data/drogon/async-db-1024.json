@@ -1,0 +1,88 @@
+{
+  "data": [
+    [
+      "2026-03-28T01:26:13.0000000+00:00",
+      {
+        "rps": 65825,
+        "avg_latency_ms": 14.82,
+        "p99_latency_ms": 17.7,
+        "cpu_pct": 8878.5,
+        "memory_bytes": 117440512,
+        "connections": 1024,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 582370000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 329129,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-01T09:56:28.0000000+00:00",
+      {
+        "rps": 65680,
+        "avg_latency_ms": 13.83,
+        "p99_latency_ms": 17.4,
+        "cpu_pct": 8854.6,
+        "memory_bytes": 132540006,
+        "connections": 1024,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 581230000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 656804,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-01T15:10:40.0000000+00:00",
+      {
+        "rps": 65825,
+        "avg_latency_ms": 14.82,
+        "p99_latency_ms": 17.7,
+        "cpu_pct": 8878.5,
+        "memory_bytes": 117440512,
+        "connections": 1024,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 582370000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 329129,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-01T15:21:49.0000000+00:00",
+      {
+        "rps": 65680,
+        "avg_latency_ms": 13.83,
+        "p99_latency_ms": 17.4,
+        "cpu_pct": 8854.6,
+        "memory_bytes": 132540006,
+        "connections": 1024,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 581230000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 656804,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ]
+  ]
+}

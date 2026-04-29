@@ -1,0 +1,88 @@
+{
+  "data": [
+    [
+      "2026-03-08T12:44:43.0000000+00:00",
+      {
+        "rps": 4846980,
+        "avg_latency_ms": 1.27,
+        "p99_latency_ms": 1.27,
+        "cpu_pct": 2534.9,
+        "memory_bytes": 52638515,
+        "connections": 64,
+        "threads": 12,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": null,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 0,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-03-10T20:09:16.0000000+00:00",
+      {
+        "rps": 2730200,
+        "avg_latency_ms": 2.35,
+        "p99_latency_ms": 2.35,
+        "cpu_pct": 5828.4,
+        "memory_bytes": 147429785,
+        "connections": 64,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 93740000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 13651000,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-03-24T10:39:20.0000000+00:00",
+      {
+        "rps": 2730200,
+        "avg_latency_ms": 2.35,
+        "p99_latency_ms": 2.35,
+        "cpu_pct": 5828.4,
+        "memory_bytes": 147429785,
+        "connections": 64,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 93740000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 13651000,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ],
+    [
+      "2026-04-01T16:04:55.0000000+00:00",
+      {
+        "rps": 2730200,
+        "avg_latency_ms": 2.35,
+        "p99_latency_ms": 2.35,
+        "cpu_pct": 5828.4,
+        "memory_bytes": 147429785,
+        "connections": 64,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 93740000,
+        "input_bw_bps": null,
+        "reconnects": 0,
+        "status_2xx": 13651000,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ]
+  ]
+}
