@@ -158,7 +158,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         foreach (var entry in entries)
         {
             if (!entry.TryGetProperty("framework", out var fwProp)) continue;
-            var framework = fwProp.GetString();
+            var framework = fwProp.GetString()?.ToLowerInvariant();
             if (string.IsNullOrEmpty(framework)) continue;
 
             if (!_frameworkLanguages.ContainsKey(framework))
