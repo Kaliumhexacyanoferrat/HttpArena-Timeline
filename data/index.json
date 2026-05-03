@@ -663,6 +663,14 @@
         "upload-64"
       ]
     },
+    "dogrider": {
+      "language": "C#",
+      "tests": [
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512"
+      ]
+    },
     "drogon": {
       "language": "C++",
       "tests": [
