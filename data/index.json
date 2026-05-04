@@ -21,6 +21,9 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
         "json-16384",
         "json-4096",
         "json-512",
@@ -140,6 +143,9 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
         "fortunes-1024",
         "json-16384",
         "json-4096",
@@ -443,7 +449,10 @@
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
-        "echo-ws-512"
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512"
       ]
     },
     "caddy": {
@@ -621,7 +630,10 @@
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
-        "echo-ws-512"
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512"
       ]
     },
     "django": {
@@ -668,7 +680,10 @@
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
-        "echo-ws-512"
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512"
       ]
     },
     "drogon": {
@@ -1091,6 +1106,17 @@
         "upload-32",
         "upload-512",
         "upload-64"
+      ]
+    },
+    "fleck": {
+      "language": "C#",
+      "tests": [
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512"
       ]
     },
     "fletch": {
@@ -2186,7 +2212,10 @@
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
-        "echo-ws-512"
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512"
       ]
     },
     "ntex-iouring": {
@@ -3102,6 +3131,9 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -3415,6 +3447,9 @@
     "echo-ws-16384",
     "echo-ws-4096",
     "echo-ws-512",
+    "echo-ws-pipeline-16384",
+    "echo-ws-pipeline-4096",
+    "echo-ws-pipeline-512",
     "fortunes-1024",
     "gateway-64-1024",
     "gateway-64-256",
