@@ -584,6 +584,30 @@
         "upload-64"
       ]
     },
+    "dart-io": {
+      "language": "Dart",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512"
+      ]
+    },
+    "dart-zig": {
+      "language": "Dart",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512"
+      ]
+    },
     "deno": {
       "language": "TS",
       "tests": [
@@ -3207,6 +3231,84 @@
         "static-1024",
         "static-4096",
         "static-6800"
+      ]
+    },
+    "trillium": {
+      "language": "Rust",
+      "tests": [
+        "api-16-1024",
+        "api-4-256",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-512",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h3-64",
+        "crud-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
+        "gateway-64-1024",
+        "gateway-64-512",
+        "gateway-h3-256",
+        "gateway-h3-64",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "json-tls-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-h3-64",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "trillium-tuned": {
+      "language": "Rust",
+      "tests": [
+        "api-16-1024",
+        "api-4-256",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-512",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h3-64",
+        "crud-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "json-tls-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-h3-64",
+        "upload-256",
+        "upload-32"
       ]
     },
     "ulfius": {
