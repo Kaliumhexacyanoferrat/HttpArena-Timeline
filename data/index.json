@@ -2510,6 +2510,17 @@
         "unary-grpc-tls-256"
       ]
     },
+    "rack-iodine": {
+      "language": "Ruby",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512"
+      ]
+    },
     "rage": {
       "language": "Ruby",
       "tests": [
@@ -2602,6 +2613,7 @@
         "baseline-4096",
         "baseline-512",
         "crud-4096",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -3169,10 +3181,14 @@
         "baseline-512",
         "baseline-h2-1024",
         "baseline-h2-256",
+        "json-4096",
         "limited-conn-4096",
         "limited-conn-512",
         "pipelined-4096",
-        "pipelined-512"
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800"
       ]
     },
     "swoole": {
@@ -3348,6 +3364,11 @@
     "typev": {
       "language": "Type-C",
       "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
         "pipelined-4096",
         "pipelined-512"
       ]
