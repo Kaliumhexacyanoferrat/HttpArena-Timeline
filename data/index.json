@@ -3402,6 +3402,38 @@
         "upload-32"
       ]
     },
+    "true-async-server": {
+      "language": "PHP",
+      "tests": [
+        "api-16-1024",
+        "api-4-256",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-512",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "fortunes-1024",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "json-h2c-1024",
+        "json-h2c-4096",
+        "json-tls-4096",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "static-h2-1024",
+        "static-h2-256",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "typev": {
       "language": "Type-C",
       "tests": [
