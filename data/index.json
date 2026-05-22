@@ -2510,6 +2510,17 @@
         "unary-grpc-tls-256"
       ]
     },
+    "rack-falcon": {
+      "language": "Ruby",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512"
+      ]
+    },
     "rack-iodine": {
       "language": "Ruby",
       "tests": [
@@ -2751,6 +2762,7 @@
         "compression-16384",
         "compression-4096",
         "compression-512",
+        "crud-4096",
         "json-16384",
         "json-4096",
         "json-comp-16384",
@@ -3222,14 +3234,21 @@
         "baseline-512",
         "baseline-h2-1024",
         "baseline-h2-256",
+        "baseline-h3-64",
         "json-4096",
+        "json-tls-4096",
         "limited-conn-4096",
         "limited-conn-512",
         "pipelined-4096",
         "pipelined-512",
         "static-1024",
         "static-4096",
-        "static-6800"
+        "static-6800",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-h3-64",
+        "upload-256",
+        "upload-32"
       ]
     },
     "swoole": {
