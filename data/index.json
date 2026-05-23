@@ -3320,6 +3320,32 @@
         "upload-32"
       ]
     },
+    "symfony-spawn-tas": {
+      "language": "PHP",
+      "tests": [
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-512",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "json-tls-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "static-h2-1024",
+        "static-h2-256",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "tonic-grpc": {
       "language": "Rust",
       "tests": [
