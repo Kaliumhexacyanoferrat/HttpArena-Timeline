@@ -1,0 +1,25 @@
+{
+  "data": [
+    [
+      "2026-05-26T18:19:54.0000000+00:00",
+      {
+        "rps": 331651,
+        "avg_latency_ms": 1.45,
+        "p99_latency_ms": 7.71,
+        "cpu_pct": 5560.6,
+        "memory_bytes": 469762048,
+        "connections": 512,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 556360000,
+        "input_bw_bps": 24670000,
+        "reconnects": 66257,
+        "status_2xx": 1658256,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
+    ]
+  ]
+}
