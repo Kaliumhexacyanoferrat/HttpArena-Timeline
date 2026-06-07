@@ -2168,6 +2168,17 @@
         "pipelined-512"
       ]
     },
+    "minima-ws": {
+      "language": "C#",
+      "tests": [
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512"
+      ]
+    },
     "nginx": {
       "language": "C",
       "tests": [
@@ -2763,6 +2774,17 @@
         "pipelined-16384",
         "pipelined-4096",
         "pipelined-512"
+      ]
+    },
+    "ringzero-ws": {
+      "language": "C",
+      "tests": [
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512"
       ]
     },
     "roadrunner": {
@@ -3459,6 +3481,39 @@
         "upload-32"
       ]
     },
+    "tokio": {
+      "language": "Rust",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512"
+      ]
+    },
+    "tokio-uring-ws": {
+      "language": "Rust",
+      "tests": [
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512"
+      ]
+    },
+    "tokio-ws": {
+      "language": "Rust",
+      "tests": [
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512"
+      ]
+    },
     "tonic-grpc": {
       "language": "Rust",
       "tests": [
@@ -3693,15 +3748,24 @@
     "userver": {
       "language": "C++",
       "tests": [
+        "api-16-1024",
+        "api-4-256",
+        "async-db-1024",
         "baseline-4096",
         "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
         "limited-conn-4096",
         "limited-conn-512",
         "pipelined-4096",
         "pipelined-512",
         "static-1024",
         "static-4096",
-        "static-6800"
+        "static-6800",
+        "upload-256",
+        "upload-32"
       ]
     },
     "uvicorn": {
