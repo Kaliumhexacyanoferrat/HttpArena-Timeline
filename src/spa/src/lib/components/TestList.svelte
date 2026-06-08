@@ -18,11 +18,6 @@
       }
     }
 
-    const uncategorized = tests.filter(t => !seen.has(t))
-    if (uncategorized.length > 0) {
-      result.push({ name: 'Other', tests: uncategorized, color: 'var(--text-muted)', bg: 'transparent' })
-    }
-
     return result
   })()
 
@@ -49,21 +44,20 @@
 
 <nav class="test-list">
   {#each groups as group (group.name)}
-    <div class="group">
-      <button
-        class="group-header"
-        style="--cat-color:{group.color};--cat-bg:{group.bg}"
-        on:click={() => toggle(group.name)}
-      >
-        <span class="chevron" class:open={expanded.has(group.name)}>›</span>
-        {group.name}
+    <div class="nav-grp" class:open={expanded.has(group.name)}>
+      <button class="nav-grp-h" on:click={() => toggle(group.name)}>
+        <span class="grp-label">
+          <span class="cat-dot" style="background:{group.color}" aria-hidden="true"></span>
+          {group.name}
+        </span>
+        <span class="caret" aria-hidden="true">▸</span>
       </button>
 
-      {#if expanded.has(group.name)}
-        <div class="group-tests">
+      <div class="nav-grp-body">
+        <div class="nav-grp-inner">
           {#each group.tests as test (test)}
             <button
-              class="test-btn"
+              class="nav-item"
               class:active={$selectedTest === test}
               on:click={() => selectedTest.set(test)}
             >
@@ -71,7 +65,7 @@
             </button>
           {/each}
         </div>
-      {/if}
+      </div>
     </div>
   {/each}
 </nav>
@@ -80,87 +74,120 @@
   .test-list {
     display: flex;
     flex-direction: column;
-    padding: 6px 0;
+    padding: .4rem .7rem 3rem;
   }
 
-  .group {
+  .nav-grp {
     display: flex;
     flex-direction: column;
   }
 
-  .group-header {
+  /* Category header — nav-grp-h style */
+  .nav-grp-h {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: space-between;
+    gap: .4rem;
     width: 100%;
-    padding: 7px 12px;
+    padding: .44rem .55rem;
     border: none;
-    background: var(--cat-bg);
-    color: var(--cat-color);
-    font-size: 11px;
-    font-weight: 700;
+    border-radius: 7px;
+    background: none;
+    color: var(--text);
+    font-size: .86rem;
+    font-weight: 650;
     font-family: inherit;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
     cursor: pointer;
     text-align: left;
-    border-top: 1px solid var(--border);
-    transition: filter 0.1s;
+    user-select: none;
+    transition: background .12s ease, color .12s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-grp-h:hover { background: var(--panel-2); }
+
+  .grp-label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .group:first-child .group-header {
-    border-top: none;
+  .cat-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
   }
 
-  .group-header:hover {
-    filter: brightness(1.15);
+  /* Rotating caret — matches .caret in the new leaderboard */
+  .caret {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: .85rem;
+    font-size: .62rem;
+    color: var(--muted);
+    transition: transform .22s cubic-bezier(.4,0,.2,1);
+    flex-shrink: 0;
   }
+  .nav-grp.open > .nav-grp-h .caret { transform: rotate(90deg); }
 
-  .chevron {
-    font-size: 14px;
-    line-height: 1;
-    opacity: 0.7;
-    transform: rotate(0deg);
-    transition: transform 0.15s;
-    display: inline-block;
+  /* Accordion body with tree line — border-left pattern from new leaderboard */
+  .nav-grp-body {
+    margin-left: .8rem;
+    border-left: 1px solid var(--border);
+    padding-left: .5rem;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .22s cubic-bezier(.4,0,.2,1);
   }
+  .nav-grp.open > .nav-grp-body { grid-template-rows: 1fr; }
 
-  .chevron.open {
-    transform: rotate(90deg);
-  }
-
-  .group-tests {
+  .nav-grp-inner {
+    overflow: hidden;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 1px;
-    padding: 2px 8px 6px;
+    opacity: 0;
+    transition: opacity .16s ease .04s;
   }
+  .nav-grp.open > .nav-grp-body > .nav-grp-inner { opacity: 1; }
 
-  .test-btn {
+  /* Test item — nav-item style */
+  .nav-item {
+    display: block;
+    width: 100%;
     text-align: left;
-    padding: 6px 10px;
-    border-radius: 4px;
+    padding: .4rem .6rem;
     border: none;
+    border-radius: 7px;
     background: none;
-    color: var(--text-muted);
+    color: var(--text-2);
     cursor: pointer;
-    font-size: 13px;
+    font-size: .85rem;
+    font-weight: 500;
     font-family: inherit;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: background 0.1s, color 0.1s;
+    transition: background .12s ease, color .12s ease, box-shadow .12s ease, transform .12s ease;
+    -webkit-tap-highlight-color: transparent;
   }
-
-  .test-btn:hover {
-    background: var(--surface-hover);
+  .nav-item:hover {
+    background: var(--panel-2);
     color: var(--text);
+    transform: translateX(2px);
   }
-
-  .test-btn.active {
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-    font-weight: 500;
+  .nav-item.active {
+    background: var(--accent-weak);
+    color: var(--accent);
+    font-weight: 600;
+    box-shadow: inset 2px 0 0 var(--accent);
   }
 
   @media (max-width: 639px) {
@@ -172,23 +199,28 @@
       gap: 4px;
       align-items: center;
     }
-
     .test-list::-webkit-scrollbar { display: none; }
-
-    .group { flex-direction: row; flex-shrink: 0; }
-
-    .group-header { display: none; }
-
-    .group-tests {
+    .nav-grp { flex-direction: row; flex-shrink: 0; }
+    .nav-grp-h { display: none; }
+    .nav-grp-body {
+      display: flex;
       flex-direction: row;
-      padding: 0;
+      border-left: none;
+      padding-left: 0;
+      margin-left: 0;
+      grid-template-rows: none;
+    }
+    .nav-grp-inner {
+      display: flex;
+      flex-direction: row;
+      opacity: 1;
       gap: 4px;
     }
-
-    .test-btn {
+    .nav-item {
       flex-shrink: 0;
       overflow: visible;
       text-overflow: unset;
+      transform: none !important;
     }
   }
 </style>
