@@ -20,6 +20,42 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
     };
 
+    // Only import tests that belong to a known category. Tests not listed here are
+    // silently skipped so they never appear in the data or the index.
+    private static readonly HashSet<string> AllowedTests = new(StringComparer.OrdinalIgnoreCase)
+    {
+        // H/1.1 Isolated
+        "baseline-512", "baseline-4096",
+        "limited-conn-512", "limited-conn-4096",
+        "json-4096", "json-16384",
+        "json-comp-512", "json-comp-4096", "json-comp-16384",
+        "json-tls-4096",
+        "upload-32", "upload-256",
+        "async-db-1024",
+        "static-1024", "static-4096", "static-6800",
+        "pipelined-512", "pipelined-4096",
+        "crud-4096",
+        // H/1.1 Workload
+        "api-4-256", "api-16-1024",
+        // H/2
+        "baseline-h2-256", "baseline-h2-1024",
+        "static-h2-256", "static-h2-1024",
+        "baseline-h2c-256", "baseline-h2c-1024", "baseline-h2c-4096",
+        "json-h2c-1024", "json-h2c-4096",
+        // Gateway
+        "gateway-64-256", "gateway-64-512", "gateway-64-1024",
+        "gateway-h3-64", "gateway-h3-256",
+        "production-stack-256", "production-stack-1024",
+        // H/3
+        "baseline-h3-64", "static-h3-64",
+        // gRPC
+        "unary-grpc-256", "unary-grpc-1024",
+        "unary-grpc-tls-256", "unary-grpc-tls-1024",
+        "stream-grpc-64", "stream-grpc-tls-64",
+        // WebSocket
+        "echo-ws-512", "echo-ws-4096", "echo-ws-16384",
+    };
+
     public async Task RunAsync()
     {
         Console.WriteLine("Opening repository...");
@@ -143,6 +179,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
     private void ProcessDataFile(string filePath, string content, DateTimeOffset timestamp)
     {
         var testFile = Path.GetFileNameWithoutExtension(filePath);
+        if (!AllowedTests.Contains(testFile)) return;
 
         JsonElement[] entries;
         try
@@ -253,6 +290,10 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
                 index[fw] = (lang, new SortedSet<string>(tests.Keys));
         }
 
+        // Strip any previously-imported tests that are no longer allowed.
+        foreach (var (_, (_, tests)) in index)
+            tests.RemoveWhere(t => !AllowedTests.Contains(t));
+
         var allTests = index.Values.SelectMany(v => v.Tests).Distinct().OrderBy(t => t).ToList();
 
         var indexPath = Path.Combine(outputPath, "index.json");
@@ -313,8 +354,10 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         }
 
         _isIncremental = false; // Write fresh index
-        // Temporarily populate _newData so WriteIndexAsync can use it, but skip file writing
-        // Instead, write the index directly here
+        // Strip any previously-imported tests that are no longer allowed.
+        foreach (var (_, (_, tests)) in index)
+            tests.RemoveWhere(t => !AllowedTests.Contains(t));
+
         var allTests = index.Values.SelectMany(v => v.Tests).Distinct().OrderBy(t => t).ToList();
         var indexPath = Path.Combine(outputPath, "index.json");
         await using var stream = File.Create(indexPath);

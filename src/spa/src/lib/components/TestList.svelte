@@ -18,11 +18,6 @@
       }
     }
 
-    const uncategorized = tests.filter(t => !seen.has(t))
-    if (uncategorized.length > 0) {
-      result.push({ name: 'Other', tests: uncategorized, color: 'var(--text-muted)', bg: 'transparent' })
-    }
-
     return result
   })()
 
