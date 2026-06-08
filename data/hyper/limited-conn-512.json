@@ -1,70 +1,7 @@
 {
   "data": [
     [
-      "2026-04-01T09:56:28.0000000+00:00",
-      {
-        "rps": 1493614,
-        "avg_latency_ms": 0.323,
-        "p99_latency_ms": 2.51,
-        "cpu_pct": 5326.3,
-        "memory_bytes": 103913881,
-        "connections": 512,
-        "threads": 64,
-        "duration_ms": 5000,
-        "pipeline": 1,
-        "bandwidth_bps": 168000000,
-        "input_bw_bps": null,
-        "reconnects": 746648,
-        "status_2xx": 7468074,
-        "status_3xx": 0,
-        "status_4xx": 0,
-        "status_5xx": 0
-      }
-    ],
-    [
-      "2026-04-04T15:52:00.0000000+00:00",
-      {
-        "rps": 1794288,
-        "avg_latency_ms": 0.27,
-        "p99_latency_ms": 1.07,
-        "cpu_pct": 5210,
-        "memory_bytes": 79691776,
-        "connections": 512,
-        "threads": 64,
-        "duration_ms": 5000,
-        "pipeline": 1,
-        "bandwidth_bps": 201860000,
-        "input_bw_bps": 138600000,
-        "reconnects": 896973,
-        "status_2xx": 8971441,
-        "status_3xx": 0,
-        "status_4xx": 0,
-        "status_5xx": 0
-      }
-    ],
-    [
-      "2026-04-06T15:32:37.0000000+00:00",
-      {
-        "rps": 2041374,
-        "avg_latency_ms": 0.237,
-        "p99_latency_ms": 0.936,
-        "cpu_pct": 5950.7,
-        "memory_bytes": 92274688,
-        "connections": 512,
-        "threads": 64,
-        "duration_ms": 5000,
-        "pipeline": 1,
-        "bandwidth_bps": 229650000,
-        "input_bw_bps": 157690000,
-        "reconnects": 1020694,
-        "status_2xx": 10206874,
-        "status_3xx": 0,
-        "status_4xx": 0,
-        "status_5xx": 0
-      }
-    ],
-    [
-      "2026-04-12T22:40:49.0000000+00:00",
+      "2026-04-14T23:25:10.0000000+00:00",
       {
         "rps": 2021689,
         "avg_latency_ms": 0.24,
@@ -85,7 +22,7 @@
       }
     ],
     [
-      "2026-04-20T11:10:41.0000000+00:00",
+      "2026-04-21T23:28:39.0000000+00:00",
       {
         "rps": 2021689,
         "avg_latency_ms": 0.24,
@@ -106,7 +43,7 @@
       }
     ],
     [
-      "2026-04-27T14:40:48.0000000+00:00",
+      "2026-04-29T09:30:06.0000000+00:00",
       {
         "rps": 2021689,
         "avg_latency_ms": 0.24,
