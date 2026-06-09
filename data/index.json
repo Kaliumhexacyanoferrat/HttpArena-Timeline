@@ -2008,8 +2008,13 @@
         "baseline-h2c-1024",
         "baseline-h2c-256",
         "baseline-h2c-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
         "json-h2c-1024",
-        "json-h2c-4096"
+        "json-h2c-4096",
+        "unary-grpc-1024",
+        "unary-grpc-256"
       ]
     },
     "zeemo": {
