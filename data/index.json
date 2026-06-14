@@ -241,6 +241,34 @@
         "upload-32"
       ]
     },
+    "blackbull": {
+      "language": "Python",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "json-tls-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "static-h2-1024",
+        "static-h2-256",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "bottle": {
       "language": "Python",
       "tests": [
@@ -820,6 +848,26 @@
         "unary-grpc-256",
         "unary-grpc-tls-1024",
         "unary-grpc-tls-256",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "hical": {
+      "language": "C++",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "json-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
         "upload-256",
         "upload-32"
       ]
@@ -1603,6 +1651,7 @@
     "swerver": {
       "language": "Zig",
       "tests": [
+        "async-db-1024",
         "baseline-4096",
         "baseline-512",
         "baseline-h2-1024",
@@ -2055,6 +2104,14 @@
         "static-6800",
         "upload-256",
         "upload-32"
+      ]
+    },
+    "zix-grpc": {
+      "language": "Zig",
+      "tests": [
+        "stream-grpc-64",
+        "unary-grpc-1024",
+        "unary-grpc-256"
       ]
     }
   },
