@@ -2137,6 +2137,14 @@
         "unary-grpc-1024",
         "unary-grpc-256"
       ]
+    },
+    "zix-ws": {
+      "language": "Zig",
+      "tests": [
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512"
+      ]
     }
   },
   "tests": [
