@@ -663,6 +663,31 @@
         "upload-32"
       ]
     },
+    "genhttp-11-ioxide": {
+      "language": "C#",
+      "tests": [
+        "api-16-1024",
+        "api-4-256",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-512",
+        "crud-4096",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "json-tls-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "genhttp-kestrel": {
       "language": "C#",
       "tests": [
