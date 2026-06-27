@@ -1037,6 +1037,21 @@
         "upload-32"
       ]
     },
+    "iris": {
+      "language": "C++",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800"
+      ]
+    },
     "ktor": {
       "language": "Kotlin",
       "tests": [
