@@ -104,6 +104,27 @@
         "status_4xx": 0,
         "status_5xx": 0
       }
+    ],
+    [
+      "2026-06-30T15:14:43.0000000+00:00",
+      {
+        "rps": 10645,
+        "avg_latency_ms": 95.83,
+        "p99_latency_ms": 405.9,
+        "cpu_pct": 4906.4,
+        "memory_bytes": 2040109465,
+        "connections": 1024,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 40860000,
+        "input_bw_bps": 727690,
+        "reconnects": 3851,
+        "status_2xx": 106453,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
     ]
   ]
 }
