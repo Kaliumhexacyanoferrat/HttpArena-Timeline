@@ -476,9 +476,18 @@
       "language": "V",
       "tests": [
         "async-db-1024",
+        "crud-4096",
         "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
         "pipelined-4096",
-        "pipelined-512"
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "upload-256",
+        "upload-32"
       ]
     },
     "fastpysgi-asgi": {
@@ -2396,6 +2405,8 @@
     "wtx": {
       "language": "Rust",
       "tests": [
+        "baseline-h2-1024",
+        "baseline-h2-256",
         "baseline-h2c-1024",
         "baseline-h2c-256",
         "baseline-h2c-4096",
@@ -2425,6 +2436,7 @@
       "tests": [
         "baseline-4096",
         "baseline-512",
+        "baseline-h3-64",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -2436,6 +2448,7 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-h3-64",
         "upload-256",
         "upload-32"
       ]
