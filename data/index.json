@@ -754,6 +754,9 @@
         "baseline-4096",
         "baseline-512",
         "crud-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -2405,6 +2408,14 @@
         "static-6800",
         "upload-256",
         "upload-32"
+      ]
+    },
+    "vanilla-ws": {
+      "language": "V",
+      "tests": [
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512"
       ]
     },
     "veb": {
