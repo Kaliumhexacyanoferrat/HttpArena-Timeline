@@ -2385,6 +2385,16 @@
         "upload-32"
       ]
     },
+    "vanilla-h2c": {
+      "language": "V",
+      "tests": [
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "json-h2c-1024",
+        "json-h2c-4096"
+      ]
+    },
     "vanilla-io_uring": {
       "language": "V",
       "tests": [
