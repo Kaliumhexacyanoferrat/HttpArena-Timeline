@@ -17,7 +17,8 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
     private static readonly JsonWriterOptions WriterOptions = new()
     {
         Indented = true,
-        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+        NewLine = "\n"
     };
 
     // Only import tests that belong to a known category. Tests not listed here are
@@ -176,15 +177,24 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         }
     }
 
+    // Since commit 5698fa8 ("Store results one file per framework"), HttpArena stores results
+    // as site/data/results/<slug>.json, one file per framework, holding { framework, results:
+    // { "<test>-<conns>": {...single row...} } } instead of the old flat site/data/<test>.json
+    // arrays holding every framework's row for that test. Both layouts are parsed here so
+    // history predating the change can still be reproduced.
+    private static bool IsResultsLayoutFile(string path) =>
+        path.Contains("site/data/results/", StringComparison.OrdinalIgnoreCase);
+
     private void ProcessDataFile(string filePath, string content, DateTimeOffset timestamp)
     {
+        var isResultsLayout = IsResultsLayoutFile(filePath);
         var testFile = Path.GetFileNameWithoutExtension(filePath);
-        if (!AllowedTests.Contains(testFile)) return;
+        if (!isResultsLayout && !AllowedTests.Contains(testFile)) return;
 
-        JsonElement[] entries;
+        JsonDocument doc;
         try
         {
-            entries = JsonSerializer.Deserialize<JsonElement[]>(content) ?? [];
+            doc = JsonDocument.Parse(content);
         }
         catch (JsonException ex)
         {
@@ -192,24 +202,47 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
             return;
         }
 
-        foreach (var entry in entries)
+        using (doc)
         {
-            if (!entry.TryGetProperty("framework", out var fwProp)) continue;
-            var framework = fwProp.GetString()?.ToLowerInvariant();
-            if (string.IsNullOrEmpty(framework)) continue;
-
-            if (!_frameworkLanguages.ContainsKey(framework))
+            var root = doc.RootElement;
+            if (isResultsLayout)
             {
-                var lang = entry.TryGetProperty("language", out var lp) && lp.ValueKind == JsonValueKind.String
-                    ? lp.GetString() ?? "Unknown" : "Unknown";
-                _frameworkLanguages[framework] = lang;
-            }
+                if (root.ValueKind != JsonValueKind.Object) return;
+                if (!root.TryGetProperty("results", out var results) || results.ValueKind != JsonValueKind.Object) return;
 
-            var metrics = ParseMetrics(entry);
-            var frameworkData = _newData.TryGetValue(framework, out var fd) ? fd : (_newData[framework] = new());
-            var testData = frameworkData.TryGetValue(testFile, out var td) ? td : (frameworkData[testFile] = []);
-            testData.Add((timestamp, metrics));
+                foreach (var prop in results.EnumerateObject())
+                {
+                    if (!AllowedTests.Contains(prop.Name)) continue;
+                    if (prop.Value.ValueKind != JsonValueKind.Object) continue;
+                    AddEntry(prop.Value, prop.Name, timestamp);
+                }
+            }
+            else
+            {
+                if (root.ValueKind != JsonValueKind.Array) return;
+                foreach (var entry in root.EnumerateArray())
+                    AddEntry(entry, testFile, timestamp);
+            }
         }
+    }
+
+    private void AddEntry(JsonElement entry, string testFile, DateTimeOffset timestamp)
+    {
+        if (!entry.TryGetProperty("framework", out var fwProp)) return;
+        var framework = fwProp.GetString()?.ToLowerInvariant();
+        if (string.IsNullOrEmpty(framework)) return;
+
+        if (!_frameworkLanguages.ContainsKey(framework))
+        {
+            var lang = entry.TryGetProperty("language", out var lp) && lp.ValueKind == JsonValueKind.String
+                ? lp.GetString() ?? "Unknown" : "Unknown";
+            _frameworkLanguages[framework] = lang;
+        }
+
+        var metrics = ParseMetrics(entry);
+        var frameworkData = _newData.TryGetValue(framework, out var fd) ? fd : (_newData[framework] = new());
+        var testData = frameworkData.TryGetValue(testFile, out var td) ? td : (frameworkData[testFile] = []);
+        testData.Add((timestamp, metrics));
     }
 
     private static MetricsEntry ParseMetrics(JsonElement e)
@@ -329,7 +362,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         var index = new Dictionary<string, (string Language, SortedSet<string> Tests)>();
         foreach (var fwDir in Directory.EnumerateDirectories(outputPath))
         {
-            var fw = Path.GetFileName(fwDir);
+            var fw = Path.GetFileName(fwDir).ToLowerInvariant();
             var tests = new SortedSet<string>(
                 Directory.EnumerateFiles(fwDir, "*.json")
                          .Select(f => Path.GetFileNameWithoutExtension(f)!));
@@ -514,6 +547,9 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
             JsonSerializer.Serialize(new { lastCommit = sha }));
     }
 
+    // Framework names must map to a single directory regardless of casing seen in the source
+    // data, or a case-insensitive filesystem (Windows) and a case-sensitive one (git/Linux CI)
+    // disagree about whether "Fletch" and "fletch" are the same path, corrupting the git tree.
     private static string SanitizeName(string name) =>
-        string.Concat(name.Select(c => Array.IndexOf(InvalidChars, c) >= 0 ? '_' : c));
+        string.Concat(name.Select(c => Array.IndexOf(InvalidChars, c) >= 0 ? '_' : c)).ToLowerInvariant();
 }
