@@ -449,6 +449,29 @@
         "static-6800"
       ]
     },
+    "express": {
+      "language": "JS",
+      "tests": [
+        "api-16-1024",
+        "api-4-256",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "fastapi": {
       "language": "Python",
       "tests": [
@@ -518,6 +541,29 @@
         "baseline-4096",
         "baseline-512",
         "crud-4096",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "fastify": {
+      "language": "JS",
+      "tests": [
+        "api-16-1024",
+        "api-4-256",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-512",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -685,6 +731,29 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "fulmine": {
+      "language": "JS",
+      "tests": [
+        "api-16-1024",
+        "api-4-256",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
         "upload-256",
         "upload-32"
       ]
@@ -2317,6 +2386,29 @@
         "echo-ws-4096",
         "echo-ws-512",
         "json-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "ultimate-express": {
+      "language": "JS",
+      "tests": [
+        "api-16-1024",
+        "api-4-256",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
         "limited-conn-4096",
         "limited-conn-512",
         "pipelined-4096",
