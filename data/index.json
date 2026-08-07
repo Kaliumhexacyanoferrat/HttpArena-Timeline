@@ -246,6 +246,14 @@
         "upload-32"
       ]
     },
+    "beskar-websocket": {
+      "language": "C#",
+      "tests": [
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512"
+      ]
+    },
     "bjoern": {
       "language": "Python",
       "tests": [
