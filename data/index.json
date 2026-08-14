@@ -33,6 +33,9 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -46,6 +49,7 @@
         "baseline-4096",
         "baseline-512",
         "crud-4096",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -56,6 +60,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -92,6 +99,7 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -109,6 +117,9 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "stream-grpc-64",
         "stream-grpc-tls-64",
         "unary-grpc-1024",
@@ -229,6 +240,7 @@
         "baseline-h2-1024",
         "baseline-h2-256",
         "crud-4096",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -242,6 +254,23 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "axum": {
+      "language": "Rust",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
         "upload-256",
         "upload-32"
       ]
@@ -301,6 +330,9 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -322,6 +354,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -405,12 +440,46 @@
         "echo-ws-512"
       ]
     },
+    "django": {
+      "language": "Python",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "dogrider": {
       "language": "C#",
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512"
+      ]
+    },
+    "echo": {
+      "language": "Go",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
       ]
     },
     "effinitive": {
@@ -525,6 +594,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -561,6 +633,9 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -574,6 +649,7 @@
         "baseline-4096",
         "baseline-512",
         "crud-4096",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -632,6 +708,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -656,6 +735,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -681,6 +763,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -735,6 +820,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -780,6 +868,7 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
+        "fortunes-1024",
         "gateway-64-1024",
         "gateway-64-512",
         "gateway-h3-256",
@@ -798,6 +887,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -854,6 +946,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -916,6 +1011,9 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -947,6 +1045,26 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "gin": {
+      "language": "Go",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
         "upload-256",
         "upload-32"
       ]
@@ -1267,6 +1385,9 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -1307,6 +1428,7 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -1323,6 +1445,9 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -1344,6 +1469,7 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -1360,6 +1486,26 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "laravel": {
+      "language": "PHP",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
         "upload-256",
         "upload-32"
       ]
@@ -1491,6 +1637,9 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -1524,6 +1673,26 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "nestjs": {
+      "language": "TS",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
         "upload-256",
         "upload-32"
       ]
@@ -1691,6 +1860,9 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "unary-grpc-1024",
         "unary-grpc-256",
         "unary-grpc-tls-1024",
@@ -1802,6 +1974,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -1836,6 +2011,7 @@
         "baseline-4096",
         "baseline-512",
         "crud-4096",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -1846,6 +2022,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -1908,6 +2087,7 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -1925,6 +2105,9 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -1967,6 +2150,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -1999,6 +2185,7 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
+        "fortunes-1024",
         "gateway-64-1024",
         "gateway-64-512",
         "gateway-h3-256",
@@ -2049,6 +2236,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -2077,6 +2267,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -2130,6 +2323,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -2204,6 +2400,9 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -2220,6 +2419,7 @@
         "baseline-h2c-256",
         "baseline-h2c-4096",
         "baseline-h3-64",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -2394,6 +2594,7 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
+        "fortunes-1024",
         "gateway-64-1024",
         "gateway-64-512",
         "gateway-h3-256",
@@ -2413,6 +2614,9 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "stream-grpc-64",
         "stream-grpc-tls-64",
         "unary-grpc-1024",
@@ -2453,6 +2657,9 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -2470,6 +2677,7 @@
         "baseline-h2c-1024",
         "baseline-h2c-256",
         "baseline-h2c-4096",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -2486,6 +2694,9 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -2553,6 +2764,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -2577,6 +2791,9 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800",
         "upload-256",
         "upload-32"
       ]
@@ -2590,6 +2807,7 @@
         "baseline-4096",
         "baseline-512",
         "crud-4096",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -2614,6 +2832,7 @@
         "baseline-4096",
         "baseline-512",
         "crud-4096",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -2649,6 +2868,7 @@
         "baseline-4096",
         "baseline-512",
         "crud-4096",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -2682,6 +2902,7 @@
         "baseline-4096",
         "baseline-512",
         "crud-4096",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -2812,6 +3033,7 @@
     "echo-ws-16384",
     "echo-ws-4096",
     "echo-ws-512",
+    "fortunes-1024",
     "gateway-64-1024",
     "gateway-64-512",
     "gateway-h3-256",
@@ -2835,6 +3057,9 @@
     "static-h2-1024",
     "static-h2-256",
     "static-h3-64",
+    "static-tls-1024",
+    "static-tls-4096",
+    "static-tls-6800",
     "stream-grpc-64",
     "stream-grpc-tls-64",
     "unary-grpc-1024",
