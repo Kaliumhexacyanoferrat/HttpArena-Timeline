@@ -34,8 +34,10 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         "upload-32", "upload-256",
         "async-db-1024",
         "static-1024", "static-4096", "static-6800",
+        "static-tls-1024", "static-tls-4096", "static-tls-6800",
         "pipelined-512", "pipelined-4096",
         "crud-4096",
+        "fortunes-1024",
         // H/1.1 Workload
         "api-4-256", "api-16-1024",
         // H/2
