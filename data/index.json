@@ -40,6 +40,23 @@
         "upload-32"
       ]
     },
+    "aiohttp": {
+      "language": "Python",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "aleph": {
       "language": "Clojure",
       "tests": [
@@ -361,6 +378,23 @@
         "upload-32"
       ]
     },
+    "bun": {
+      "language": "TS",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "bun-websocket": {
       "language": "TS",
       "tests": [
@@ -374,13 +408,24 @@
       "tests": [
         "baseline-4096",
         "baseline-512",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h3-64",
+        "json-4096",
+        "json-tls-4096",
         "limited-conn-4096",
         "limited-conn-512",
         "pipelined-4096",
         "pipelined-512",
         "static-1024",
         "static-4096",
-        "static-6800"
+        "static-6800",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-h3-64",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800"
       ]
     },
     "cardigan": {
@@ -408,6 +453,23 @@
         "unary-grpc-tls-256"
       ]
     },
+    "chi": {
+      "language": "Go",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "dart-io": {
       "language": "Dart",
       "tests": [
@@ -430,6 +492,23 @@
         "limited-conn-512",
         "pipelined-4096",
         "pipelined-512"
+      ]
+    },
+    "deno": {
+      "language": "TS",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
       ]
     },
     "deno-websocket": {
@@ -463,6 +542,23 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512"
+      ]
+    },
+    "drogon": {
+      "language": "C++",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
       ]
     },
     "echo": {
@@ -738,6 +834,23 @@
         "static-tls-1024",
         "static-tls-4096",
         "static-tls-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "fiber": {
+      "language": "Go",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
         "upload-256",
         "upload-32"
       ]
@@ -1092,6 +1205,23 @@
         "upload-32"
       ]
     },
+    "go-stdlib": {
+      "language": "Go",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "go-websocket": {
       "language": "Go",
       "tests": [
@@ -1119,14 +1249,22 @@
         "baseline-h2c-1024",
         "baseline-h2c-256",
         "baseline-h2c-4096",
+        "json-4096",
         "json-h2c-1024",
         "json-h2c-4096",
+        "json-tls-4096",
         "limited-conn-4096",
         "limited-conn-512",
         "pipelined-4096",
         "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
         "static-h2-1024",
-        "static-h2-256"
+        "static-h2-256",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800"
       ]
     },
     "h2o-mruby": {
@@ -1273,6 +1411,23 @@
         "upload-32"
       ]
     },
+    "hono-node": {
+      "language": "TS",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "http-kit": {
       "language": "Clojure",
       "tests": [
@@ -1290,6 +1445,57 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "http.jl": {
+      "language": "Julia",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "http4k": {
+      "language": "Kotlin",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "http4s": {
+      "language": "Scala",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
         "upload-256",
         "upload-32"
       ]
@@ -1330,6 +1536,23 @@
         "pipelined-512",
         "static-h2-1024",
         "static-h2-256"
+      ]
+    },
+    "hyper-express": {
+      "language": "JS",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
       ]
     },
     "hyperf": {
@@ -1407,6 +1630,23 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "koa": {
+      "language": "JS",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
         "upload-256",
         "upload-32"
       ]
@@ -1493,6 +1733,23 @@
         "upload-32"
       ]
     },
+    "lapis": {
+      "language": "Lua",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "laravel": {
       "language": "PHP",
       "tests": [
@@ -1519,6 +1776,23 @@
         "limited-conn-512",
         "pipelined-4096",
         "pipelined-512"
+      ]
+    },
+    "litestar": {
+      "language": "Python",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
       ]
     },
     "lute": {
@@ -1573,6 +1847,23 @@
         "pipelined-512"
       ]
     },
+    "micronaut": {
+      "language": "Java",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "minima": {
       "language": "C#",
       "tests": [
@@ -1603,6 +1894,23 @@
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512"
+      ]
+    },
+    "mojolicious": {
+      "language": "Perl",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
       ]
     },
     "mq-bridge": {
@@ -1705,6 +2013,8 @@
         "baseline-h2-1024",
         "baseline-h2-256",
         "baseline-h3-64",
+        "json-4096",
+        "json-tls-4096",
         "limited-conn-4096",
         "limited-conn-512",
         "pipelined-4096",
@@ -1714,7 +2024,10 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
-        "static-h3-64"
+        "static-h3-64",
+        "static-tls-1024",
+        "static-tls-4096",
+        "static-tls-6800"
       ]
     },
     "ngx-php": {
@@ -1743,6 +2056,23 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64"
+      ]
+    },
+    "node-h3": {
+      "language": "JS",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
       ]
     },
     "node-websocket": {
@@ -1833,6 +2163,23 @@
         "static-1024",
         "static-4096",
         "static-6800"
+      ]
+    },
+    "plug-cowboy": {
+      "language": "Elixir",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
       ]
     },
     "pyronova": {
@@ -1987,6 +2334,7 @@
         "async-db-1024",
         "baseline-4096",
         "baseline-512",
+        "fortunes-1024",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -2129,6 +2477,20 @@
         "upload-32"
       ]
     },
+    "rocket": {
+      "language": "Rust",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "roda": {
       "language": "Ruby",
       "tests": [
@@ -2166,6 +2528,23 @@
         "limited-conn-512",
         "pipelined-4096",
         "pipelined-512"
+      ]
+    },
+    "sanic": {
+      "language": "Python",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
       ]
     },
     "sark": {
@@ -2353,6 +2732,23 @@
         "upload-32"
       ]
     },
+    "slim": {
+      "language": "PHP",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "slimeweb": {
       "language": "Python",
       "tests": [
@@ -2403,6 +2799,23 @@
         "static-tls-1024",
         "static-tls-4096",
         "static-tls-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "starlette": {
+      "language": "Python",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
         "upload-256",
         "upload-32"
       ]
@@ -2798,6 +3211,23 @@
         "upload-32"
       ]
     },
+    "uwebsockets.js": {
+      "language": "JS",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "vanilla": {
       "language": "V",
       "tests": [
@@ -2893,6 +3323,24 @@
         "echo-ws-512"
       ]
     },
+    "varnish": {
+      "language": "C",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "static-1024",
+        "static-4096",
+        "static-6800",
+        "static-h2-1024",
+        "static-h2-256"
+      ]
+    },
     "veb": {
       "language": "V",
       "tests": [
@@ -2914,6 +3362,68 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "vertx": {
+      "language": "Java",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "vibe.d": {
+      "language": "D",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
+    "vinyl cache": {
+      "language": "C",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512"
+      ]
+    },
+    "warp": {
+      "language": "Haskell",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
         "upload-256",
         "upload-32"
       ]
@@ -2978,6 +3488,23 @@
         "pipelined-512"
       ]
     },
+    "zio-http": {
+      "language": "Scala",
+      "tests": [
+        "baseline-4096",
+        "baseline-512",
+        "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-comp-512",
+        "limited-conn-4096",
+        "limited-conn-512",
+        "pipelined-4096",
+        "pipelined-512",
+        "upload-256",
+        "upload-32"
+      ]
+    },
     "zix": {
       "language": "Zig",
       "tests": [
@@ -2996,6 +3523,12 @@
         "static-4096",
         "static-6800",
         "static-h3-64",
+        "stream-grpc-64",
+        "stream-grpc-tls-64",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256",
         "upload-256",
         "upload-32"
       ]
