@@ -462,6 +462,14 @@
         "static-tls-6800"
       ]
     },
+    "cadente": {
+      "language": "C#",
+      "tests": [
+        "baseline-4096",
+        "limited-conn-4096",
+        "pipelined-4096"
+      ]
+    },
     "cardigan": {
       "language": "Java",
       "tests": [
@@ -1508,6 +1516,9 @@
         "baseline-512",
         "baseline-h2-1024",
         "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -1515,6 +1526,8 @@
         "json-comp-16384",
         "json-comp-4096",
         "json-comp-512",
+        "json-h2c-1024",
+        "json-h2c-4096",
         "json-tls-4096",
         "limited-conn-4096",
         "limited-conn-512",
@@ -1525,6 +1538,7 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
         "unary-grpc-1024",
         "unary-grpc-256",
         "unary-grpc-tls-1024",
@@ -1543,6 +1557,9 @@
         "baseline-512",
         "baseline-h2-1024",
         "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -1550,6 +1567,8 @@
         "json-comp-16384",
         "json-comp-4096",
         "json-comp-512",
+        "json-h2c-1024",
+        "json-h2c-4096",
         "json-tls-4096",
         "limited-conn-4096",
         "limited-conn-512",
@@ -1560,6 +1579,7 @@
         "static-6800",
         "static-h2-1024",
         "static-h2-256",
+        "static-tls-1024",
         "stream-grpc-64",
         "stream-grpc-tls-64",
         "unary-grpc-1024",
@@ -1861,6 +1881,16 @@
         "static-6800",
         "upload-256",
         "upload-32"
+      ]
+    },
+    "jooby": {
+      "language": "Java",
+      "tests": [
+        "baseline-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-tls-4096",
+        "limited-conn-4096"
       ]
     },
     "koa": {
@@ -2890,6 +2920,8 @@
         "baseline-4096",
         "baseline-512",
         "json-4096",
+        "json-comp-16384",
+        "json-comp-4096",
         "json-tls-4096",
         "limited-conn-4096",
         "limited-conn-512",
