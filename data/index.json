@@ -1198,6 +1198,7 @@
         "static-1024",
         "static-4096",
         "static-6800",
+        "static-tls-1024",
         "upload-256",
         "upload-32"
       ]
@@ -1298,6 +1299,21 @@
         "upload-32"
       ]
     },
+    "genhttp-ioxide": {
+      "language": "C#",
+      "tests": [
+        "async-db-1024",
+        "baseline-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-tls-4096",
+        "limited-conn-4096",
+        "pipelined-4096"
+      ]
+    },
     "genhttp-kestrel": {
       "language": "C#",
       "tests": [
@@ -1310,6 +1326,9 @@
         "baseline-h2-256",
         "baseline-h3-64",
         "crud-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
         "json-4096",
         "json-comp-16384",
         "json-comp-4096",
@@ -3502,6 +3521,9 @@
         "baseline-512",
         "baseline-h2-1024",
         "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
         "baseline-h3-64",
         "crud-4096",
         "echo-ws-16384",
@@ -3516,6 +3538,8 @@
         "json-comp-16384",
         "json-comp-4096",
         "json-comp-512",
+        "json-h2c-1024",
+        "json-h2c-4096",
         "json-tls-4096",
         "limited-conn-4096",
         "limited-conn-512",
@@ -3550,6 +3574,9 @@
         "baseline-512",
         "baseline-h2-1024",
         "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
         "baseline-h3-64",
         "crud-4096",
         "echo-ws-16384",
@@ -3564,6 +3591,8 @@
         "json-comp-16384",
         "json-comp-4096",
         "json-comp-512",
+        "json-h2c-1024",
+        "json-h2c-4096",
         "json-tls-4096",
         "limited-conn-4096",
         "limited-conn-512",
