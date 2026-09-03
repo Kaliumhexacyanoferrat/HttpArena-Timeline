@@ -80,18 +80,25 @@ The structure of the json files should look like this:
 
 It is important to keep all data points for later (so all measured fields). If there are multiple result records per day (due to multiple commits), keep them with the commit timestamp.
 
-### Import modes
+### Import model (always a full rebuild)
 
-`data/state.json` tracks the last processed HttpArena commit. If it exists, `TimelineImporter` runs **incrementally** (only walks commits after that SHA). If it's missing, it runs a **full import** starting from `startingCommit`, which also snapshots the full `site/data` tree at that commit so tests unchanged since the start are still captured. To force a full re-import (e.g. after adding a test that predates the last incremental run, or to re-run since HttpArena history), delete `data/state.json` before running the importer — this also wipes and regenerates every `data/<framework>/` directory. A full re-import can resurrect frameworks/data that a maintainer previously pruned by hand from `data/`; that's expected if the framework is still enabled upstream in HttpArena, not a bug.
+The importer **always rebuilds `data/` from scratch** — there is no incremental mode and no `data/state.json`. On every run it wipes and regenerates every `data/<framework>/` directory, then rebuilds `index.json`. This is deliberate: the set of active framework/test combinations can change in ways only a full rebuild reflects (a framework being disabled upstream must retroactively drop its whole directory, not just stop growing).
+
+**Source of truth for what is kept** is HttpArena's *current main*, read at startup by `ActiveConfig` (`src/Importer/Services/ActiveConfig.cs`) from two files on main's tip:
+* `scripts/lib/profiles.sh` — maps each base test to its concurrency level(s) (`echo-ws` → 512,4096,16384), producing the concrete `<test>-<conns>` keys.
+* `frameworks/<dir>/meta.json` — per framework, whether it is `enabled` and which base tests it runs. Several variant folders can share one `display_name` (e.g. `actix`, `actix-h2c`, `actix-websocket` → `actix`); their test lists are **unioned**, matching how results merge under one framework name.
+
+Their cross-product is the set of active `(framework, <test>-<conns>)` combos. While walking history, a data point is kept only if its combo is active *now*. Consequences worth knowing:
+* Disabled frameworks (`enabled: false`) and retired tests are dropped even though the HttpArena `results/*.json` files still contain stale rows for them (which is exactly why `meta.json`/`profiles.sh` are the truth, not the results files).
+* A framework enabled on main but with no historical data yet simply produces no directory until data exists.
+* There is no hand-pruning of `data/`; the active set fully determines the output.
 
 ### Adding a new test to the timeline
 
-HttpArena result files use `<test>-<concurrency>` keys (e.g. `fortunes-1024`, `static-tls-4096`). To surface a new one end-to-end:
+The importer picks up new tests automatically once they are active on HttpArena main (a base test in `profiles.sh` referenced by an enabled framework's `meta.json` `tests`), so **no importer code change is needed**. The only manual step is the UI grouping:
 
-1. Confirm the exact key(s) and concurrency by grepping `../HttpArena/site/data/results/*.json` for the test name — concurrency isn't guessable from the test name alone.
-2. Add the key(s) to `AllowedTests` in `src/Importer/Services/TimelineImporter.cs` — tests not in this set are silently skipped during import and never reach `data/` or `index.json`.
-3. Add the key(s) to the matching category's `tests` array in `src/spa/src/lib/data/categories.ts`. Check HttpArena's own docs under `../HttpArena/site/content/docs/test-profiles/` to see which category (H/1.1 Isolated, H/2, gRPC, etc.) a new test belongs to.
-4. Re-run the importer (full re-import if the test predates the current `data/state.json` checkpoint).
+1. Add the concrete `<test>-<concurrency>` key(s) to the matching category's `tests` array in `src/spa/src/lib/data/categories.ts`. Check HttpArena's docs under `../HttpArena/site/content/docs/test-profiles/` (h1/h2/h3/gateway/grpc/ws) for the right category, and `scripts/lib/profiles.sh` for the concurrency level(s).
+2. Re-run the importer. Keep `categories.ts` and `data/index.json` in agreement — every test in one should appear in the other.
 
 ## SPA
 
