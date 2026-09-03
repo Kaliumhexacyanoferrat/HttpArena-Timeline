@@ -206,12 +206,15 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         string? S(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.String ? v.GetString() : null;
         long    L(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.Number ? v.GetInt64() : 0;
         int     I(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.Number ? v.GetInt32() : 0;
+        double? D(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.Number ? v.GetDouble() : null;
 
         return new MetricsEntry(
             Rps:                  L("rps"),
             AvgLatencyMs:         ValueParser.ParseLatencyMs(S("avg_latency")),
             P99LatencyMs:         ValueParser.ParseLatencyMs(S("p99_latency")),
+            P999LatencyMs:        ValueParser.ParseLatencyMs(S("p99_9_latency")),
             CpuPct:               ValueParser.ParseCpuPct(S("cpu")),
+            CpuPerReqUs:          D("cpu_per_req_us"),
             MemoryBytes:          ValueParser.ParseMemoryBytes(S("memory")),
             Connections:          I("connections"),
             Threads:              I("threads"),
@@ -349,7 +352,9 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         w.WriteNumber("rps",            m.Rps);
         WriteNullable(w, "avg_latency_ms",    m.AvgLatencyMs);
         WriteNullable(w, "p99_latency_ms",    m.P99LatencyMs);
+        WriteNullable(w, "p99_9_latency_ms",  m.P999LatencyMs);
         WriteNullable(w, "cpu_pct",           m.CpuPct);
+        WriteNullable(w, "cpu_per_req_us",    m.CpuPerReqUs);
         WriteNullable(w, "memory_bytes",      m.MemoryBytes);
         w.WriteNumber("connections",    m.Connections);
         w.WriteNumber("threads",        m.Threads);
