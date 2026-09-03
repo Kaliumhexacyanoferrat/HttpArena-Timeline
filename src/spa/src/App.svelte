@@ -5,7 +5,7 @@
   import MetricPicker from './lib/components/MetricPicker.svelte'
   import TimelineChart from './lib/components/TimelineChart.svelte'
   import { loadIndex } from './lib/data/loader'
-  import { selectedTest, selectedFrameworks, selectedMetrics, syncUrl } from './lib/stores/selection'
+  import { selectedTest, selectedFrameworks, selectedMetrics, metricsTouched, defaultMetricsForTest, syncUrl } from './lib/stores/selection'
   import type { DataIndex } from './lib/data/types'
 
   let index: DataIndex | null = null
@@ -22,6 +22,14 @@
     }
     mounted = true
   })
+
+  // Apply per-test default metrics while the user hasn't picked metrics themselves.
+  // Runs on the initial test and on every test change, so e.g. selecting a latency
+  // test switches to CPU/req + P99 + P99.9, and switching back to a throughput test
+  // reverts to RPS.
+  $: if (mounted && !$metricsTouched) {
+    selectedMetrics.set(defaultMetricsForTest($selectedTest))
+  }
 
   // Sync URL whenever any selection changes (after initial mount).
   $: if (mounted) {

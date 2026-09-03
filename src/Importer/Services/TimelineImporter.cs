@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using Importer.Models;
@@ -6,12 +5,20 @@ using LibGit2Sharp;
 
 namespace Importer.Services;
 
+/// <summary>
+/// Rebuilds the timeline data from scratch on every run. The set of framework/test
+/// combinations to keep is read from the current main of HttpArena (see
+/// <see cref="ActiveConfig"/>): only combos that are active *now* are emitted, so
+/// disabled frameworks and retired tests are pruned even though history still contains them.
+/// There is intentionally no incremental mode — the active set can change in ways that only
+/// a full rebuild reflects correctly (a framework being disabled must retroactively drop its
+/// whole directory, not just stop appending).
+/// </summary>
 public class TimelineImporter(string repoPath, string outputPath, string startingCommit)
 {
-    private readonly Dictionary<string, Dictionary<string, List<(DateTimeOffset Timestamp, MetricsEntry Entry)>>> _newData = new();
+    private readonly Dictionary<string, Dictionary<string, List<(DateTimeOffset Timestamp, MetricsEntry Entry)>>> _data = new();
     private readonly Dictionary<string, string> _frameworkLanguages = new();
-    private bool _isIncremental;
-    private string? _mainTipSha;
+    private ActiveConfig _active = null!;
 
     private static readonly char[] InvalidChars = Path.GetInvalidFileNameChars();
     private static readonly JsonWriterOptions WriterOptions = new()
@@ -21,106 +28,39 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         NewLine = "\n"
     };
 
-    // Only import tests that belong to a known category. Tests not listed here are
-    // silently skipped so they never appear in the data or the index.
-    private static readonly HashSet<string> AllowedTests = new(StringComparer.OrdinalIgnoreCase)
-    {
-        // H/1.1 Isolated
-        "baseline-512", "baseline-4096",
-        "limited-conn-512", "limited-conn-4096",
-        "json-4096", "json-16384",
-        "json-comp-512", "json-comp-4096", "json-comp-16384",
-        "json-tls-4096",
-        "upload-32", "upload-256",
-        "async-db-1024",
-        "static-1024", "static-4096", "static-6800",
-        "static-tls-1024", "static-tls-4096", "static-tls-6800",
-        "pipelined-512", "pipelined-4096",
-        "crud-4096",
-        "fortunes-1024",
-        // H/1.1 Workload
-        "api-4-256", "api-16-1024",
-        // H/2
-        "baseline-h2-256", "baseline-h2-1024",
-        "static-h2-256", "static-h2-1024",
-        "baseline-h2c-256", "baseline-h2c-1024", "baseline-h2c-4096",
-        "json-h2c-1024", "json-h2c-4096",
-        // Gateway
-        "gateway-64-256", "gateway-64-512", "gateway-64-1024",
-        "gateway-h3-64", "gateway-h3-256",
-        "production-stack-256", "production-stack-1024",
-        // H/3
-        "baseline-h3-64", "static-h3-64",
-        // gRPC
-        "unary-grpc-256", "unary-grpc-1024",
-        "unary-grpc-tls-256", "unary-grpc-tls-1024",
-        "stream-grpc-64", "stream-grpc-tls-64",
-        // WebSocket
-        "echo-ws-512", "echo-ws-4096", "echo-ws-16384",
-    };
-
     public async Task RunAsync()
     {
         Console.WriteLine("Opening repository...");
         using var repo = new Repository(repoPath);
 
-        Console.WriteLine("Walking git history...");
-        var hasNewCommits = WalkHistory(repo);
+        var mainBranch = repo.Branches["main"]
+            ?? throw new InvalidOperationException("Branch 'main' not found.");
+        var mainTip = mainBranch.Tip;
 
-        if (hasNewCommits)
-        {
-            Console.WriteLine($"Writing output to {outputPath}...");
-            await WriteOutputAsync();
-            SaveLastCommit(_mainTipSha!);
-        }
-        else if (!File.Exists(Path.Combine(outputPath, "index.json")))
-        {
-            // No new commits but index is missing — generate it from existing data on disk.
-            Console.WriteLine("Generating index.json from existing data...");
-            await WriteIndexFromDiskAsync();
-        }
+        Console.WriteLine("Reading active framework/test set from main...");
+        _active = ActiveConfig.Load(mainTip);
+        Console.WriteLine($"  {_active.FrameworkCount} active frameworks, {_active.TestKeys.Count} active test keys.");
+
+        Console.WriteLine("Walking git history...");
+        WalkHistory(repo, mainTip);
+
+        Console.WriteLine($"Writing output to {outputPath}...");
+        await WriteOutputAsync();
 
         Console.WriteLine("Done.");
     }
 
-    private bool WalkHistory(Repository repo)
+    private void WalkHistory(Repository repo, Commit mainTip)
     {
-        var mainBranch = repo.Branches["main"]
-            ?? throw new InvalidOperationException("Branch 'main' not found.");
-        var mainTip = mainBranch.Tip;
-        _mainTipSha = mainTip.Sha;
+        var snapshotCommit = repo.Lookup<Commit>(startingCommit)
+            ?? throw new InvalidOperationException($"Starting commit '{startingCommit}' not found.");
 
-        var lastCommit = LoadLastCommit();
-        _isIncremental = lastCommit != null;
-
-        List<Commit> commits;
-        Commit? snapshotCommit = null;
-
-        if (_isIncremental)
-        {
-            var lastProcessed = repo.Lookup<Commit>(lastCommit!);
-            if (lastProcessed?.Id == mainTip.Id)
-            {
-                Console.WriteLine("  Already up-to-date.");
-                return false;
-            }
-            commits = WalkFirstParent(mainTip, stopAt: lastProcessed?.Sha);
-            Console.WriteLine("  Incremental update.");
-        }
-        else
-        {
-            snapshotCommit = repo.Lookup<Commit>(startingCommit)
-                ?? throw new InvalidOperationException($"Starting commit '{startingCommit}' not found.");
-            commits = WalkFirstParent(mainTip, stopAt: snapshotCommit.Parents.FirstOrDefault()?.Sha);
-            Console.WriteLine("  Full import.");
-        }
-
+        var commits = WalkFirstParent(mainTip, stopAt: snapshotCommit.Parents.FirstOrDefault()?.Sha);
         Console.WriteLine($"  Found {commits.Count} commits to process.");
 
-        // For a full (non-incremental) import, snapshot the starting commit's full tree
-        // so tests that existed before the start commit but haven't changed since are captured.
-        if (snapshotCommit is not null)
-            SnapshotCommit(snapshotCommit);
+        // Snapshot the starting commit's full tree so tests that existed before the start
+        // commit but haven't changed since are still captured.
+        SnapshotCommit(snapshotCommit);
 
         var processed = 0;
         foreach (var commit in commits)
@@ -130,7 +70,6 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
                 Console.WriteLine($"  {processed}/{commits.Count}...");
         }
         Console.WriteLine($"  Processed {processed} commits.");
-        return true;
     }
 
     private static List<Commit> WalkFirstParent(Commit tip, string? stopAt)
@@ -156,6 +95,17 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         {
             if (entry.TargetType != TreeEntryTargetType.Blob) continue;
             var path = $"site/data/{entry.Name}";
+            if (!IsRelevantDataFile(path)) continue;
+            if (entry.Target is not Blob blob) continue;
+            ProcessDataFile(path, blob.GetContentText(), timestamp);
+        }
+
+        // The results/ layout lives one directory deeper (site/data/results/<fw>.json).
+        if (commit.Tree["site/data/results"]?.Target is not Tree resultsTree) return;
+        foreach (var entry in resultsTree)
+        {
+            if (entry.TargetType != TreeEntryTargetType.Blob) continue;
+            var path = $"site/data/results/{entry.Name}";
             if (!IsRelevantDataFile(path)) continue;
             if (entry.Target is not Blob blob) continue;
             ProcessDataFile(path, blob.GetContentText(), timestamp);
@@ -191,7 +141,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
     {
         var isResultsLayout = IsResultsLayoutFile(filePath);
         var testFile = Path.GetFileNameWithoutExtension(filePath);
-        if (!isResultsLayout && !AllowedTests.Contains(testFile)) return;
+        if (!isResultsLayout && !_active.TestKeys.Contains(testFile)) return;
 
         JsonDocument doc;
         try
@@ -214,7 +164,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
 
                 foreach (var prop in results.EnumerateObject())
                 {
-                    if (!AllowedTests.Contains(prop.Name)) continue;
+                    if (!_active.TestKeys.Contains(prop.Name)) continue;
                     if (prop.Value.ValueKind != JsonValueKind.Object) continue;
                     AddEntry(prop.Value, prop.Name, timestamp);
                 }
@@ -234,15 +184,19 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         var framework = fwProp.GetString()?.ToLowerInvariant();
         if (string.IsNullOrEmpty(framework)) return;
 
+        // Only keep combos that are active on the current main.
+        if (!_active.IsActive(framework, testFile)) return;
+
         if (!_frameworkLanguages.ContainsKey(framework))
         {
-            var lang = entry.TryGetProperty("language", out var lp) && lp.ValueKind == JsonValueKind.String
-                ? lp.GetString() ?? "Unknown" : "Unknown";
+            var lang = _active.LanguageFor(framework)
+                ?? (entry.TryGetProperty("language", out var lp) && lp.ValueKind == JsonValueKind.String
+                    ? lp.GetString() ?? "Unknown" : "Unknown");
             _frameworkLanguages[framework] = lang;
         }
 
         var metrics = ParseMetrics(entry);
-        var frameworkData = _newData.TryGetValue(framework, out var fd) ? fd : (_newData[framework] = new());
+        var frameworkData = _data.TryGetValue(framework, out var fd) ? fd : (_data[framework] = new());
         var testData = frameworkData.TryGetValue(testFile, out var td) ? td : (frameworkData[testFile] = []);
         testData.Add((timestamp, metrics));
     }
@@ -252,12 +206,15 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         string? S(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.String ? v.GetString() : null;
         long    L(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.Number ? v.GetInt64() : 0;
         int     I(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.Number ? v.GetInt32() : 0;
+        double? D(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.Number ? v.GetDouble() : null;
 
         return new MetricsEntry(
             Rps:                  L("rps"),
             AvgLatencyMs:         ValueParser.ParseLatencyMs(S("avg_latency")),
             P99LatencyMs:         ValueParser.ParseLatencyMs(S("p99_latency")),
+            P999LatencyMs:        ValueParser.ParseLatencyMs(S("p99_9_latency")),
             CpuPct:               ValueParser.ParseCpuPct(S("cpu")),
+            CpuPerReqUs:          D("cpu_per_req_us"),
             MemoryBytes:          ValueParser.ParseMemoryBytes(S("memory")),
             Connections:          I("connections"),
             Threads:              I("threads"),
@@ -285,49 +242,34 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
 
     private async Task WriteOutputAsync()
     {
-        if (!_isIncremental)
-            CleanFrameworkDirectories();
+        CleanFrameworkDirectories();
 
-        foreach (var (framework, testFiles) in _newData)
+        foreach (var (framework, testFiles) in _data)
         {
             var frameworkDir = Path.Combine(outputPath, SanitizeName(framework));
             Directory.CreateDirectory(frameworkDir);
 
-            foreach (var (testFile, newPoints) in testFiles)
+            foreach (var (testFile, points) in testFiles)
             {
                 var outputFile = Path.Combine(frameworkDir, testFile + ".json");
-
-                var existing = _isIncremental && File.Exists(outputFile)
-                    ? LoadExistingPoints(outputFile)
-                    : [];
-
-                await WriteTimelineFileAsync(outputFile, existing, newPoints);
+                await WriteTimelineFileAsync(outputFile, points);
             }
         }
 
-        var totalFiles = _newData.Values.Sum(d => d.Count);
-        Console.WriteLine($"  Wrote {totalFiles} files for {_newData.Count} frameworks.");
+        var totalFiles = _data.Values.Sum(d => d.Count);
+        Console.WriteLine($"  Wrote {totalFiles} files for {_data.Count} frameworks.");
 
         await WriteIndexAsync();
     }
 
     private async Task WriteIndexAsync()
     {
-        // For incremental: merge new data into existing index. For full rebuild: start fresh.
-        var index = _isIncremental ? LoadExistingIndex() : new Dictionary<string, (string Language, SortedSet<string> Tests)>();
-
-        foreach (var (fw, tests) in _newData)
+        var index = new Dictionary<string, (string Language, SortedSet<string> Tests)>();
+        foreach (var (fw, tests) in _data)
         {
             var lang = _frameworkLanguages.GetValueOrDefault(fw, "Unknown");
-            if (index.TryGetValue(fw, out var existing))
-                foreach (var t in tests.Keys) existing.Tests.Add(t);
-            else
-                index[fw] = (lang, new SortedSet<string>(tests.Keys));
+            index[fw] = (lang, new SortedSet<string>(tests.Keys));
         }
-
-        // Strip any previously-imported tests that are no longer allowed.
-        foreach (var (_, (_, tests)) in index)
-            tests.RemoveWhere(t => !AllowedTests.Contains(t));
 
         var allTests = index.Values.SelectMany(v => v.Tests).Distinct().OrderBy(t => t).ToList();
 
@@ -354,128 +296,35 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
 
         await writer.FlushAsync();
         Console.WriteLine($"  Wrote index.json ({index.Count} frameworks, {allTests.Count} tests).");
-    }
-
-    private async Task WriteIndexFromDiskAsync()
-    {
-        // Build index by scanning the data directory (used when index.json is missing but data exists).
-        if (!Directory.Exists(outputPath)) return;
-
-        var index = new Dictionary<string, (string Language, SortedSet<string> Tests)>();
-        foreach (var fwDir in Directory.EnumerateDirectories(outputPath))
-        {
-            var fw = Path.GetFileName(fwDir).ToLowerInvariant();
-            var tests = new SortedSet<string>(
-                Directory.EnumerateFiles(fwDir, "*.json")
-                         .Select(f => Path.GetFileNameWithoutExtension(f)!));
-
-            // Try to get language from first data file
-            var lang = "Unknown";
-            var firstFile = Directory.EnumerateFiles(fwDir, "*.json").FirstOrDefault();
-            if (firstFile != null)
-            {
-                try
-                {
-                    using var doc = JsonDocument.Parse(File.ReadAllBytes(firstFile));
-                    var firstPoint = doc.RootElement.GetProperty("data").EnumerateArray().FirstOrDefault();
-                    if (firstPoint.ValueKind != JsonValueKind.Undefined
-                        && firstPoint[1].TryGetProperty("language", out var lp))
-                        lang = lp.GetString() ?? "Unknown";
-                }
-                catch { /* ignore */ }
-            }
-
-            index[fw] = (lang, tests);
-        }
-
-        _isIncremental = false; // Write fresh index
-        // Strip any previously-imported tests that are no longer allowed.
-        foreach (var (_, (_, tests)) in index)
-            tests.RemoveWhere(t => !AllowedTests.Contains(t));
-
-        var allTests = index.Values.SelectMany(v => v.Tests).Distinct().OrderBy(t => t).ToList();
-        var indexPath = Path.Combine(outputPath, "index.json");
-        await using var stream = File.Create(indexPath);
-        await using var writer = new Utf8JsonWriter(stream, WriterOptions);
-        writer.WriteStartObject();
-        writer.WriteStartObject("frameworks");
-        foreach (var (fw, (lang, tests)) in index.OrderBy(kv => kv.Key))
-        {
-            writer.WriteStartObject(fw);
-            writer.WriteString("language", lang);
-            writer.WriteStartArray("tests");
-            foreach (var t in tests) writer.WriteStringValue(t);
-            writer.WriteEndArray();
-            writer.WriteEndObject();
-        }
-        writer.WriteEndObject();
-        writer.WriteStartArray("tests");
-        foreach (var t in allTests) writer.WriteStringValue(t);
-        writer.WriteEndArray();
-        writer.WriteEndObject();
-        await writer.FlushAsync();
-        Console.WriteLine($"  Wrote index.json ({index.Count} frameworks, {allTests.Count} tests).");
-    }
-
-    private Dictionary<string, (string Language, SortedSet<string> Tests)> LoadExistingIndex()
-    {
-        var result = new Dictionary<string, (string, SortedSet<string>)>();
-        var indexPath = Path.Combine(outputPath, "index.json");
-        if (!File.Exists(indexPath)) return result;
-
-        using var doc = JsonDocument.Parse(File.ReadAllBytes(indexPath));
-        if (!doc.RootElement.TryGetProperty("frameworks", out var fws)) return result;
-
-        foreach (var fw in fws.EnumerateObject())
-        {
-            var lang = fw.Value.TryGetProperty("language", out var lp) ? lp.GetString() ?? "Unknown" : "Unknown";
-            var tests = new SortedSet<string>();
-            if (fw.Value.TryGetProperty("tests", out var tp))
-                foreach (var t in tp.EnumerateArray())
-                    if (t.GetString() is { } s) tests.Add(s);
-            result[fw.Name] = (lang, tests);
-        }
-
-        return result;
     }
 
     private void CleanFrameworkDirectories()
     {
-        if (!Directory.Exists(outputPath)) return;
+        if (!Directory.Exists(outputPath))
+        {
+            Directory.CreateDirectory(outputPath);
+            return;
+        }
         foreach (var dir in Directory.EnumerateDirectories(outputPath))
             Directory.Delete(dir, true);
     }
 
-    private static List<(DateTimeOffset Timestamp, JsonElement Entry)> LoadExistingPoints(string filePath)
-    {
-        using var doc = JsonDocument.Parse(File.ReadAllBytes(filePath));
-        return doc.RootElement.GetProperty("data")
-            .EnumerateArray()
-            .Select(pair =>
-            {
-                var ts = DateTimeOffset.Parse(pair[0].GetString()!, CultureInfo.InvariantCulture);
-                return (ts, pair[1].Clone());
-            })
-            .ToList();
-    }
-
     private static async Task WriteTimelineFileAsync(
         string outputFile,
-        List<(DateTimeOffset Timestamp, JsonElement Entry)> existing,
-        List<(DateTimeOffset Timestamp, MetricsEntry Entry)> newPoints)
+        List<(DateTimeOffset Timestamp, MetricsEntry Entry)> points)
     {
-        var allExisting = existing.Select(p  => (p.Timestamp, Rps: GetRps(p.Entry),  Write: (Action<Utf8JsonWriter>)(w => p.Entry.WriteTo(w))));
-        var allNew      = newPoints.Select(p => (p.Timestamp, Rps: p.Entry.Rps,      Write: (Action<Utf8JsonWriter>)(w => WriteMetrics(w, p.Entry))));
-        var sorted      = allExisting.Concat(allNew).OrderBy(p => p.Timestamp).ToList();
+        var sorted = points.OrderBy(p => p.Timestamp).ToList();
 
-        var filtered = new List<(DateTimeOffset Timestamp, Action<Utf8JsonWriter> Write)>();
+        // Collapse runs of identical rps, but never drop more than a week of gap so the
+        // series still shows movement over time even while a value is flat.
+        var filtered = new List<(DateTimeOffset Timestamp, MetricsEntry Entry)>();
         (DateTimeOffset Timestamp, long Rps)? prev = null;
-        foreach (var (ts, rps, write) in sorted)
+        foreach (var (ts, entry) in sorted)
         {
-            if (prev is null || prev.Value.Rps != rps || (ts - prev.Value.Timestamp).TotalDays >= 7)
+            if (prev is null || prev.Value.Rps != entry.Rps || (ts - prev.Value.Timestamp).TotalDays >= 7)
             {
-                filtered.Add((ts, write));
-                prev = (ts, rps);
+                filtered.Add((ts, entry));
+                prev = (ts, entry.Rps);
             }
         }
 
@@ -484,11 +333,11 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
 
         writer.WriteStartObject();
         writer.WriteStartArray("data");
-        foreach (var (ts, write) in filtered)
+        foreach (var (ts, entry) in filtered)
         {
             writer.WriteStartArray();
             writer.WriteStringValue(ts.ToUniversalTime().ToString("o"));
-            write(writer);
+            WriteMetrics(writer, entry);
             writer.WriteEndArray();
         }
         writer.WriteEndArray();
@@ -497,16 +346,15 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         await writer.FlushAsync();
     }
 
-    private static long GetRps(JsonElement entry) =>
-        entry.TryGetProperty("rps", out var v) && v.ValueKind == JsonValueKind.Number ? v.GetInt64() : 0;
-
     private static void WriteMetrics(Utf8JsonWriter w, MetricsEntry m)
     {
         w.WriteStartObject();
         w.WriteNumber("rps",            m.Rps);
         WriteNullable(w, "avg_latency_ms",    m.AvgLatencyMs);
         WriteNullable(w, "p99_latency_ms",    m.P99LatencyMs);
+        WriteNullable(w, "p99_9_latency_ms",  m.P999LatencyMs);
         WriteNullable(w, "cpu_pct",           m.CpuPct);
+        WriteNullable(w, "cpu_per_req_us",    m.CpuPerReqUs);
         WriteNullable(w, "memory_bytes",      m.MemoryBytes);
         w.WriteNumber("connections",    m.Connections);
         w.WriteNumber("threads",        m.Threads);
@@ -532,21 +380,6 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
     {
         if (v.HasValue) w.WriteNumber(name, v.Value);
         else w.WriteNull(name);
-    }
-
-    private string? LoadLastCommit()
-    {
-        var statePath = Path.Combine(outputPath, "state.json");
-        if (!File.Exists(statePath)) return null;
-        using var doc = JsonDocument.Parse(File.ReadAllBytes(statePath));
-        return doc.RootElement.TryGetProperty("lastCommit", out var v) ? v.GetString() : null;
-    }
-
-    private void SaveLastCommit(string sha)
-    {
-        Directory.CreateDirectory(outputPath);
-        File.WriteAllText(Path.Combine(outputPath, "state.json"),
-            JsonSerializer.Serialize(new { lastCommit = sha }));
     }
 
     // Framework names must map to a single directory regardless of casing seen in the source

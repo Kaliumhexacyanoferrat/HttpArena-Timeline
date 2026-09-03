@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { selectedMetrics } from '../stores/selection'
+  import { selectedMetrics, markMetricsTouched } from '../stores/selection'
   import { METRIC_CONFIGS, SCALE_LABEL } from '../data/metrics'
 
   function toggle(key: string) {
+    markMetricsTouched()
     selectedMetrics.update(ms => {
       if (ms.includes(key)) {
         // Keep at least one metric selected.

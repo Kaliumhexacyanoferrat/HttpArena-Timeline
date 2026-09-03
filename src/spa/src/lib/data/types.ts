@@ -2,7 +2,9 @@ export interface Metrics {
   rps: number
   avg_latency_ms: number | null
   p99_latency_ms: number | null
+  p99_9_latency_ms: number | null
   cpu_pct: number | null
+  cpu_per_req_us: number | null
   memory_bytes: number | null
   connections: number
   threads: number

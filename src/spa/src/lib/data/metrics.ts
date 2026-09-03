@@ -5,11 +5,13 @@ export interface MetricConfig {
 }
 
 export const METRIC_CONFIGS: MetricConfig[] = [
-  { key: 'rps',           label: 'RPS',          scale: 'rps'   },
-  { key: 'avg_latency_ms',label: 'Avg Latency',   scale: 'ms'    },
-  { key: 'p99_latency_ms',label: 'P99 Latency',   scale: 'ms'    },
-  { key: 'cpu_pct',       label: 'CPU',           scale: 'pct'   },
-  { key: 'memory_bytes',  label: 'Memory',        scale: 'bytes' },
+  { key: 'rps',             label: 'RPS',          scale: 'rps'   },
+  { key: 'avg_latency_ms',  label: 'Avg Latency',   scale: 'ms'    },
+  { key: 'p99_latency_ms',  label: 'P99 Latency',   scale: 'ms'    },
+  { key: 'p99_9_latency_ms',label: 'P99.9 Latency', scale: 'ms'    },
+  { key: 'cpu_pct',         label: 'CPU',           scale: 'pct'   },
+  { key: 'cpu_per_req_us',  label: 'CPU/req',       scale: 'us'    },
+  { key: 'memory_bytes',    label: 'Memory',        scale: 'bytes' },
   { key: 'bandwidth_bps', label: 'Bandwidth',     scale: 'bps'   },
   { key: 'input_bw_bps',  label: 'Input BW',      scale: 'bps'   },
   { key: 'reconnects',    label: 'Reconnects',    scale: 'count' },
@@ -24,6 +26,7 @@ export const METRIC_BY_KEY = Object.fromEntries(METRIC_CONFIGS.map(m => [m.key, 
 export const SCALE_LABEL: Record<string, string> = {
   rps:   'req/s',
   ms:    'ms',
+  us:    'µs',
   pct:   '%',
   bytes: 'bytes',
   bps:   'bytes/s',
@@ -36,6 +39,8 @@ export function formatValue(scale: string, v: number): string {
       return v >= 1e6 ? `${(v / 1e6).toFixed(1)}M` : v >= 1e3 ? `${(v / 1e3).toFixed(0)}K` : `${Math.round(v)}`
     case 'ms':
       return v >= 1000 ? `${(v / 1000).toFixed(2)}s` : `${v.toFixed(2)}ms`
+    case 'us':
+      return v >= 1000 ? `${(v / 1000).toFixed(2)}ms` : `${v.toFixed(1)}µs`
     case 'pct':
       return `${v.toFixed(1)}%`
     case 'bytes':
