@@ -248,6 +248,7 @@
     "cardigan": {
       "language": "Java",
       "tests": [
+        "8gbit-512",
         "baseline-4096",
         "baseline-h2-1024",
         "baseline-h2-256",
@@ -533,38 +534,6 @@
       ]
     },
     "fulmine.js": {
-      "language": "JS",
-      "tests": [
-        "8gbit-512",
-        "async-32000",
-        "async-db-1024",
-        "baseline-4096",
-        "echo-ws-16384",
-        "echo-ws-4096",
-        "echo-ws-512",
-        "echo-ws-limited-4096",
-        "echo-ws-limited-512",
-        "echo-ws-pipeline-16384",
-        "echo-ws-pipeline-4096",
-        "echo-ws-pipeline-512",
-        "fortunes-1024",
-        "gateway-64-1024",
-        "gateway-64-512",
-        "gateway-h3-256",
-        "gateway-h3-64",
-        "json-comp-16384",
-        "json-comp-4096",
-        "json-tls-4096",
-        "latency-10k-1024",
-        "latency-1m-1024",
-        "limited-conn-4096",
-        "pipelined-4096",
-        "production-stack-1024",
-        "production-stack-256",
-        "static-tls-1024"
-      ]
-    },
-    "fulmine.js-tuned": {
       "language": "JS",
       "tests": [
         "8gbit-512",
