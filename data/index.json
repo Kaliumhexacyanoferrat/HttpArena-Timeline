@@ -195,16 +195,28 @@
       "language": "TS",
       "tests": [
         "8gbit-512",
+        "async-32000",
         "async-db-1024",
         "baseline-4096",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "baseline-h3-64",
         "fortunes-1024",
         "json-comp-16384",
         "json-comp-4096",
+        "json-h2c-1024",
+        "json-h2c-4096",
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
         "limited-conn-4096",
         "pipelined-4096",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-h3-64",
         "static-tls-1024"
       ]
     },
@@ -358,6 +370,18 @@
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
+      ]
+    },
+    "edixoi": {
+      "language": "C#",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "baseline-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "limited-conn-4096"
       ]
     },
     "elysia": {
@@ -1013,6 +1037,18 @@
         "static-h2-256",
         "static-h3-64",
         "static-tls-1024"
+      ]
+    },
+    "ioxide-pipes": {
+      "language": "C#",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "baseline-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "limited-conn-4096"
       ]
     },
     "jooby": {
