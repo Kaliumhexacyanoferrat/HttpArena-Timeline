@@ -459,6 +459,29 @@
         "status_4xx": 0,
         "status_5xx": 0
       }
+    ],
+    [
+      "2026-09-06T10:33:25.0000000+00:00",
+      {
+        "rps": 109821,
+        "avg_latency_ms": 8.98,
+        "p99_latency_ms": 13.9,
+        "p99_9_latency_ms": null,
+        "cpu_pct": 5073,
+        "cpu_per_req_us": null,
+        "memory_bytes": 8589934592,
+        "connections": 1024,
+        "threads": 64,
+        "duration_ms": 5000,
+        "pipeline": 1,
+        "bandwidth_bps": 421650000,
+        "input_bw_bps": 7330000,
+        "reconnects": 43498,
+        "status_2xx": 1098219,
+        "status_3xx": 0,
+        "status_4xx": 0,
+        "status_5xx": 0
+      }
     ]
   ]
 }
