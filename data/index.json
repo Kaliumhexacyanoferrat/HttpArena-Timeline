@@ -134,6 +134,36 @@
         "production-stack-256"
       ]
     },
+    "aspnet-minimal-11": {
+      "language": "C#",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "baseline-h3-64",
+        "fortunes-1024",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-h2c-1024",
+        "json-h2c-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "pipelined-4096",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-h3-64",
+        "static-tls-1024"
+      ]
+    },
     "axum": {
       "language": "Rust",
       "tests": [
@@ -568,6 +598,14 @@
         "async-32000",
         "async-db-1024",
         "baseline-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-limited-4096",
+        "echo-ws-limited-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
         "json-comp-16384",
         "json-comp-4096",
         "json-tls-4096",
