@@ -357,6 +357,20 @@
         "static-tls-1024"
       ]
     },
+    "cutelyst": {
+      "language": "C++",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "baseline-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "pipelined-4096"
+      ]
+    },
     "deno": {
       "language": "TS",
       "tests": [
