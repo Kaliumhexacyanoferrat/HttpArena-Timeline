@@ -8,7 +8,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  id-token: write
 
 jobs:
   deploy:
@@ -37,5 +38,5 @@ jobs:
       - name: Deploy
         uses: Kaliumhexacyanoferrat/genhttp-pages@v1
         with:
-          publish_dir: src/spa/dist
+          path: src/spa/dist
           activation: gp-zx4jn-vrf9k-grp6p-rmh87
