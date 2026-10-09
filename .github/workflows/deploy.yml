@@ -35,8 +35,7 @@ jobs:
         run: cp -r data src/spa/dist/data
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+        uses: Kaliumhexacyanoferrat/genhttp-pages@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: src/spa/dist
-          cname: timeline.http-arena.com
+          activation: gp-zx4jn-vrf9k-grp6p-rmh87
