@@ -776,7 +776,11 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
-        "static-tls-1024"
+        "static-tls-1024",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256"
       ]
     },
     "fib-tuned": {
@@ -805,7 +809,11 @@
         "static-h2-1024",
         "static-h2-256",
         "static-h3-64",
-        "static-tls-1024"
+        "static-tls-1024",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256"
       ]
     },
     "fiber": {
@@ -1175,6 +1183,7 @@
       "language": "Java",
       "tests": [
         "8gbit-512",
+        "async-32000",
         "async-db-1024",
         "baseline-4096",
         "baseline-h2-1024",
@@ -1851,7 +1860,8 @@
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
-        "static-h2-256"
+        "static-h2-256",
+        "static-tls-1024"
       ]
     },
     "neton": {
@@ -3088,10 +3098,15 @@
         "baseline-4096",
         "baseline-h2-1024",
         "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "latency-10k-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
-        "static-h2-256"
+        "static-h2-256",
+        "static-tls-1024"
       ]
     },
     "vertx": {
