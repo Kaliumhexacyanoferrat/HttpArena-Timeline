@@ -2060,6 +2060,32 @@
         "limited-conn-4096"
       ]
     },
+    "orisha": {
+      "language": "Koru",
+      "tests": [
+        "baseline-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "limited-conn-4096",
+        "pipelined-4096"
+      ]
+    },
+    "orisha-uring": {
+      "language": "Koru",
+      "tests": [
+        "baseline-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "limited-conn-4096",
+        "pipelined-4096"
+      ]
+    },
     "oxpecker": {
       "language": "F#",
       "tests": [
