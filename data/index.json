@@ -142,6 +142,52 @@
         "static-tls-1024"
       ]
     },
+    "anole": {
+      "language": "Zig",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "baseline-4096",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "baseline-h3-64",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-limited-4096",
+        "echo-ws-limited-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
+        "gateway-64-1024",
+        "gateway-64-512",
+        "gateway-h3-256",
+        "gateway-h3-64",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-h2c-1024",
+        "json-h2c-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "pipelined-4096",
+        "production-stack-1024",
+        "production-stack-256",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-h3-64",
+        "static-tls-1024",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256"
+      ]
+    },
     "araara": {
       "language": "OCaml",
       "tests": [
@@ -538,6 +584,53 @@
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
+      ]
+    },
+    "cnetmod": {
+      "language": "C++",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "baseline-h3-64",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-limited-4096",
+        "echo-ws-limited-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
+        "gateway-64-1024",
+        "gateway-64-512",
+        "gateway-h3-256",
+        "gateway-h3-64",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-h2c-1024",
+        "json-h2c-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "pipelined-4096",
+        "production-stack-1024",
+        "production-stack-256",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-h3-64",
+        "static-tls-1024",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256"
       ]
     },
     "codebehind": {
@@ -1222,6 +1315,32 @@
         "static-h3-64"
       ]
     },
+    "genhttp-kt": {
+      "language": "Kotlin",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "async-db-1024",
+        "baseline-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-limited-4096",
+        "echo-ws-limited-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "pipelined-4096",
+        "static-tls-1024"
+      ]
+    },
     "gin": {
       "language": "Go",
       "tests": [
@@ -1585,6 +1704,22 @@
         "pipelined-4096"
       ]
     },
+    "httparena-io_uring": {
+      "language": "C",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "baseline-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "static-tls-1024"
+      ]
+    },
     "humming-bird": {
       "language": "Swift",
       "tests": [
@@ -1834,16 +1969,6 @@
         "pipelined-4096"
       ]
     },
-    "libioma": {
-      "language": "C",
-      "tests": [
-        "baseline-4096",
-        "latency-10k-1024",
-        "latency-1m-1024",
-        "latency-500k-8cpu-1024",
-        "limited-conn-4096"
-      ]
-    },
     "libreactorng": {
       "language": "C",
       "tests": [
@@ -1967,12 +2092,14 @@
       "tests": [
         "8gbit-512",
         "async-32000",
+        "async-db-1024",
         "baseline-4096",
         "baseline-h2-1024",
         "baseline-h2-256",
         "baseline-h2c-1024",
         "baseline-h2c-256",
         "baseline-h2c-4096",
+        "baseline-h3-64",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -1981,6 +2108,7 @@
         "echo-ws-pipeline-16384",
         "echo-ws-pipeline-4096",
         "echo-ws-pipeline-512",
+        "fortunes-1024",
         "json-comp-16384",
         "json-comp-4096",
         "json-h2c-1024",
@@ -1993,6 +2121,7 @@
         "pipelined-4096",
         "static-h2-1024",
         "static-h2-256",
+        "static-h3-64",
         "static-tls-1024"
       ]
     },
@@ -2001,12 +2130,14 @@
       "tests": [
         "8gbit-512",
         "async-32000",
+        "async-db-1024",
         "baseline-4096",
         "baseline-h2-1024",
         "baseline-h2-256",
         "baseline-h2c-1024",
         "baseline-h2c-256",
         "baseline-h2c-4096",
+        "baseline-h3-64",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -2015,6 +2146,7 @@
         "echo-ws-pipeline-16384",
         "echo-ws-pipeline-4096",
         "echo-ws-pipeline-512",
+        "fortunes-1024",
         "json-comp-16384",
         "json-comp-4096",
         "json-h2c-1024",
@@ -2027,6 +2159,7 @@
         "pipelined-4096",
         "static-h2-1024",
         "static-h2-256",
+        "static-h3-64",
         "static-tls-1024"
       ]
     },
@@ -3611,10 +3744,20 @@
     "viltrum": {
       "language": "V",
       "tests": [
+        "8gbit-512",
         "async-32000",
         "baseline-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-limited-4096",
+        "echo-ws-limited-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
         "json-comp-16384",
         "json-comp-4096",
+        "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
         "latency-500k-8cpu-1024",
