@@ -2088,6 +2088,25 @@
         "pipelined-4096"
       ]
     },
+    "ktor-kronos-native": {
+      "language": "Kotlin",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "baseline-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "limited-conn-4096",
+        "pipelined-4096"
+      ]
+    },
     "ktor-tuned": {
       "language": "Kotlin",
       "tests": [
