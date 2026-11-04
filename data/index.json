@@ -687,6 +687,28 @@
         "pipelined-4096"
       ]
     },
+    "cweb": {
+      "language": "C",
+      "tests": [
+        "async-db-1024",
+        "baseline-4096",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-limited-4096",
+        "echo-ws-limited-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
+        "json-comp-16384",
+        "json-comp-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "pipelined-4096"
+      ]
+    },
     "deno": {
       "language": "TS",
       "tests": [
@@ -2981,6 +3003,7 @@
       "tests": [
         "async-32000",
         "baseline-4096",
+        "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
         "limited-conn-4096",
@@ -3200,8 +3223,6 @@
         "async-32000",
         "async-db-1024",
         "baseline-4096",
-        "json-comp-16384",
-        "json-comp-4096",
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
