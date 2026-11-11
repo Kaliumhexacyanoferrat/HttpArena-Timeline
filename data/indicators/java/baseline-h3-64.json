@@ -1,0 +1,9 @@
+{
+  "metrics": ["rps","avg_latency_ms","p99_latency_ms","p99_9_latency_ms","cpu_pct","cpu_per_req_us","memory_bytes","bandwidth_bps","input_bw_bps","reconnects","status_2xx","status_3xx","status_4xx","status_5xx"],
+  "frameworks": ["micronaut-tuned","micronaut-production","aegon-java"],
+  "data": [
+    ["2026-10-23T21:49:45.0000000+00:00",{"n":2,"median":[38187,82.61,230.91,null,104.4,null,757596160,1315000,null,0,191320,0,0,0],"avg":[38187,82.61,230.91,null,104.4,null,757596160,1315000,null,0,191320,0,0,0],"min":[29319,60.6,136.09,null,104.1,null,587202560,1010000,null,0,146893,0,0,0],"max":[47055,104.62,325.73,null,104.7,null,927989760,1620000,null,0,235747,0,0,0],"min_fw":[0,1,0,null,0,null,0,0,null,null,0,null,null,null],"max_fw":[1,0,1,null,1,null,1,1,null,null,1,null,null,null]}],
+    ["2026-10-31T20:03:34.0000000+00:00",{"n":2,"median":[36218,87.85,289.705,null,103.1,null,758120448,1245000,null,0,181456,0,0,0],"avg":[36218,87.85,289.705,null,103.1,null,758120448,1245000,null,0,181456,0,0,0],"min":[29184,72,127.81,null,103,null,606076928,1000000,null,0,146215,0,0,0],"max":[43252,103.7,451.6,null,103.2,null,910163968,1490000,null,0,216697,0,0,0],"min_fw":[0,1,0,null,1,null,0,0,null,null,0,null,null,null],"max_fw":[1,0,1,null,0,null,1,1,null,null,1,null,null,null]}],
+    ["2026-11-09T16:23:23.0000000+00:00",{"n":3,"median":[43252,72,127.81,null,103.2,null,910163968,1490000,null,0,216697,0,0,0],"avg":[1683989.333,58.861,193.757,null,1081.067,null,863327573.333,27780000,null,0,8436789.333,0,0,0],"min":[29184,0.883,1.86,null,103,null,606076928,1000000,null,0,146215,0,0,0],"max":[4979532,103.7,451.6,null,3037,null,1073741824,80850000,null,0,24947456,0,0,0],"min_fw":[0,2,2,null,1,null,0,0,null,null,0,null,null,null],"max_fw":[2,0,1,null,2,null,2,2,null,null,2,null,null,null]}]
+  ]
+}

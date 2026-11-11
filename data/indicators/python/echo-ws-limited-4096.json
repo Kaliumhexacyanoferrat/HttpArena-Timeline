@@ -1,0 +1,7 @@
+{
+  "metrics": ["rps","avg_latency_ms","p99_latency_ms","p99_9_latency_ms","cpu_pct","cpu_per_req_us","memory_bytes","bandwidth_bps","input_bw_bps","reconnects","status_2xx","status_3xx","status_4xx","status_5xx"],
+  "frameworks": [],
+  "data": [
+    ["2026-11-09T16:23:23.0000000+00:00",{"n":1,"median":[56534,62.58,117.3,null,991.7,null,415236096,1080000,null,25255,282670,0,0,0],"avg":[56534,62.58,117.3,null,991.7,null,415236096,1080000,null,25255,282670,0,0,0],"min":[56534,62.58,117.3,null,991.7,null,415236096,1080000,null,25255,282670,0,0,0],"max":[56534,62.58,117.3,null,991.7,null,415236096,1080000,null,25255,282670,0,0,0],"min_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null],"max_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null]}]
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "metrics": ["rps","avg_latency_ms","p99_latency_ms","p99_9_latency_ms","cpu_pct","cpu_per_req_us","memory_bytes","bandwidth_bps","input_bw_bps","reconnects","status_2xx","status_3xx","status_4xx","status_5xx"],
+  "frameworks": [],
+  "data": [
+    ["2026-10-26T18:44:33.0000000+00:00",{"n":1,"median":[428503,20.31,134.32,null,6432.9,null,232783872,6570000000,null,0,2155374,0,0,0],"avg":[428503,20.31,134.32,null,6432.9,null,232783872,6570000000,null,0,2155374,0,0,0],"min":[428503,20.31,134.32,null,6432.9,null,232783872,6570000000,null,0,2155374,0,0,0],"max":[428503,20.31,134.32,null,6432.9,null,232783872,6570000000,null,0,2155374,0,0,0],"min_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null],"max_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null]}],
+    ["2026-11-03T20:12:17.0000000+00:00",{"n":1,"median":[579880,14.52,147.6,null,2938.8,null,180355072,8890000000,null,0,2916800,0,0,0],"avg":[579880,14.52,147.6,null,2938.8,null,180355072,8890000000,null,0,2916800,0,0,0],"min":[579880,14.52,147.6,null,2938.8,null,180355072,8890000000,null,0,2916800,0,0,0],"max":[579880,14.52,147.6,null,2938.8,null,180355072,8890000000,null,0,2916800,0,0,0],"min_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null],"max_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null]}],
+    ["2026-11-07T11:53:01.0000000+00:00",{"n":1,"median":[1489295,5.45,60.64,null,6439.5,null,150994944,22830000000,null,0,7491155,0,0,0],"avg":[1489295,5.45,60.64,null,6439.5,null,150994944,22830000000,null,0,7491155,0,0,0],"min":[1489295,5.45,60.64,null,6439.5,null,150994944,22830000000,null,0,7491155,0,0,0],"max":[1489295,5.45,60.64,null,6439.5,null,150994944,22830000000,null,0,7491155,0,0,0],"min_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null],"max_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null]}]
+  ]
+}

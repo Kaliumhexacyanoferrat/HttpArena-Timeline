@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { selectedFrameworks } from '../stores/selection'
-  import { FRAMEWORK_COLORS } from '../data/metrics'
+  import { selectedFrameworks, seriesColors } from '../stores/selection'
   import type { FrameworkInfo } from '../data/types'
 
   export let frameworks: Record<string, FrameworkInfo>
@@ -8,10 +7,6 @@
   let query = ''
   let open = false
   let inputEl: HTMLInputElement
-
-  $: colorMap = Object.fromEntries(
-    $selectedFrameworks.map((fw, i) => [fw, FRAMEWORK_COLORS[i % FRAMEWORK_COLORS.length]])
-  )
 
   $: suggestions = Object.keys(frameworks)
     .filter(fw => !$selectedFrameworks.includes(fw) && fw.toLowerCase().includes(query.toLowerCase()))
@@ -38,7 +33,7 @@
 
 <div class="picker">
   {#each $selectedFrameworks as fw (fw)}
-    <span class="chip" style="--color: {colorMap[fw]}">
+    <span class="chip" style="--color: {$seriesColors[`fw:${fw}`]}">
       {fw}
       <button class="remove" on:click={() => remove(fw)} title="Remove">×</button>
     </span>
@@ -69,15 +64,8 @@
 </div>
 
 <style>
-  .picker {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--border);
-    min-height: 48px;
-  }
+  /* Lays its chips and input out inline in the shared toolbar. */
+  .picker { display: contents; }
 
   .chip {
     display: inline-flex;

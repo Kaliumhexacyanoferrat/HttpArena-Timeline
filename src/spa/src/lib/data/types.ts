@@ -28,7 +28,33 @@ export interface FrameworkInfo {
   tests: string[]
 }
 
+/** An aggregation scope: every framework ("all") or the frameworks of one language. */
+export interface IndicatorScope {
+  key: string
+  label: string
+  language?: string
+}
+
 export interface DataIndex {
   frameworks: Record<string, FrameworkInfo>
   tests: string[]
+  indicators?: IndicatorScope[]
+}
+
+/** One daily snapshot of a scope; each array holds one value per entry of `metrics`. */
+export interface IndicatorPoint {
+  n: number
+  median: (number | null)[]
+  avg: (number | null)[]
+  min: (number | null)[]
+  max: (number | null)[]
+  /** Indices into `frameworks`: who set the min/max (null when everyone tied). */
+  min_fw: (number | null)[]
+  max_fw: (number | null)[]
+}
+
+export interface IndicatorFile {
+  metrics: string[]
+  frameworks: string[]
+  data: [string, IndicatorPoint][]
 }

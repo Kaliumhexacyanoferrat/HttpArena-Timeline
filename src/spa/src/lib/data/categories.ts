@@ -18,7 +18,7 @@ export const CATEGORIES: Category[] = [
       'async-32000',
       'async-db-1024',
       '8gbit-512',
-      'latency-10k-1024', 'latency-1m-1024',
+      'latency-10k-1024', 'latency-1m-1024', 'latency-500k-8cpu-1024',
       'static-tls-1024',
       'pipelined-4096',
       'fortunes-1024',

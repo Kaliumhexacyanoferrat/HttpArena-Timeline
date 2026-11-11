@@ -4544,5 +4544,166 @@
     "unary-grpc-256",
     "unary-grpc-tls-1024",
     "unary-grpc-tls-256"
+  ],
+  "indicators": [
+    {
+      "key": "all",
+      "label": "All frameworks"
+    },
+    {
+      "key": "c",
+      "label": "C",
+      "language": "C"
+    },
+    {
+      "key": "csharp",
+      "label": "C#",
+      "language": "C#"
+    },
+    {
+      "key": "cpp",
+      "label": "C++",
+      "language": "C++"
+    },
+    {
+      "key": "clojure",
+      "label": "Clojure",
+      "language": "Clojure"
+    },
+    {
+      "key": "d",
+      "label": "D",
+      "language": "D"
+    },
+    {
+      "key": "dart",
+      "label": "Dart",
+      "language": "Dart"
+    },
+    {
+      "key": "elixir",
+      "label": "Elixir",
+      "language": "Elixir"
+    },
+    {
+      "key": "erlang",
+      "label": "Erlang",
+      "language": "Erlang"
+    },
+    {
+      "key": "fsharp",
+      "label": "F#",
+      "language": "F#"
+    },
+    {
+      "key": "go",
+      "label": "Go",
+      "language": "Go"
+    },
+    {
+      "key": "goose",
+      "label": "Goose",
+      "language": "Goose"
+    },
+    {
+      "key": "java",
+      "label": "Java",
+      "language": "Java"
+    },
+    {
+      "key": "js",
+      "label": "JS",
+      "language": "JS"
+    },
+    {
+      "key": "julia",
+      "label": "Julia",
+      "language": "Julia"
+    },
+    {
+      "key": "koru",
+      "label": "Koru",
+      "language": "Koru"
+    },
+    {
+      "key": "kotlin",
+      "label": "Kotlin",
+      "language": "Kotlin"
+    },
+    {
+      "key": "lua",
+      "label": "Lua",
+      "language": "Lua"
+    },
+    {
+      "key": "luau",
+      "label": "Luau",
+      "language": "Luau"
+    },
+    {
+      "key": "mojo",
+      "label": "Mojo",
+      "language": "Mojo"
+    },
+    {
+      "key": "ocaml",
+      "label": "OCaml",
+      "language": "OCaml"
+    },
+    {
+      "key": "perl",
+      "label": "Perl",
+      "language": "Perl"
+    },
+    {
+      "key": "php",
+      "label": "PHP",
+      "language": "PHP"
+    },
+    {
+      "key": "python",
+      "label": "Python",
+      "language": "Python"
+    },
+    {
+      "key": "ruby",
+      "label": "Ruby",
+      "language": "Ruby"
+    },
+    {
+      "key": "rust",
+      "label": "Rust",
+      "language": "Rust"
+    },
+    {
+      "key": "scala",
+      "label": "Scala",
+      "language": "Scala"
+    },
+    {
+      "key": "sober",
+      "label": "Sober",
+      "language": "Sober"
+    },
+    {
+      "key": "swift",
+      "label": "Swift",
+      "language": "Swift"
+    },
+    {
+      "key": "ts",
+      "label": "TS",
+      "language": "TS"
+    },
+    {
+      "key": "v",
+      "label": "V",
+      "language": "V"
+    },
+    {
+      "key": "zig",
+      "label": "Zig",
+      "language": "Zig"
+    }
   ]
 }

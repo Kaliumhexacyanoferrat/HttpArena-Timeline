@@ -1,4 +1,4 @@
-import type { DataIndex, TimelineFile } from './types'
+import type { DataIndex, IndicatorFile, TimelineFile } from './types'
 
 const base = import.meta.env.BASE_URL
 const v = `?v=${__BUILD_TIME__}`
@@ -22,4 +22,20 @@ export async function loadTimeline(framework: string, test: string): Promise<Tim
   const data = res.ok ? (await res.json() as TimelineFile) : null
   timelineCache.set(key, data)
   return data
+}
+
+const indicatorCache = new Map<string, Promise<IndicatorFile | null>>()
+
+export function loadIndicator(scope: string, test: string): Promise<IndicatorFile | null> {
+  const key = `${scope}/${test}`
+  let pending = indicatorCache.get(key)
+  if (!pending) {
+    // Several selected stats of one scope share a single file; cache the request itself
+    // so they don't each fetch it.
+    pending = fetch(`${base}data/indicators/${encodeURIComponent(scope)}/${encodeURIComponent(test)}.json${v}`)
+      .then(res => (res.ok ? (res.json() as Promise<IndicatorFile>) : null))
+      .catch(() => null)
+    indicatorCache.set(key, pending)
+  }
+  return pending
 }

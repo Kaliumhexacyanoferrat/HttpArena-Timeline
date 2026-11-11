@@ -93,6 +93,18 @@ Their cross-product is the set of active `(framework, <test>-<conns>)` combos. W
 * A framework enabled on main but with no historical data yet simply produces no directory until data exists.
 * There is no hand-pruning of `data/`; the active set fully determines the output.
 
+### Indicators (field aggregates)
+
+Besides per-framework timelines, the importer historizes **indicators**: median, average, min and max of every SPA metric per test, across all frameworks (scope `all`) and per language (scope = language slug, e.g. `rust`, `csharp`, `cpp`; see `IndicatorBuilder.LanguageSlug`). Implementation: `src/Importer/Services/IndicatorBuilder.cs`. Output: `data/indicators/<scope>/<test>-<conns>.json`, listed in `index.json` under `indicators`. `indicators` is a reserved folder name; the importer fails if a framework would map to it.
+
+How the values are derived — keep these semantics when changing it:
+* The importer keeps a live "field": the latest row per (test, framework) as HttpArena showed it at that point in history. A newer version of a result file replaces that file's rows; a deleted file drops them. Rows remember their source file, so the per-test → per-framework layout switch (old files deleted in the same commit) never drops a row a newer file set.
+* Only active combos count (same `ActiveConfig` filter as everything else), and rows with `rps <= 0` (failed runs) are excluded.
+* Results are merged one framework PR at a time, so the field is snapshotted **once per UTC day** (timestamp = last data commit that day) for the tests touched that day, not per commit. Unchanged snapshots are skipped unless 7+ days passed, like the framework files.
+* Min/max record which framework set the value (`min_fw`/`max_fw`, indices into the file's `frameworks` list, in first-seen order so appending history doesn't renumber). Ties where every framework has the same value get `null`.
+
+In the SPA, indicators are selected via the "+ indicator" picker (`IndicatorPicker.svelte`), stored in the URL as `indicators=median.all,max.rust`, and drawn as step lines sharing the framework color palette.
+
 ### Adding a new test to the timeline
 
 The importer picks up new tests automatically once they are active on HttpArena main (a base test in `profiles.sh` referenced by an enabled framework's `meta.json` `tests`), so **no importer code change is needed**. The only manual step is the UI grouping:
@@ -107,6 +119,7 @@ in the future, but for now, the user can:
 
 1. Select a framework (e.g. `genhttp`)
 2. Select a test (e.g. `json-tls-4096`)
+3. Optionally add indicators (e.g. median of all frameworks, max of Rust) to compare against
 
 and see the changes of the metrics over time. All of the supported metrics can be selected, but by default only RPS is enabled.
 

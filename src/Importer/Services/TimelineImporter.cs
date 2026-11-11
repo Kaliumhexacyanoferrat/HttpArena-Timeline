@@ -19,6 +19,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
     private readonly Dictionary<string, Dictionary<string, List<(DateTimeOffset Timestamp, MetricsEntry Entry)>>> _data = new();
     private readonly Dictionary<string, string> _frameworkLanguages = new();
     private ActiveConfig _active = null!;
+    private IndicatorBuilder _indicators = null!;
 
     private static readonly char[] InvalidChars = Path.GetInvalidFileNameChars();
     private static readonly JsonWriterOptions WriterOptions = new()
@@ -40,6 +41,8 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         Console.WriteLine("Reading active framework/test set from main...");
         _active = ActiveConfig.Load(mainTip);
         Console.WriteLine($"  {_active.FrameworkCount} active frameworks, {_active.TestKeys.Count} active test keys.");
+
+        _indicators = new IndicatorBuilder(fw => _frameworkLanguages.GetValueOrDefault(fw, "Unknown"));
 
         Console.WriteLine("Walking git history...");
         WalkHistory(repo, mainTip);
@@ -70,6 +73,8 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
                 Console.WriteLine($"  {processed}/{commits.Count}...");
         }
         Console.WriteLine($"  Processed {processed} commits.");
+
+        _indicators.Complete();
     }
 
     private static List<Commit> WalkFirstParent(Commit tip, string? stopAt)
@@ -90,6 +95,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
     {
         var timestamp = commit.Author.When;
         if (commit.Tree["site/data"]?.Target is not Tree dataTree) return;
+        _indicators.BeginCommit(timestamp);
 
         foreach (var entry in dataTree)
         {
@@ -117,15 +123,23 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         var parent = commit.Parents.FirstOrDefault();
         var changes = repo.Diff.Compare<TreeChanges>(parent?.Tree, commit.Tree);
 
-        var changedFiles = changes.Where(c => IsRelevantDataFile(c.Path)).Select(c => c.Path).ToList();
+        var changedFiles = changes.Where(c => IsRelevantDataFile(c.Path)).ToList();
         if (changedFiles.Count == 0) return;
 
         var timestamp = commit.Author.When;
-        foreach (var filePath in changedFiles)
+        _indicators.BeginCommit(timestamp);
+
+        foreach (var change in changedFiles)
         {
-            var blob = commit.Tree[filePath]?.Target as Blob;
-            if (blob is null) continue;
-            ProcessDataFile(filePath, blob.GetContentText(), timestamp);
+            if (change.Status == ChangeKind.Deleted)
+            {
+                // Framework timelines keep their history; only the live field forgets the rows.
+                _indicators.RemoveFile(change.Path);
+                continue;
+            }
+
+            if (commit.Tree[change.Path]?.Target is not Blob blob) continue;
+            ProcessDataFile(change.Path, blob.GetContentText(), timestamp);
         }
     }
 
@@ -154,6 +168,8 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
             return;
         }
 
+        var rows = new List<(string Test, string Framework, MetricsEntry Entry)>();
+
         using (doc)
         {
             var root = doc.RootElement;
@@ -166,19 +182,25 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
                 {
                     if (!_active.TestKeys.Contains(prop.Name)) continue;
                     if (prop.Value.ValueKind != JsonValueKind.Object) continue;
-                    AddEntry(prop.Value, prop.Name, timestamp);
+                    AddEntry(prop.Value, prop.Name, timestamp, rows);
                 }
             }
             else
             {
                 if (root.ValueKind != JsonValueKind.Array) return;
                 foreach (var entry in root.EnumerateArray())
-                    AddEntry(entry, testFile, timestamp);
+                    AddEntry(entry, testFile, timestamp, rows);
             }
         }
+
+        _indicators.SetFile(filePath, rows);
     }
 
-    private void AddEntry(JsonElement entry, string testFile, DateTimeOffset timestamp)
+    private void AddEntry(
+        JsonElement entry,
+        string testFile,
+        DateTimeOffset timestamp,
+        List<(string Test, string Framework, MetricsEntry Entry)> rows)
     {
         if (!entry.TryGetProperty("framework", out var fwProp)) return;
         var framework = fwProp.GetString()?.ToLowerInvariant();
@@ -199,6 +221,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         var frameworkData = _data.TryGetValue(framework, out var fd) ? fd : (_data[framework] = new());
         var testData = frameworkData.TryGetValue(testFile, out var td) ? td : (frameworkData[testFile] = []);
         testData.Add((timestamp, metrics));
+        rows.Add((testFile, framework, metrics));
     }
 
     private static MetricsEntry ParseMetrics(JsonElement e)
@@ -246,7 +269,12 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
 
         foreach (var (framework, testFiles) in _data)
         {
-            var frameworkDir = Path.Combine(outputPath, SanitizeName(framework));
+            var dirName = SanitizeName(framework);
+            if (dirName == IndicatorBuilder.DirectoryName)
+                throw new InvalidOperationException(
+                    $"Framework '{framework}' clashes with the reserved '{IndicatorBuilder.DirectoryName}' data folder.");
+
+            var frameworkDir = Path.Combine(outputPath, dirName);
             Directory.CreateDirectory(frameworkDir);
 
             foreach (var (testFile, points) in testFiles)
@@ -258,6 +286,9 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
 
         var totalFiles = _data.Values.Sum(d => d.Count);
         Console.WriteLine($"  Wrote {totalFiles} files for {_data.Count} frameworks.");
+
+        await _indicators.WriteAsync(outputPath);
+        Console.WriteLine($"  Wrote {_indicators.SeriesCount} indicator files for {_indicators.Scopes().Count()} scopes.");
 
         await WriteIndexAsync();
     }
@@ -291,6 +322,19 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         writer.WriteEndObject();
         writer.WriteStartArray("tests");
         foreach (var t in allTests) writer.WriteStringValue(t);
+        writer.WriteEndArray();
+
+        // Aggregate scopes stored under data/indicators/<key>/. The SPA derives per-test
+        // availability and framework counts from the frameworks map above.
+        writer.WriteStartArray("indicators");
+        foreach (var (key, label, language) in _indicators.Scopes())
+        {
+            writer.WriteStartObject();
+            writer.WriteString("key", key);
+            writer.WriteString("label", label);
+            if (language is not null) writer.WriteString("language", language);
+            writer.WriteEndObject();
+        }
         writer.WriteEndArray();
         writer.WriteEndObject();
 

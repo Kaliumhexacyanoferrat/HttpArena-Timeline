@@ -2,10 +2,11 @@
   import { onMount } from 'svelte'
   import TestList from './lib/components/TestList.svelte'
   import FrameworkPicker from './lib/components/FrameworkPicker.svelte'
+  import IndicatorPicker from './lib/components/IndicatorPicker.svelte'
   import MetricPicker from './lib/components/MetricPicker.svelte'
   import TimelineChart from './lib/components/TimelineChart.svelte'
   import { loadIndex } from './lib/data/loader'
-  import { selectedTest, selectedFrameworks, selectedMetrics, metricsTouched, defaultMetricsForTest, syncUrl } from './lib/stores/selection'
+  import { selectedTest, selectedFrameworks, selectedIndicators, selectedMetrics, metricsTouched, defaultMetricsForTest, syncUrl } from './lib/stores/selection'
   import type { DataIndex } from './lib/data/types'
 
   let index: DataIndex | null = null
@@ -33,7 +34,7 @@
 
   // Sync URL whenever any selection changes (after initial mount).
   $: if (mounted) {
-    $selectedTest; $selectedFrameworks; $selectedMetrics
+    $selectedTest; $selectedFrameworks; $selectedIndicators; $selectedMetrics
     syncUrl()
   }
 </script>
@@ -67,11 +68,19 @@
     </aside>
 
     <main>
-      <FrameworkPicker frameworks={index.frameworks} />
+      <div class="toolbar">
+        <FrameworkPicker frameworks={index.frameworks} />
+        {#if $selectedFrameworks.length > 0 || $selectedIndicators.length > 0}
+          <span class="divider" aria-hidden="true"></span>
+        {/if}
+        <IndicatorPicker scopes={index.indicators ?? []} frameworks={index.frameworks} />
+      </div>
 
       <TimelineChart
         test={$selectedTest}
         frameworks={$selectedFrameworks}
+        indicators={$selectedIndicators}
+        scopes={index.indicators ?? []}
         metrics={$selectedMetrics}
       />
 
@@ -178,6 +187,23 @@
     color: var(--muted);
   }
 
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    min-height: 48px;
+  }
+
+  .divider {
+    width: 1px;
+    height: 20px;
+    margin: 0 4px;
+    background: var(--border);
+  }
+
   main {
     display: flex;
     flex-direction: column;
@@ -187,7 +213,8 @@
 
   @media (max-width: 639px) {
     .layout {
-      grid-template-columns: 1fr;
+      /* minmax(0, …) so the horizontal test strip scrolls instead of widening the page */
+      grid-template-columns: minmax(0, 1fr);
       flex: none;
       overflow: visible;
     }

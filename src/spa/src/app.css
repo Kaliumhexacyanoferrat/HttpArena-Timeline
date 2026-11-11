@@ -10,6 +10,12 @@
   --accent:       #3b82f6;
   --accent-weak:  #1e2a45;
   --shadow:       0 1px 2px rgba(0,0,0,.3), 0 8px 30px rgba(0,0,0,.28);
+
+  /* Names the pickers use. */
+  --surface:       var(--panel);
+  --surface-hover: var(--panel-2);
+  --text-muted:    var(--text-2);
+  --accent-subtle: var(--accent-weak);
 }
 
 *, *::before, *::after {
