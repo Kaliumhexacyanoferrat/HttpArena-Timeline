@@ -2678,7 +2678,6 @@
     "mipyre": {
       "language": "Python",
       "type": "experimental",
-      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3005,14 +3004,22 @@
       "tests": [
         "8gbit-512",
         "async-32000",
+        "async-db-1024",
         "baseline-4096",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "fortunes-1024",
         "json-comp-16384",
         "json-comp-4096",
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
         "latency-500k-8cpu-1024",
-        "limited-conn-4096"
+        "limited-conn-4096",
+        "pipelined-4096",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-tls-1024"
       ]
     },
     "orisha": {
@@ -3072,6 +3079,28 @@
         "static-h2-256",
         "static-h3-64",
         "static-tls-1024"
+      ]
+    },
+    "paozhu": {
+      "language": "C++",
+      "type": "experimental",
+      "tests": [
+        "async-32000",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "fortunes-1024",
+        "json-h2c-1024",
+        "json-h2c-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "pipelined-4096",
+        "static-h2-1024",
+        "static-h2-256"
       ]
     },
     "pedestal": {
@@ -4436,6 +4465,47 @@
         "static-h2-256",
         "static-h3-64",
         "static-tls-1024"
+      ]
+    },
+    "veil-api": {
+      "language": "Rust",
+      "type": "experimental",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "baseline-4096",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "baseline-h3-64",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-limited-4096",
+        "echo-ws-limited-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-h2c-1024",
+        "json-h2c-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "pipelined-4096",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-h3-64",
+        "static-tls-1024",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256"
       ]
     },
     "veil-python": {
