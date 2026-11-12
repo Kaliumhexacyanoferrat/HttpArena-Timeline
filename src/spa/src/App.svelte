@@ -5,8 +5,12 @@
   import IndicatorPicker from './lib/components/IndicatorPicker.svelte'
   import MetricPicker from './lib/components/MetricPicker.svelte'
   import TimelineChart from './lib/components/TimelineChart.svelte'
+  import TimeRangeFilter from './lib/components/TimeRangeFilter.svelte'
+  import ResolutionPicker from './lib/components/ResolutionPicker.svelte'
+  import TypeFilterBar from './lib/components/TypeFilterBar.svelte'
   import { loadIndex } from './lib/data/loader'
-  import { selectedTest, selectedFrameworks, selectedIndicators, selectedMetrics, metricsTouched, defaultMetricsForTest, syncUrl } from './lib/stores/selection'
+  import { CATEGORIES } from './lib/data/categories'
+  import { selectedTest, selectedFrameworks, selectedIndicators, selectedRange, selectedResolution, typeFilter, selectedMetrics, metricsTouched, defaultMetricsForTest, syncUrl } from './lib/stores/selection'
   import type { DataIndex } from './lib/data/types'
 
   let index: DataIndex | null = null
@@ -32,9 +36,21 @@
     selectedMetrics.set(defaultMetricsForTest($selectedTest))
   }
 
+  // Tests by category, for the phone layout's test picker (the sidebar is hidden there).
+  $: testGroups = index
+    ? CATEGORIES.map(c => ({ name: c.name, tests: c.tests.filter(t => index!.tests.includes(t)).sort() })).filter(g => g.tests.length)
+    : []
+
+  // "H/1.1 Isolated · 4,096 connections": what the test name alone doesn't say.
+  $: subtitle = (() => {
+    const category = CATEGORIES.find(c => c.tests.includes($selectedTest))?.name
+    const conns = /-(\d+)$/.exec($selectedTest)?.[1]
+    return [category, conns && `${Number(conns).toLocaleString('en-US')} connections`].filter(Boolean).join(' · ')
+  })()
+
   // Sync URL whenever any selection changes (after initial mount).
   $: if (mounted) {
-    $selectedTest; $selectedFrameworks; $selectedIndicators; $selectedMetrics
+    $selectedTest; $selectedFrameworks; $selectedIndicators; $selectedRange; $selectedResolution; $typeFilter; $selectedMetrics
     syncUrl()
   }
 </script>
@@ -43,6 +59,7 @@
   <a class="brand" href="https://www.http-arena.com" target="_blank" rel="noopener">
     <span class="brand-name"><b>Http</b>Arena</span><span class="brand-sub">Timeline</span>
   </a>
+  <TypeFilterBar />
   <div class="top-links">
     <a class="icon-btn" href="https://www.http-arena.com/leaderboard" target="_blank" rel="noopener" title="Leaderboard" aria-label="Leaderboard">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="20" x2="6" y2="14"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="10"/></svg>
@@ -63,17 +80,39 @@
 {:else}
   <div class="layout">
     <aside>
-      <div class="aside-label">Tests</div>
       <TestList tests={index.tests} />
     </aside>
 
     <main>
-      <div class="toolbar">
+      <div class="head">
+        <div class="title">
+          <h1>{$selectedTest || 'Choose a test'}<span class="title-caret" aria-hidden="true"></span></h1>
+          {#if subtitle}<p>{subtitle}</p>{/if}
+          <!-- Phones: the title is the test picker, using the platform's own list. -->
+          <select
+            class="test-select"
+            aria-label="Test"
+            value={$selectedTest}
+            on:change={e => selectedTest.set(e.currentTarget.value)}
+          >
+            {#each testGroups as group (group.name)}
+              <optgroup label={group.name}>
+                {#each group.tests as t (t)}<option value={t}>{t}</option>{/each}
+              </optgroup>
+            {/each}
+          </select>
+        </div>
+        <div class="view">
+          <MetricPicker />
+          <ResolutionPicker />
+        </div>
+      </div>
+
+      <div class="series">
         <FrameworkPicker frameworks={index.frameworks} />
-        {#if $selectedFrameworks.length > 0 || $selectedIndicators.length > 0}
-          <span class="divider" aria-hidden="true"></span>
-        {/if}
+        <span class="divider" aria-hidden="true"></span>
         <IndicatorPicker scopes={index.indicators ?? []} frameworks={index.frameworks} />
+        <TimeRangeFilter />
       </div>
 
       <TimelineChart
@@ -82,9 +121,10 @@
         indicators={$selectedIndicators}
         scopes={index.indicators ?? []}
         metrics={$selectedMetrics}
+        resolution={$selectedResolution}
+        filter={$typeFilter}
+        frameworkInfo={index.frameworks}
       />
-
-      <MetricPicker />
     </main>
   </div>
 {/if}
@@ -112,6 +152,9 @@
     display: flex;
     align-items: baseline;
     gap: .4rem;
+    /* Spans the sidebar, so the type filter lines up with the content column (as on the board). */
+    width: calc(264px - 1.5rem - 1.1rem);
+    flex-shrink: 0;
     text-decoration: none;
     color: var(--text);
     white-space: nowrap;
@@ -142,17 +185,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--panel);
     color: var(--text-2);
     text-decoration: none;
-    transition: color .12s ease, border-color .12s ease;
+    transition: color .12s ease, background .12s ease;
     flex-shrink: 0;
   }
-  .icon-btn:hover { color: var(--text); border-color: var(--accent); }
+  .icon-btn:hover { color: var(--text); background: var(--surface); }
   .icon-btn svg { width: 17px; height: 17px; }
 
   /* ── layout ── */
@@ -174,33 +215,53 @@
     scrollbar-color: var(--border) transparent;
   }
 
-  .aside-label {
+  /* ── chart header: what is shown, and how ── */
+  .head {
     display: flex;
-    align-items: center;
-    gap: .35rem;
-    margin: .1rem .55rem .45rem;
-    padding: .9rem .55rem .1rem;
-    font-size: .66rem;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--muted);
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 24px 6px;
   }
 
-  .toolbar {
+  h1 {
+    font-size: 20px;
+    font-weight: 650;
+    letter-spacing: -.01em;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .title { position: relative; min-width: 0; }
+
+  .title p {
+    margin-top: 2px;
+    font-size: 13px;
+    color: var(--text-2);
+  }
+
+  .test-select, .title-caret { display: none; }
+
+  .view {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── selected series; doubles as the legend ── */
+  .series {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 6px;
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--border);
-    min-height: 48px;
+    gap: 2px 4px;
+    padding: 6px 20px 4px;
   }
 
   .divider {
     width: 1px;
-    height: 20px;
-    margin: 0 4px;
+    height: 16px;
+    margin: 0 6px;
     background: var(--border);
   }
 
@@ -212,18 +273,41 @@
   }
 
   @media (max-width: 639px) {
+    /* The type filter takes its own row below the brand and links. */
+    .top { flex-wrap: wrap; row-gap: .5rem; padding: .6rem .75rem; }
+    .brand { width: auto; }
+    .top :global(.type-filter) { order: 3; flex-basis: 100%; margin-right: 0; }
     .layout {
       /* minmax(0, …) so the horizontal test strip scrolls instead of widening the page */
       grid-template-columns: minmax(0, 1fr);
       flex: none;
       overflow: visible;
     }
-    aside {
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-      overflow: visible;
+    .head { padding: 14px 16px 4px; flex-wrap: wrap; }
+    .series { padding: 4px 12px; }
+
+    /* The sidebar becomes the title's native picker. */
+    aside { display: none; }
+    .test-select {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      opacity: 0;
+      font-size: 16px; /* keeps iOS from zooming in on focus */
     }
-    .aside-label { display: none; }
+    .title-caret {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin: 0 0 4px 10px;
+      vertical-align: middle;
+      border-right: 2px solid var(--text-2);
+      border-bottom: 2px solid var(--text-2);
+      transform: rotate(45deg);
+    }
+    /* The select is invisible, so show its keyboard focus on the title. */
+    .title:has(.test-select:focus-visible) h1 { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
     main { overflow: visible; }
   }
 

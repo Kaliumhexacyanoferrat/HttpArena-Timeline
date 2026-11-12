@@ -2,6 +2,7 @@
   "frameworks": {
     "actix": {
       "language": "Rust",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -35,6 +36,7 @@
     },
     "aegon": {
       "language": "C++",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -75,6 +77,7 @@
     },
     "aegon-java": {
       "language": "Java",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -111,6 +114,7 @@
     },
     "agensio": {
       "language": "C++",
+      "type": "infrastructure",
       "tests": [
         "baseline-4096",
         "baseline-h2-1024",
@@ -132,6 +136,7 @@
     },
     "aiohttp": {
       "language": "Python",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -150,6 +155,7 @@
     },
     "aleph": {
       "language": "Clojure",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -184,6 +190,7 @@
     },
     "anole": {
       "language": "Zig",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -230,6 +237,7 @@
     },
     "araara": {
       "language": "OCaml",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -269,6 +277,7 @@
     },
     "armeria": {
       "language": "Java",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -307,6 +316,7 @@
     },
     "aspnet-minimal": {
       "language": "C#",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -347,6 +357,7 @@
     },
     "aspnet-minimal + caddy": {
       "language": "C#",
+      "type": "flagship",
       "tests": [
         "gateway-h3-256",
         "gateway-h3-64"
@@ -354,6 +365,7 @@
     },
     "aspnet-minimal + nginx": {
       "language": "C#",
+      "type": "flagship",
       "tests": [
         "gateway-64-1024",
         "gateway-64-512",
@@ -363,6 +375,7 @@
     },
     "aspnet-minimal-11": {
       "language": "C#",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -393,6 +406,7 @@
     },
     "aspnet-minimal-satorigc": {
       "language": "C#",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -423,6 +437,7 @@
     },
     "axum": {
       "language": "Rust",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -439,6 +454,7 @@
     },
     "beskar-websocket": {
       "language": "C#",
+      "type": "emerging",
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
@@ -452,6 +468,7 @@
     },
     "blackbull": {
       "language": "Python",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -477,6 +494,8 @@
     },
     "bottle": {
       "language": "Python",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -493,6 +512,7 @@
     },
     "bun": {
       "language": "TS",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -523,6 +543,8 @@
     },
     "bun-websocket": {
       "language": "TS",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
@@ -534,6 +556,7 @@
     },
     "busker": {
       "language": "Clojure",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -562,6 +585,7 @@
     },
     "caddy": {
       "language": "Go",
+      "type": "infrastructure",
       "tests": [
         "baseline-4096",
         "baseline-h2-1024",
@@ -578,6 +602,7 @@
     },
     "cadente": {
       "language": "C#",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "latency-10k-1024",
@@ -588,6 +613,7 @@
     },
     "capra": {
       "language": "Clojure",
+      "type": "engine",
       "tests": [
         "async-32000",
         "baseline-4096",
@@ -610,6 +636,7 @@
     },
     "cardigan": {
       "language": "Java",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "baseline-4096",
@@ -633,6 +660,7 @@
     },
     "carter": {
       "language": "C#",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -648,6 +676,7 @@
     },
     "chi": {
       "language": "Go",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -666,6 +695,7 @@
     },
     "cnetmod": {
       "language": "C++",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -713,6 +743,7 @@
     },
     "codebehind": {
       "language": "C#",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -730,6 +761,8 @@
     },
     "cpeak": {
       "language": "Rust",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -747,6 +780,7 @@
     },
     "cutelyst": {
       "language": "C++",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -763,6 +797,7 @@
     },
     "cweb": {
       "language": "C",
+      "type": "experimental",
       "tests": [
         "async-db-1024",
         "baseline-4096",
@@ -785,6 +820,7 @@
     },
     "deno": {
       "language": "TS",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-db-1024",
@@ -802,6 +838,7 @@
     },
     "django": {
       "language": "Python",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -820,6 +857,7 @@
     },
     "drogon": {
       "language": "C++",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -836,6 +874,7 @@
     },
     "dusty": {
       "language": "Zig",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -863,6 +902,8 @@
     },
     "dusty-tuned": {
       "language": "Zig",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -890,6 +931,7 @@
     },
     "echo": {
       "language": "Go",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -908,6 +950,7 @@
     },
     "edixoi": {
       "language": "C#",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -920,6 +963,7 @@
     },
     "edixoi-kt": {
       "language": "Kotlin",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -932,6 +976,7 @@
     },
     "effinitive": {
       "language": "C#",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -969,6 +1014,7 @@
     },
     "elysia": {
       "language": "TS",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -988,6 +1034,7 @@
     },
     "enso": {
       "language": "Clojure",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1024,6 +1071,7 @@
     },
     "epoxide": {
       "language": "C#",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1036,6 +1084,7 @@
     },
     "express": {
       "language": "JS",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1055,6 +1104,7 @@
     },
     "fastapi": {
       "language": "Python",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1073,6 +1123,7 @@
     },
     "fastendpoints": {
       "language": "C#",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1102,6 +1153,7 @@
     },
     "fastify": {
       "language": "JS",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1119,6 +1171,7 @@
     },
     "fastpysgi-wsgi": {
       "language": "Python",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-db-1024",
@@ -1134,6 +1187,7 @@
     },
     "feersum": {
       "language": "Perl",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1165,6 +1219,7 @@
     },
     "fib": {
       "language": "Go",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1206,6 +1261,8 @@
     },
     "fib-tuned": {
       "language": "Go",
+      "type": "experimental",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1239,6 +1296,7 @@
     },
     "fiber": {
       "language": "Go",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1265,6 +1323,8 @@
     },
     "fiber-tuned": {
       "language": "Go",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1283,6 +1343,7 @@
     },
     "fit": {
       "language": "Go",
+      "type": "infrastructure",
       "tests": [
         "baseline-4096",
         "baseline-h2-1024",
@@ -1304,6 +1365,7 @@
     },
     "flare": {
       "language": "Mojo",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "baseline-4096",
@@ -1343,6 +1405,7 @@
     },
     "flask": {
       "language": "Python",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1360,6 +1423,7 @@
     },
     "fletch": {
       "language": "Dart",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1377,6 +1441,7 @@
     },
     "fnet-h1": {
       "language": "Go",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1395,6 +1460,7 @@
     },
     "fnet-ws": {
       "language": "Go",
+      "type": "experimental",
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
@@ -1408,6 +1474,7 @@
     },
     "fulmine.js": {
       "language": "JS",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1450,6 +1517,8 @@
     },
     "fulmine.js - uwslite": {
       "language": "JS",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1464,6 +1533,7 @@
     },
     "genhttp": {
       "language": "C#",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1490,6 +1560,7 @@
     },
     "genhttp-ioxide": {
       "language": "C#",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1527,6 +1598,7 @@
     },
     "genhttp-kestrel": {
       "language": "C#",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1558,6 +1630,7 @@
     },
     "genhttp-kt": {
       "language": "Kotlin",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1584,6 +1657,7 @@
     },
     "genhttp-kt-netty": {
       "language": "Kotlin",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1610,6 +1684,7 @@
     },
     "gin": {
       "language": "Go",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1628,6 +1703,7 @@
     },
     "go-fasthttp": {
       "language": "Go",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1646,6 +1722,8 @@
     },
     "go-stdlib": {
       "language": "Go",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-db-1024",
@@ -1663,6 +1741,8 @@
     },
     "go-websocket": {
       "language": "Go",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
@@ -1671,6 +1751,8 @@
     },
     "grpc-go": {
       "language": "Go",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "unary-grpc-1024",
         "unary-grpc-256",
@@ -1680,6 +1762,7 @@
     },
     "h2o": {
       "language": "C",
+      "type": "infrastructure",
       "tests": [
         "baseline-4096",
         "baseline-h2-1024",
@@ -1693,6 +1776,8 @@
     },
     "h2o-mruby": {
       "language": "Ruby",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1715,6 +1800,7 @@
     },
     "hanami": {
       "language": "Ruby",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1731,6 +1817,7 @@
     },
     "helidon-production": {
       "language": "Java",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1770,6 +1857,8 @@
     },
     "helidon-tuned": {
       "language": "Java",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1809,6 +1898,7 @@
     },
     "hical": {
       "language": "C++",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1834,6 +1924,7 @@
     },
     "hirundo": {
       "language": "Clojure",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1868,6 +1959,7 @@
     },
     "hono-bun": {
       "language": "TS",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1887,6 +1979,7 @@
     },
     "hono-node": {
       "language": "TS",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1903,6 +1996,7 @@
     },
     "http-kit": {
       "language": "Clojure",
+      "type": "engine",
       "tests": [
         "async-32000",
         "baseline-4096",
@@ -1925,6 +2019,8 @@
     },
     "http.jl": {
       "language": "Julia",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1941,6 +2037,7 @@
     },
     "http4k": {
       "language": "Kotlin",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1957,6 +2054,7 @@
     },
     "http4s": {
       "language": "Scala",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1973,6 +2071,7 @@
     },
     "httparena-io_uring": {
       "language": "C",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -1989,6 +2088,8 @@
     },
     "humming-bird": {
       "language": "Swift",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2006,6 +2107,7 @@
     },
     "hyper": {
       "language": "Rust",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "baseline-h2-1024",
@@ -2020,6 +2122,8 @@
     },
     "hyper-express": {
       "language": "JS",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2039,6 +2143,7 @@
     },
     "hyperf": {
       "language": "PHP",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2059,6 +2164,7 @@
     },
     "ioxide": {
       "language": "C#",
+      "type": "engine",
       "tests": [
         "async-32000",
         "async-db-1024",
@@ -2082,6 +2188,7 @@
     },
     "ioxide-pipes": {
       "language": "C#",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2094,6 +2201,7 @@
     },
     "jooby": {
       "language": "Java",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2109,6 +2217,7 @@
     },
     "kestrel": {
       "language": "C#",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2136,6 +2245,7 @@
     },
     "klite": {
       "language": "Kotlin",
+      "type": "emerging",
       "tests": [
         "async-32000",
         "async-db-1024",
@@ -2150,6 +2260,7 @@
     },
     "koa": {
       "language": "JS",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2166,6 +2277,7 @@
     },
     "kron": {
       "language": "Kotlin",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2178,6 +2290,7 @@
     },
     "kron-native": {
       "language": "Kotlin",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2190,6 +2303,7 @@
     },
     "ktor": {
       "language": "Kotlin",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2226,6 +2340,7 @@
     },
     "ktor-kronos": {
       "language": "Kotlin",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2247,6 +2362,7 @@
     },
     "ktor-kronos-native": {
       "language": "Kotlin",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2266,6 +2382,8 @@
     },
     "ktor-tuned": {
       "language": "Kotlin",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2301,6 +2419,7 @@
     },
     "ktron": {
       "language": "Kotlin",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2316,6 +2435,7 @@
     },
     "lapis": {
       "language": "Lua",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "baseline-4096",
@@ -2331,6 +2451,7 @@
     },
     "libreactorng": {
       "language": "C",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "latency-10k-1024",
@@ -2342,6 +2463,7 @@
     },
     "libuvcpp": {
       "language": "C++",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2389,6 +2511,7 @@
     },
     "libxev": {
       "language": "Zig",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "latency-10k-1024",
@@ -2399,6 +2522,7 @@
     },
     "litestar": {
       "language": "Python",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2417,6 +2541,7 @@
     },
     "lute": {
       "language": "Luau",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2433,6 +2558,7 @@
     },
     "micronaut": {
       "language": "Java",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2449,6 +2575,7 @@
     },
     "micronaut-production": {
       "language": "Java",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2487,6 +2614,8 @@
     },
     "micronaut-tuned": {
       "language": "Java",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2525,6 +2654,7 @@
     },
     "minima-sync": {
       "language": "C#",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "latency-10k-1024",
@@ -2535,6 +2665,7 @@
     },
     "minima-ws": {
       "language": "C#",
+      "type": "engine",
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
@@ -2546,6 +2677,8 @@
     },
     "mipyre": {
       "language": "Python",
+      "type": "experimental",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2578,6 +2711,7 @@
     },
     "mojolicious": {
       "language": "Perl",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2594,6 +2728,7 @@
     },
     "mongoose": {
       "language": "C",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2616,6 +2751,7 @@
     },
     "morojs": {
       "language": "JS",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2658,6 +2794,7 @@
     },
     "mq-bridge": {
       "language": "Rust",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2692,6 +2829,7 @@
     },
     "mq-bridge-py": {
       "language": "Python",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-db-1024",
@@ -2718,6 +2856,7 @@
     },
     "netcode-http": {
       "language": "Zig",
+      "type": "experimental",
       "tests": [
         "baseline-4096",
         "echo-ws-16384",
@@ -2737,6 +2876,7 @@
     },
     "neton": {
       "language": "Kotlin",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2765,6 +2905,7 @@
     },
     "nginx": {
       "language": "C",
+      "type": "infrastructure",
       "tests": [
         "baseline-4096",
         "baseline-h2-1024",
@@ -2786,6 +2927,7 @@
     },
     "nilo": {
       "language": "Zig",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2824,6 +2966,7 @@
     },
     "node": {
       "language": "JS",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-db-1024",
@@ -2841,6 +2984,7 @@
     },
     "node-h3": {
       "language": "JS",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2857,6 +3001,7 @@
     },
     "ntex": {
       "language": "Rust",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2872,6 +3017,7 @@
     },
     "orisha": {
       "language": "Koru",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "json-comp-16384",
@@ -2885,6 +3031,7 @@
     },
     "orisha-uring": {
       "language": "Koru",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "json-comp-16384",
@@ -2898,6 +3045,7 @@
     },
     "oxpecker": {
       "language": "F#",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2928,6 +3076,7 @@
     },
     "pedestal": {
       "language": "Clojure",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2962,6 +3111,7 @@
     },
     "phoenix-bandit": {
       "language": "Elixir",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -2989,6 +3139,7 @@
     },
     "php-fpm": {
       "language": "PHP",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3012,6 +3163,7 @@
     },
     "plod": {
       "language": "Goose",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3055,6 +3207,7 @@
     },
     "plug-cowboy": {
       "language": "Elixir",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3071,6 +3224,7 @@
     },
     "proxygen": {
       "language": "C++",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "baseline-h2-1024",
@@ -3102,6 +3256,7 @@
     },
     "proxygen-coro": {
       "language": "C++",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "baseline-h2-1024",
@@ -3133,6 +3288,8 @@
     },
     "quarkus-jvm": {
       "language": "Java",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3165,6 +3322,7 @@
     },
     "rack-falcon": {
       "language": "Ruby",
+      "type": "engine",
       "tests": [
         "async-32000",
         "baseline-4096",
@@ -3176,6 +3334,7 @@
     },
     "rack-iodine": {
       "language": "Ruby",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "latency-10k-1024",
@@ -3186,6 +3345,7 @@
     },
     "rack-puma": {
       "language": "Ruby",
+      "type": "engine",
       "tests": [
         "async-32000",
         "baseline-4096",
@@ -3198,6 +3358,7 @@
     },
     "rage": {
       "language": "Ruby",
+      "type": "flagship",
       "tests": [
         "async-32000",
         "async-db-1024",
@@ -3213,6 +3374,7 @@
     },
     "rails": {
       "language": "Ruby",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3230,6 +3392,7 @@
     },
     "rama": {
       "language": "Rust",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3264,6 +3427,7 @@
     },
     "reitit": {
       "language": "Clojure",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3279,6 +3443,7 @@
     },
     "ring-http-exchange": {
       "language": "Clojure",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3297,6 +3462,7 @@
     },
     "ring-jetty-adapter": {
       "language": "Clojure",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3321,6 +3487,7 @@
     },
     "ring-jetty9-adapter": {
       "language": "Clojure",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3355,6 +3522,7 @@
     },
     "ringzero-ws": {
       "language": "C",
+      "type": "engine",
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
@@ -3366,6 +3534,7 @@
     },
     "roadrunner": {
       "language": "Erlang",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3410,6 +3579,7 @@
     },
     "robyn": {
       "language": "Python",
+      "type": "emerging",
       "tests": [
         "async-32000",
         "baseline-4096",
@@ -3422,6 +3592,7 @@
     },
     "rocket": {
       "language": "Rust",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3438,6 +3609,7 @@
     },
     "roda": {
       "language": "Ruby",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3454,6 +3626,7 @@
     },
     "salvo": {
       "language": "Rust",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3469,6 +3642,8 @@
     },
     "sanic": {
       "language": "Python",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "async-32000",
         "async-db-1024",
@@ -3484,6 +3659,7 @@
     },
     "sark": {
       "language": "Rust",
+      "type": "engine",
       "tests": [
         "gateway-64-1024",
         "gateway-64-512",
@@ -3493,6 +3669,7 @@
     },
     "servicestack": {
       "language": "C#",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3511,6 +3688,7 @@
     },
     "simplew": {
       "language": "C#",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3535,6 +3713,8 @@
     },
     "simplew-tuned": {
       "language": "C#",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3559,6 +3739,7 @@
     },
     "sinatra": {
       "language": "Ruby",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3577,6 +3758,8 @@
     },
     "sisk": {
       "language": "C#",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3594,6 +3777,8 @@
     },
     "slimeweb": {
       "language": "Python",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "async-32000",
         "async-db-1024",
@@ -3610,6 +3795,7 @@
     },
     "sober": {
       "language": "Sober",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3626,6 +3812,7 @@
     },
     "sockets": {
       "language": "C#",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3641,6 +3828,7 @@
     },
     "spliffy": {
       "language": "JS",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3668,6 +3856,7 @@
     },
     "spring-boot": {
       "language": "Java",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3690,6 +3879,7 @@
     },
     "starlette": {
       "language": "Python",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3708,6 +3898,8 @@
     },
     "swerver": {
       "language": "Zig",
+      "type": "experimental",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3741,6 +3933,7 @@
     },
     "swerverts": {
       "language": "TS",
+      "type": "experimental",
       "tests": [
         "baseline-4096",
         "limited-conn-4096",
@@ -3749,6 +3942,8 @@
     },
     "swoole": {
       "language": "PHP",
+      "type": "flagship",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3777,6 +3972,8 @@
     },
     "symfony-spawn-tas": {
       "language": "PHP",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3798,6 +3995,7 @@
     },
     "tako": {
       "language": "Rust",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3845,6 +4043,7 @@
     },
     "tokio": {
       "language": "Rust",
+      "type": "engine",
       "tests": [
         "async-32000",
         "baseline-4096",
@@ -3856,6 +4055,7 @@
     },
     "tokio-uring": {
       "language": "Rust",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "latency-10k-1024",
@@ -3866,6 +4066,7 @@
     },
     "tokio-uring-ws": {
       "language": "Rust",
+      "type": "engine",
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
@@ -3877,6 +4078,7 @@
     },
     "tokio-websockets": {
       "language": "Rust",
+      "type": "engine",
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
@@ -3890,6 +4092,7 @@
     },
     "tokio-ws": {
       "language": "Rust",
+      "type": "engine",
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
@@ -3901,6 +4104,7 @@
     },
     "toxi": {
       "language": "Rust",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3914,6 +4118,7 @@
     },
     "trillium": {
       "language": "Rust",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -3960,6 +4165,8 @@
     },
     "trillium-tuned": {
       "language": "Rust",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4006,6 +4213,8 @@
     },
     "true-async-server": {
       "language": "PHP",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4032,6 +4241,7 @@
     },
     "uio-ws": {
       "language": "Go",
+      "type": "experimental",
       "tests": [
         "echo-ws-16384",
         "echo-ws-4096",
@@ -4045,6 +4255,8 @@
     },
     "ultimate-express": {
       "language": "JS",
+      "type": "emerging",
+      "tuned": true,
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4064,6 +4276,7 @@
     },
     "userver": {
       "language": "C++",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4081,6 +4294,7 @@
     },
     "uvicorn": {
       "language": "Python",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-db-1024",
@@ -4096,6 +4310,7 @@
     },
     "uwebzockets": {
       "language": "Zig",
+      "type": "experimental",
       "tests": [
         "baseline-4096",
         "baseline-h2c-1024",
@@ -4124,6 +4339,7 @@
     },
     "vanilla-epoll": {
       "language": "V",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4164,6 +4380,7 @@
     },
     "vanilla-io_uring": {
       "language": "V",
+      "type": "engine",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4183,6 +4400,7 @@
     },
     "varnish": {
       "language": "C",
+      "type": "infrastructure",
       "tests": [
         "baseline-4096",
         "baseline-h2-1024",
@@ -4200,6 +4418,7 @@
     },
     "veil": {
       "language": "Rust",
+      "type": "infrastructure",
       "tests": [
         "baseline-4096",
         "baseline-h2-1024",
@@ -4221,6 +4440,7 @@
     },
     "veil-python": {
       "language": "Python",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4261,6 +4481,7 @@
     },
     "velocity": {
       "language": "JS",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4277,6 +4498,7 @@
     },
     "vertx": {
       "language": "Java",
+      "type": "flagship",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4295,6 +4517,7 @@
     },
     "vibe.d": {
       "language": "D",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4311,6 +4534,7 @@
     },
     "viltrum": {
       "language": "V",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4344,6 +4568,7 @@
     },
     "vinyl cache": {
       "language": "C",
+      "type": "infrastructure",
       "tests": [
         "baseline-4096",
         "limited-conn-4096",
@@ -4352,6 +4577,7 @@
     },
     "wastnet": {
       "language": "Java",
+      "type": "experimental",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4388,6 +4614,7 @@
     },
     "watson": {
       "language": "C#",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4404,6 +4631,7 @@
     },
     "wtx": {
       "language": "Rust",
+      "type": "emerging",
       "tests": [
         "baseline-h2-1024",
         "baseline-h2-256",
@@ -4428,6 +4656,7 @@
     },
     "zeemo": {
       "language": "Zig",
+      "type": "engine",
       "tests": [
         "baseline-4096",
         "latency-10k-1024",
@@ -4438,6 +4667,7 @@
     },
     "zinc": {
       "language": "Go",
+      "type": "emerging",
       "tests": [
         "8gbit-512",
         "async-32000",
@@ -4463,6 +4693,7 @@
     },
     "zix": {
       "language": "Zig",
+      "type": "engine",
       "tests": [
         "async-db-1024",
         "baseline-4096",
@@ -4548,7 +4779,7 @@
   "indicators": [
     {
       "key": "all",
-      "label": "All frameworks"
+      "label": "All"
     },
     {
       "key": "c",

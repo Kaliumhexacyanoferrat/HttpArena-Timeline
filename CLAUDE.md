@@ -95,15 +95,21 @@ Their cross-product is the set of active `(framework, <test>-<conns>)` combos. W
 
 ### Indicators (field aggregates)
 
-Besides per-framework timelines, the importer historizes **indicators**: median, average, min and max of every SPA metric per test, across all frameworks (scope `all`) and per language (scope = language slug, e.g. `rust`, `csharp`, `cpp`; see `IndicatorBuilder.LanguageSlug`). Implementation: `src/Importer/Services/IndicatorBuilder.cs`. Output: `data/indicators/<scope>/<test>-<conns>.json`, listed in `index.json` under `indicators`. `indicators` is a reserved folder name; the importer fails if a framework would map to it.
+**Indicators** are the median, average, min and max of every SPA metric per test, across all frameworks (scope `all`) or per language (scope = language slug, e.g. `rust`, `csharp`, `cpp`; see `IndicatorBuilder.LanguageSlug`), over the frameworks HttpArena's type filter selects. Because the filter is user-selectable, the work is split in two:
+* The importer (`src/Importer/Services/IndicatorBuilder.cs`) writes one **field log** per test, `data/indicators/<test>-<conns>.json`: per UTC day, the rows that changed and the frameworks removed. Scopes are listed in `index.json` under `indicators`; each framework there carries `type` and `tuned`. `indicators` is a reserved folder name; the importer fails if a framework would map to it.
+* The SPA (`src/spa/src/lib/data/field.ts`, `computeIndicator`) replays the log and aggregates the frameworks passing the type filter and scope. It was verified to reproduce the former C# aggregation exactly (all 645 default-filter series, 11,193 points), so keep both halves of the semantics below in step.
 
 How the values are derived — keep these semantics when changing it:
 * The importer keeps a live "field": the latest row per (test, framework) as HttpArena showed it at that point in history. A newer version of a result file replaces that file's rows; a deleted file drops them. Rows remember their source file, so the per-test → per-framework layout switch (old files deleted in the same commit) never drops a row a newer file set.
-* Only active combos count (same `ActiveConfig` filter as everything else), and rows with `rps <= 0` (failed runs) are excluded.
-* Results are merged one framework PR at a time, so the field is snapshotted **once per UTC day** (timestamp = last data commit that day) for the tests touched that day, not per commit. Unchanged snapshots are skipped unless 7+ days passed, like the framework files.
-* Min/max record which framework set the value (`min_fw`/`max_fw`, indices into the file's `frameworks` list, in first-seen order so appending history doesn't renumber). Ties where every framework has the same value get `null`.
+* Only active combos are logged (same `ActiveConfig` filter as everything else). The log keeps rows with `rps <= 0` (a failed run replaces the previous row); the SPA excludes them when aggregating.
+* Only frameworks passing the **type filter** count (see below).
+* Classification must match HttpArena 1:1. `ActiveConfig` resolves it like HttpArena's `scripts/rebuild_site_data.py` builds the leaderboard's `frameworks.json`: every `meta.json` counts (enabled or not), entries are grouped by `display_name`, the primary entry (folder named like the display name, else the first folder in ordinal order) gives `type` (default `emerging`) and `mode` (default `standard`). Today's classification applies to the whole history, like the active set.
+* Results are merged one framework PR at a time, so the field is recorded **once per UTC day** (timestamp = last data commit that day) for the tests touched that day, not per commit. Every touched day is logged, even without net change; the SPA skips unchanged aggregates unless 7+ days passed, like the framework files.
+* Frameworks are aggregated in ordinal name order; min/max name the first framework with the extreme value (indices into the log's `frameworks`, first-seen order so appending history doesn't renumber). Ties where every framework has the same value name nobody. The average is summed in ascending value order.
 
 In the SPA, indicators are selected via the "+ indicator" picker (`IndicatorPicker.svelte`), stored in the URL as `indicators=median.all,max.rust`, and drawn as step lines sharing the framework color palette.
+
+The **type filter** sits in the page header like on the leaderboard (`TypeFilterBar.svelte`, rules in `src/spa/src/lib/data/classification.ts`): same buttons, colors and toggle rules (flagship/emerging/experimental combine, engine and infra are exclusive, never empty, separate tuned toggle). It narrows the framework picker and decides what the indicators aggregate. Default: flagship + emerging **without** tuned (`DEFAULT_SHOW_TUNED`); the board's own code defaults to showing tuned, so this is a deliberate difference. Like the board it is remembered in localStorage and, when not the default, written to the URL with the board's parameter names (`type=engine&tuned=0`).
 
 ### Adding a new test to the timeline
 
@@ -120,6 +126,8 @@ in the future, but for now, the user can:
 1. Select a framework (e.g. `genhttp`)
 2. Select a test (e.g. `json-tls-4096`)
 3. Optionally add indicators (e.g. median of all frameworks, max of Rust) to compare against
+4. Optionally drag across the chart to filter a time range (whole UTC days, stored in the URL as `from`/`to`; shown as a removable chip after the indicators, double-click the chart to reset)
+5. Optionally pick a time resolution (All, Day, Week, Month, Quarter, Year; URL param `res`). This is aggregated client-side in `TimelineChart.svelte` (`bucket`), not at ingestion: framework runs in a period are averaged; indicators are states, so median/avg are time-weighted over how long each value held and min/max take the extreme held in the period. Points sit at the period start (UTC); the chart axis is UTC throughout
 
 and see the changes of the metrics over time. All of the supported metrics can be selected, but by default only RPS is enabled.
 

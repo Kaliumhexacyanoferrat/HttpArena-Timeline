@@ -6,8 +6,10 @@ using Importer.Models;
 namespace Importer.Services;
 
 /// <summary>
-/// Computes field-wide indicators (median, average, min, max) per test — across all
-/// frameworks and per language — and historizes them while the importer walks history.
+/// Records, per test, how the field of results changed day by day, so the SPA can compute
+/// indicators (median, average, min, max — overall or per language) for whatever HttpArena
+/// type filter the user selects. Aggregating in the browser keeps one small file per test
+/// instead of one precomputed series per filter combination, scope and test.
 ///
 /// The field mirrors what HttpArena showed at each point in time: every result file seen so
 /// far contributes its latest row per (test, framework); a newer version of a file replaces
@@ -16,8 +18,13 @@ namespace Importer.Services;
 /// the same commit the new ones were added) never removes a row a newer file already set.
 ///
 /// Results are merged one framework PR at a time, often dozens per day, so the field is
-/// snapshotted once per UTC day (at the last data commit of that day) for every test touched
-/// that day, rather than after each commit.
+/// recorded once per UTC day (at the last data commit of that day) for every test touched
+/// that day, rather than after each commit. Each day lists only what changed since the
+/// previous one; a touched day without net changes is still recorded so the SPA can keep a
+/// flat indicator reaching into the present.
+///
+/// Classification and failed runs are deliberately left to the SPA: every active row is
+/// recorded, including rps &lt;= 0, since a failed run replaces the framework's previous row.
 /// </summary>
 public sealed class IndicatorBuilder(Func<string, string> languageOf)
 {
@@ -26,7 +33,7 @@ public sealed class IndicatorBuilder(Func<string, string> languageOf)
 
     public const string AllScope = "all";
 
-    // Aggregated metrics; keys match the per-framework files and the SPA's metric list.
+    // Recorded metrics; keys match the per-framework files and the SPA's metric list.
     private static readonly (string Key, Func<MetricsEntry, double?> Get)[] Metrics =
     [
         ("rps",              m => m.Rps),
@@ -56,12 +63,17 @@ public sealed class IndicatorBuilder(Func<string, string> languageOf)
     // file path -> the (test, framework) rows it last contributed
     private readonly Dictionary<string, List<(string Test, string Framework)>> _contributions = new();
 
-    private readonly Dictionary<(string Scope, string Test), List<(DateTimeOffset Timestamp, Aggregate Value)>> _series = new();
-    private readonly Dictionary<string, string> _languageScopes = new(); // scope slug -> language
+    // test -> the field as last recorded (framework -> metric values)
+    private readonly Dictionary<string, Dictionary<string, double?[]>> _recorded = new();
+
+    // test -> recorded days
+    private readonly Dictionary<string, List<Day>> _logs = new();
 
     private readonly HashSet<string> _touched = new();
     private DateOnly? _day;
     private DateTimeOffset _dayTimestamp;
+
+    private sealed record Day(DateTimeOffset Timestamp, List<(string Framework, double?[] Values)> Set, List<string> Removed);
 
     /// <summary>Starts processing a commit that changes result data.</summary>
     public void BeginCommit(DateTimeOffset timestamp)
@@ -112,70 +124,70 @@ public sealed class IndicatorBuilder(Func<string, string> languageOf)
         }
     }
 
-    /// <summary>Takes the final snapshot after the last commit.</summary>
+    /// <summary>Records the final day after the last commit.</summary>
     public void Complete() => Flush();
 
-    public int SeriesCount => _series.Count;
+    public int SeriesCount => _logs.Count;
 
-    /// <summary>Scopes with data: "all" first, then languages by name.</summary>
+    /// <summary>
+    /// Scopes the SPA can aggregate over: "all" first, then every language with rows in some
+    /// test, by name. Which of them have data for a test and filter is up to the SPA.
+    /// </summary>
     public IEnumerable<(string Key, string Label, string? Language)> Scopes()
     {
-        var withData = _series.Keys.Select(k => k.Scope).ToHashSet();
+        if (_logs.Count == 0) yield break;
 
-        if (withData.Contains(AllScope))
-            yield return (AllScope, "All frameworks", null);
+        yield return (AllScope, "All", null);
 
-        foreach (var (slug, language) in _languageScopes.OrderBy(kv => kv.Value, StringComparer.OrdinalIgnoreCase))
-        {
-            if (withData.Contains(slug))
-                yield return (slug, language, language);
-        }
+        var languages = _logs.Values
+            .SelectMany(days => days.SelectMany(d => d.Set.Select(s => s.Framework)))
+            .Select(languageOf)
+            .Distinct(StringComparer.Ordinal)
+            .OrderBy(l => l, StringComparer.OrdinalIgnoreCase);
+
+        foreach (var language in languages)
+            yield return (LanguageSlug(language), language, language);
     }
 
     private void Flush()
     {
         foreach (var test in _touched)
-            Snapshot(test);
+            Record(test);
         _touched.Clear();
     }
 
-    private void Snapshot(string test)
+    private void Record(string test)
     {
-        if (!_field.TryGetValue(test, out var testField)) return;
+        var current = _field.TryGetValue(test, out var tf) ? tf : new();
+        var recorded = _recorded.TryGetValue(test, out var r) ? r : (_recorded[test] = new());
 
-        // rps <= 0 marks a failed run; it would pin every minimum to zero, so leave it out.
-        var valid = testField
-            .Where(kv => kv.Value.Entry.Rps > 0)
-            .OrderBy(kv => kv.Key, StringComparer.Ordinal)
-            .Select(kv => (Framework: kv.Key, kv.Value.Entry))
-            .ToList();
-
-        if (valid.Count == 0) return;
-
-        Append(AllScope, test, valid);
-
-        foreach (var group in valid.GroupBy(v => languageOf(v.Framework)))
+        var set = new List<(string, double?[])>();
+        foreach (var (framework, (entry, _)) in current.OrderBy(kv => kv.Key, StringComparer.Ordinal))
         {
-            var slug = LanguageSlug(group.Key);
-            _languageScopes.TryAdd(slug, group.Key);
-            Append(slug, test, group.ToList());
+            var values = Values(entry);
+            if (recorded.TryGetValue(framework, out var before) && before.SequenceEqual(values)) continue;
+            recorded[framework] = values;
+            set.Add((framework, values));
         }
+
+        var removed = recorded.Keys.Where(fw => !current.ContainsKey(fw)).OrderBy(fw => fw, StringComparer.Ordinal).ToList();
+        foreach (var fw in removed) recorded.Remove(fw);
+
+        var log = _logs.TryGetValue(test, out var l) ? l : (_logs[test] = []);
+        if (log.Count == 0 && set.Count == 0) return; // nothing recorded yet, nothing to say
+
+        log.Add(new Day(_dayTimestamp, set, removed));
     }
 
-    private void Append(string scope, string test, List<(string Framework, MetricsEntry Entry)> rows)
+    private static double?[] Values(MetricsEntry entry)
     {
-        var value = Aggregate.Compute(rows);
-        var series = _series.TryGetValue((scope, test), out var s) ? s : (_series[(scope, test)] = []);
-
-        // Same rule as the framework files: skip unchanged snapshots, but never leave a
-        // gap of a week or more so a flat indicator still reaches into the present.
-        if (series.Count > 0)
+        var values = new double?[Metrics.Length];
+        for (var i = 0; i < Metrics.Length; i++)
         {
-            var (lastTs, last) = series[^1];
-            if (last.SameAs(value) && (_dayTimestamp - lastTs).TotalDays < 7) return;
+            var v = Metrics[i].Get(entry);
+            values[i] = v is { } d && !double.IsNaN(d) ? d : null;
         }
-
-        series.Add((_dayTimestamp, value));
+        return values;
     }
 
     /// <summary>
@@ -199,37 +211,29 @@ public sealed class IndicatorBuilder(Func<string, string> languageOf)
     public async Task WriteAsync(string outputPath)
     {
         var root = Path.Combine(outputPath, DirectoryName);
-        foreach (var ((scope, test), points) in _series)
-        {
-            var dir = Path.Combine(root, scope);
-            Directory.CreateDirectory(dir);
-            await WriteSeriesAsync(Path.Combine(dir, test + ".json"), points);
-        }
+        Directory.CreateDirectory(root);
+        foreach (var (test, days) in _logs)
+            await WriteLogAsync(Path.Combine(root, test + ".json"), days);
     }
 
     /// <summary>
-    /// Columnar to keep ~1,300 files small: each point holds one value per entry of
-    /// <c>metrics</c>, and min/max attribution as indices into <c>frameworks</c> (listed in
-    /// first-seen order so appending history never renumbers existing points). One point per
-    /// line keeps the daily git diffs readable.
+    /// <c>{"metrics": [...], "frameworks": [...], "days": [[ts, set, removed], ...]}</c> where
+    /// <c>set</c> holds <c>[frameworkIndex, value per metric...]</c> rows and <c>removed</c>
+    /// framework indices. Frameworks are listed in first-seen order so appending history never
+    /// renumbers existing days; one day per line keeps the daily git diffs readable.
     /// </summary>
-    private static async Task WriteSeriesAsync(string file, List<(DateTimeOffset Timestamp, Aggregate Value)> points)
+    private static async Task WriteLogAsync(string file, List<Day> days)
     {
-        var sorted = points.OrderBy(p => p.Timestamp).ToList();
-
         var frameworks = new List<string>();
         var frameworkIndex = new Dictionary<string, int>();
-        int IndexOf(string fw)
+        foreach (var day in days)
         {
-            if (frameworkIndex.TryGetValue(fw, out var i)) return i;
-            frameworkIndex[fw] = frameworks.Count;
-            frameworks.Add(fw);
-            return frameworks.Count - 1;
-        }
-        foreach (var (_, value) in sorted)
-        {
-            foreach (var fw in value.MinFramework) if (fw is not null) IndexOf(fw);
-            foreach (var fw in value.MaxFramework) if (fw is not null) IndexOf(fw);
+            foreach (var (fw, _) in day.Set)
+            {
+                if (frameworkIndex.ContainsKey(fw)) continue;
+                frameworkIndex[fw] = frameworks.Count;
+                frameworks.Add(fw);
+            }
         }
 
         var sb = new StringBuilder();
@@ -245,30 +249,37 @@ public sealed class IndicatorBuilder(Func<string, string> languageOf)
             foreach (var fw in frameworks) w.WriteStringValue(fw);
             w.WriteEndArray();
         }));
-        sb.Append(",\n  \"data\": [");
+        sb.Append(",\n  \"days\": [");
 
-        for (var p = 0; p < sorted.Count; p++)
+        for (var d = 0; d < days.Count; d++)
         {
-            var (ts, v) = sorted[p];
-            sb.Append(p == 0 ? "\n    " : ",\n    ");
+            var day = days[d];
+            sb.Append(d == 0 ? "\n    " : ",\n    ");
             sb.Append(Json(w =>
             {
                 w.WriteStartArray();
-                w.WriteStringValue(ts.ToUniversalTime().ToString("o"));
-                w.WriteStartObject();
-                w.WriteNumber("n", v.Count);
-                WriteValues(w, "median", v.Median);
-                WriteValues(w, "avg", v.Average);
-                WriteValues(w, "min", v.Min);
-                WriteValues(w, "max", v.Max);
-                WriteIndices(w, "min_fw", v.MinFramework, frameworkIndex);
-                WriteIndices(w, "max_fw", v.MaxFramework, frameworkIndex);
-                w.WriteEndObject();
+                w.WriteStringValue(day.Timestamp.ToUniversalTime().ToString("o"));
+                w.WriteStartArray();
+                foreach (var (fw, values) in day.Set)
+                {
+                    w.WriteStartArray();
+                    w.WriteNumberValue(frameworkIndex[fw]);
+                    foreach (var v in values)
+                    {
+                        if (v.HasValue) w.WriteNumberValue(v.Value);
+                        else w.WriteNullValue();
+                    }
+                    w.WriteEndArray();
+                }
+                w.WriteEndArray();
+                w.WriteStartArray();
+                foreach (var fw in day.Removed) w.WriteNumberValue(frameworkIndex[fw]);
+                w.WriteEndArray();
                 w.WriteEndArray();
             }));
         }
 
-        sb.Append(sorted.Count > 0 ? "\n  ]\n}\n" : "]\n}\n");
+        sb.Append(days.Count > 0 ? "\n  ]\n}\n" : "]\n}\n");
         await File.WriteAllTextAsync(file, sb.ToString(), new UTF8Encoding(false));
     }
 
@@ -278,89 +289,5 @@ public sealed class IndicatorBuilder(Func<string, string> languageOf)
         using (var writer = new Utf8JsonWriter(stream, CompactOptions))
             write(writer);
         return Encoding.UTF8.GetString(stream.ToArray());
-    }
-
-    private static void WriteValues(Utf8JsonWriter w, string name, double?[] values)
-    {
-        w.WriteStartArray(name);
-        foreach (var v in values)
-        {
-            if (v.HasValue) w.WriteNumberValue(Math.Round(v.Value, 3));
-            else w.WriteNullValue();
-        }
-        w.WriteEndArray();
-    }
-
-    private static void WriteIndices(Utf8JsonWriter w, string name, string?[] frameworks, Dictionary<string, int> index)
-    {
-        w.WriteStartArray(name);
-        foreach (var fw in frameworks)
-        {
-            if (fw is not null) w.WriteNumberValue(index[fw]);
-            else w.WriteNullValue();
-        }
-        w.WriteEndArray();
-    }
-
-    /// <summary>One snapshot of a scope: every statistic for every metric.</summary>
-    private sealed class Aggregate
-    {
-        public int Count { get; private init; }
-        public required double?[] Median { get; init; }
-        public required double?[] Average { get; init; }
-        public required double?[] Min { get; init; }
-        public required double?[] Max { get; init; }
-        public required string?[] MinFramework { get; init; }
-        public required string?[] MaxFramework { get; init; }
-
-        /// <param name="rows">Sorted by framework name, so ties resolve deterministically.</param>
-        public static Aggregate Compute(List<(string Framework, MetricsEntry Entry)> rows)
-        {
-            var n = Metrics.Length;
-            var result = new Aggregate
-            {
-                Count = rows.Count,
-                Median = new double?[n], Average = new double?[n],
-                Min = new double?[n], Max = new double?[n],
-                MinFramework = new string?[n], MaxFramework = new string?[n],
-            };
-
-            for (var i = 0; i < n; i++)
-            {
-                var get = Metrics[i].Get;
-                var values = new List<double>(rows.Count);
-
-                foreach (var (fw, entry) in rows)
-                {
-                    if (get(entry) is not { } v || double.IsNaN(v)) continue;
-                    values.Add(v);
-                    if (result.Min[i] is null || v < result.Min[i]) { result.Min[i] = v; result.MinFramework[i] = fw; }
-                    if (result.Max[i] is null || v > result.Max[i]) { result.Max[i] = v; result.MaxFramework[i] = fw; }
-                }
-
-                if (values.Count == 0) continue;
-
-                // When every framework scores the same (e.g. all report zero 3xx), naming
-                // one of them as min/max would be arbitrary.
-                if (result.Min[i] == result.Max[i])
-                    result.MinFramework[i] = result.MaxFramework[i] = null;
-
-                values.Sort();
-                var mid = values.Count / 2;
-                result.Median[i] = values.Count % 2 == 1 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
-                result.Average[i] = values.Average();
-            }
-
-            return result;
-        }
-
-        public bool SameAs(Aggregate other) =>
-            Count == other.Count
-            && Median.SequenceEqual(other.Median)
-            && Average.SequenceEqual(other.Average)
-            && Min.SequenceEqual(other.Min)
-            && Max.SequenceEqual(other.Max)
-            && MinFramework.SequenceEqual(other.MinFramework)
-            && MaxFramework.SequenceEqual(other.MaxFramework);
     }
 }

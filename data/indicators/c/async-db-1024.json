@@ -1,7 +1,0 @@
-{
-  "metrics": ["rps","avg_latency_ms","p99_latency_ms","p99_9_latency_ms","cpu_pct","cpu_per_req_us","memory_bytes","bandwidth_bps","input_bw_bps","reconnects","status_2xx","status_3xx","status_4xx","status_5xx"],
-  "frameworks": [],
-  "data": [
-    ["2026-11-03T20:12:17.0000000+00:00",{"n":1,"median":[314466,2.79,20.9,null,2962.3,null,404750336,1170000000,20990000,125880,3144664,0,0,0],"avg":[314466,2.79,20.9,null,2962.3,null,404750336,1170000000,20990000,125880,3144664,0,0,0],"min":[314466,2.79,20.9,null,2962.3,null,404750336,1170000000,20990000,125880,3144664,0,0,0],"max":[314466,2.79,20.9,null,2962.3,null,404750336,1170000000,20990000,125880,3144664,0,0,0],"min_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null],"max_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null]}]
-  ]
-}

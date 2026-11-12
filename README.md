@@ -25,9 +25,9 @@ The project has two components:
 
 **Import process** — a C# tool that walks the git history of the [HTTP Arena repository](https://github.com/danielHalan/HttpArena) and extracts benchmark result files from each relevant commit. Results are written as static JSON files under `data/<framework>/<test>-<concurrency>.json`, deduplicated so that only runs with a meaningful RPS change (or a gap of 7+ days) are recorded.
 
-It also computes **indicators**: the median, average, min and max of every metric across all frameworks and per language, snapshotted once a day for each test. They are written to `data/indicators/<scope>/<test>-<concurrency>.json`, where the scope is `all` or a language key such as `rust` or `csharp`.
+It also records, per test, how the whole field of results changed day by day (`data/indicators/<test>-<concurrency>.json`). From it the SPA computes **indicators**: the median, average, min and max of every metric across all frameworks or per language, for whatever HttpArena type filter is selected (flagship, emerging, experimental, engine, infra, tuned; classification as on HttpArena's main today).
 
-**SPA** — a client-side web application that reads the static JSON files and renders interactive time-series graphs. Select a test and one or more frameworks, add indicators to compare against, and explore how any metric has evolved over time.
+**SPA** — a client-side web application that reads the static JSON files and renders interactive time-series graphs. Select a test and one or more frameworks, add indicators to compare against, filter by HttpArena's framework types like on the leaderboard, and explore how any metric has evolved over time.
 
 Because everything is static JSON served from GitHub Pages, no backend infrastructure is required.
 
@@ -44,16 +44,16 @@ Each timeline file has the following structure:
 }
 ```
 
-An `index.json` at the root of `data/` lists all available frameworks, tests and indicator scopes for the SPA to enumerate.
+An `index.json` at the root of `data/` lists all available frameworks (with language, HttpArena type and tuned flag), tests and indicator scopes for the SPA to enumerate.
 
-Indicator files are columnar to stay small: each point holds one value per entry of `metrics`, the number of frameworks `n` it covers, and for min/max the index into `frameworks` of the framework that set the value (`null` when all tied).
+Indicator files are field logs: one entry per UTC day on which the test's results were touched, holding the rows set that day (`[frameworkIndex, value per metric...]`) and the frameworks removed that day. The SPA replays a log and aggregates whichever frameworks the type filter and scope select.
 
 ```json
 {
   "metrics": ["rps", "avg_latency_ms", ...],
   "frameworks": ["actix", "h2o", ...],
-  "data": [
-    ["2026-08-15T18:22:00Z", { "n": 101, "median": [1456838.5, 2.73, ...], "avg": [...], "min": [...], "max": [...], "min_fw": [0, 1, ...], "max_fw": [...] }]
+  "days": [
+    ["2026-08-15T18:22:00Z", [[0, 1456838, 2.73, ...], [1, 2210331, 1.9, ...]], [5]]
   ]
 }
 ```

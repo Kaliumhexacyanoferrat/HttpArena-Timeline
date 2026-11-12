@@ -1,9 +1,0 @@
-{
-  "metrics": ["rps","avg_latency_ms","p99_latency_ms","p99_9_latency_ms","cpu_pct","cpu_per_req_us","memory_bytes","bandwidth_bps","input_bw_bps","reconnects","status_2xx","status_3xx","status_4xx","status_5xx"],
-  "frameworks": [],
-  "data": [
-    ["2026-10-25T14:49:29.0000000+00:00",{"n":1,"median":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"avg":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"min":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"max":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"min_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null],"max_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null]}],
-    ["2026-11-01T22:26:04.0000000+00:00",{"n":1,"median":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"avg":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"min":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"max":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"min_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null],"max_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null]}],
-    ["2026-11-09T16:23:23.0000000+00:00",{"n":1,"median":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"avg":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"min":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"max":[997965,0.097,0.169,3.341,2305.4,21.072,179306496,131730000,null,0,19962683,0,0,0],"min_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null],"max_fw":[null,null,null,null,null,null,null,null,null,null,null,null,null,null]}]
-  ]
-}

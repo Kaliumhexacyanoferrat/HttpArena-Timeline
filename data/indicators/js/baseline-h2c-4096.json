@@ -1,8 +1,0 @@
-{
-  "metrics": ["rps","avg_latency_ms","p99_latency_ms","p99_9_latency_ms","cpu_pct","cpu_per_req_us","memory_bytes","bandwidth_bps","input_bw_bps","reconnects","status_2xx","status_3xx","status_4xx","status_5xx"],
-  "frameworks": ["fulmine.js","morojs"],
-  "data": [
-    ["2026-10-31T20:03:34.0000000+00:00",{"n":2,"median":[799640,339.36,4455,null,6444.1,null,16857746636.5,23465000,null,0,4077850,0,0,0],"avg":[799640,339.36,4455,null,6444.1,null,16857746636.5,23465000,null,0,4077850,0,0,0],"min":[767925,234.56,3930,null,6291.6,null,14817637171,21060000,null,0,3924100,0,0,0],"max":[831355,444.16,4980,null,6596.6,null,18897856102,25870000,null,0,4231600,0,0,0],"min_fw":[0,1,1,null,1,null,1,1,null,null,0,null,null,null],"max_fw":[1,0,0,null,0,null,0,0,null,null,1,null,null,null]}],
-    ["2026-11-03T20:12:17.0000000+00:00",{"n":2,"median":[802687,375.77,2800,null,6332.35,null,17018807910,23540000,null,0,4089550,0,0,0],"avg":[802687,375.77,2800,null,6332.35,null,17018807910,23540000,null,0,4089550,0,0,0],"min":[774019,234.56,1670,null,6291.6,null,14817637171,21060000,null,0,3947500,0,0,0],"max":[831355,516.98,3930,null,6373.1,null,19219978649,26020000,null,0,4231600,0,0,0],"min_fw":[0,1,0,null,1,null,1,1,null,null,0,null,null,null],"max_fw":[1,0,1,null,0,null,0,0,null,null,1,null,null,null]}]
-  ]
-}

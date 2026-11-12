@@ -1,4 +1,4 @@
-import type { DataIndex, IndicatorFile, TimelineFile } from './types'
+import type { DataIndex, FieldLog, TimelineFile } from './types'
 
 const base = import.meta.env.BASE_URL
 const v = `?v=${__BUILD_TIME__}`
@@ -24,18 +24,18 @@ export async function loadTimeline(framework: string, test: string): Promise<Tim
   return data
 }
 
-const indicatorCache = new Map<string, Promise<IndicatorFile | null>>()
+const fieldCache = new Map<string, Promise<FieldLog | null>>()
 
-export function loadIndicator(scope: string, test: string): Promise<IndicatorFile | null> {
-  const key = `${scope}/${test}`
-  let pending = indicatorCache.get(key)
+/** The test's field log, which every indicator of the test is computed from. */
+export function loadFieldLog(test: string): Promise<FieldLog | null> {
+  let pending = fieldCache.get(test)
   if (!pending) {
-    // Several selected stats of one scope share a single file; cache the request itself
-    // so they don't each fetch it.
-    pending = fetch(`${base}data/indicators/${encodeURIComponent(scope)}/${encodeURIComponent(test)}.json${v}`)
-      .then(res => (res.ok ? (res.json() as Promise<IndicatorFile>) : null))
+    // Every selected indicator of a test shares one file; cache the request itself so
+    // they don't each fetch it.
+    pending = fetch(`${base}data/indicators/${encodeURIComponent(test)}.json${v}`)
+      .then(res => (res.ok ? (res.json() as Promise<FieldLog>) : null))
       .catch(() => null)
-    indicatorCache.set(key, pending)
+    fieldCache.set(test, pending)
   }
   return pending
 }

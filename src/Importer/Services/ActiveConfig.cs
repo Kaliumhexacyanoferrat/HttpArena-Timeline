@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using Importer.Models;
 using LibGit2Sharp;
 
 namespace Importer.Services;
@@ -17,6 +18,12 @@ namespace Importer.Services;
 ///     <c>enabled</c> and which base tests it runs. Several variant folders can share one
 ///     <c>display_name</c> (actix, actix-h2c, actix-websocket -> "actix"); their test lists
 ///     are unioned, matching how results merge them under a single framework name.
+///
+/// It also carries each framework's classification (type tier and standard/tuned mode),
+/// resolved exactly like HttpArena's <c>scripts/rebuild_site_data.py</c> builds the
+/// leaderboard's <c>frameworks.json</c>: every meta.json counts (enabled or not), entries are
+/// grouped by <c>display_name</c>, and the group's primary entry — the folder named like the
+/// display name, else the first folder alphabetically — defines type and mode.
 /// </summary>
 public sealed partial class ActiveConfig
 {
@@ -29,16 +36,21 @@ public sealed partial class ActiveConfig
     // union of every active test key across all frameworks
     public IReadOnlySet<string> TestKeys { get; }
 
+    // framework key -> classification of the display name's primary meta.json
+    private readonly Dictionary<string, Classification> _classifications;
+
     public int FrameworkCount => _combos.Count;
 
     private ActiveConfig(
         Dictionary<string, HashSet<string>> combos,
         Dictionary<string, string> languages,
-        HashSet<string> testKeys)
+        HashSet<string> testKeys,
+        Dictionary<string, Classification> classifications)
     {
         _combos = combos;
         Languages = languages;
         TestKeys = testKeys;
+        _classifications = classifications;
     }
 
     private static string Key(string framework) => framework.Trim().ToLowerInvariant();
@@ -50,6 +62,10 @@ public sealed partial class ActiveConfig
     public string? LanguageFor(string framework) =>
         Languages.TryGetValue(Key(framework), out var lang) ? lang : null;
 
+    /// <summary>The framework's type and mode; HttpArena's defaults if it has no meta.json.</summary>
+    public Classification ClassificationOf(string framework) =>
+        _classifications.TryGetValue(Key(framework), out var c) ? c : Classification.Default;
+
     public static ActiveConfig Load(Commit mainTip)
     {
         var profiles = LoadProfiles(mainTip);
@@ -57,6 +73,7 @@ public sealed partial class ActiveConfig
         var combos = new Dictionary<string, HashSet<string>>();
         var languages = new Dictionary<string, string>();
         var testKeys = new HashSet<string>();
+        var candidates = new List<(string DisplayName, string Dir, Classification Classification)>();
 
         if (mainTip.Tree["frameworks"]?.Target is Tree frameworksTree)
         {
@@ -65,11 +82,32 @@ public sealed partial class ActiveConfig
                 if (dirEntry.Target is not Tree fwTree) continue;
                 if (fwTree["meta.json"]?.Target is not Blob metaBlob) continue;
 
-                LoadMeta(metaBlob.GetContentText(), dirEntry.Name, profiles, combos, languages, testKeys);
+                LoadMeta(metaBlob.GetContentText(), dirEntry.Name, profiles, combos, languages, testKeys, candidates);
             }
         }
 
-        return new ActiveConfig(combos, languages, testKeys);
+        return new ActiveConfig(combos, languages, testKeys, ResolveClassifications(candidates));
+    }
+
+    /// <summary>
+    /// One classification per display name, picked like rebuild_site_data.py does: the entry
+    /// whose folder equals the display name, else the first folder in ordinal order.
+    /// </summary>
+    private static Dictionary<string, Classification> ResolveClassifications(
+        List<(string DisplayName, string Dir, Classification Classification)> candidates)
+    {
+        var result = new Dictionary<string, Classification>();
+
+        foreach (var group in candidates.GroupBy(c => c.DisplayName, StringComparer.Ordinal))
+        {
+            var sorted = group.OrderBy(c => c.Dir, StringComparer.Ordinal).ToList();
+            var primary = sorted.FirstOrDefault(c => c.Dir == group.Key);
+            if (primary.Dir is null) primary = sorted[0];
+
+            result.TryAdd(Key(group.Key), primary.Classification);
+        }
+
+        return result;
     }
 
     private static void LoadMeta(
@@ -78,7 +116,8 @@ public sealed partial class ActiveConfig
         IReadOnlyDictionary<string, List<string>> profiles,
         Dictionary<string, HashSet<string>> combos,
         Dictionary<string, string> languages,
-        HashSet<string> testKeys)
+        HashSet<string> testKeys,
+        List<(string DisplayName, string Dir, Classification Classification)> candidates)
     {
         JsonDocument doc;
         try { doc = JsonDocument.Parse(content); }
@@ -92,12 +131,16 @@ public sealed partial class ActiveConfig
         {
             var root = doc.RootElement;
             if (root.ValueKind != JsonValueKind.Object) return;
-            if (!root.TryGetProperty("enabled", out var enabled) || enabled.ValueKind != JsonValueKind.True)
-                return;
 
             var displayName = root.TryGetProperty("display_name", out var dn) && dn.ValueKind == JsonValueKind.String
                 ? dn.GetString() : null;
             if (string.IsNullOrWhiteSpace(displayName)) displayName = dirName;
+
+            // Disabled entries still take part in picking the display name's classification.
+            candidates.Add((displayName!, dirName, ReadClassification(root)));
+
+            if (!root.TryGetProperty("enabled", out var enabled) || enabled.ValueKind != JsonValueKind.True)
+                return;
 
             var key = Key(displayName!);
 
@@ -130,6 +173,18 @@ public sealed partial class ActiveConfig
                 }
             }
         }
+    }
+
+    /// <summary>Type and mode with the leaderboard's fallbacks (emerging, standard).</summary>
+    private static Classification ReadClassification(JsonElement root)
+    {
+        static string? Str(JsonElement root, string name) =>
+            root.TryGetProperty(name, out var v) && v.ValueKind == JsonValueKind.String && v.GetString() is { Length: > 0 } s
+                ? s : null;
+
+        return new Classification(
+            Str(root, "type") ?? Classification.DefaultType,
+            Str(root, "mode") ?? Classification.DefaultMode);
     }
 
     /// <summary>

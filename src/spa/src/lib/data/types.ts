@@ -26,7 +26,12 @@ export interface TimelineFile {
 export interface FrameworkInfo {
   language: string
   tests: string[]
+  /** HttpArena tier: flagship, emerging, experimental, engine or infrastructure. */
+  type?: string
+  /** Set for entries in HttpArena's "tuned" mode (non-default configuration). */
+  tuned?: boolean
 }
+
 
 /** An aggregation scope: every framework ("all") or the frameworks of one language. */
 export interface IndicatorScope {
@@ -41,7 +46,18 @@ export interface DataIndex {
   indicators?: IndicatorScope[]
 }
 
-/** One daily snapshot of a scope; each array holds one value per entry of `metrics`. */
+/**
+ * data/indicators/<test>.json: how the test's field of results changed, one entry per UTC
+ * day: [timestamp, rows set that day as [frameworkIndex, value per metric...], frameworks
+ * removed that day]. Indicators are aggregated from it in the browser (see data/field.ts).
+ */
+export interface FieldLog {
+  metrics: string[]
+  frameworks: string[]
+  days: [string, (number | null)[][], number[]][]
+}
+
+/** One daily aggregate of a scope; each array holds one value per entry of `metrics`. */
 export interface IndicatorPoint {
   n: number
   median: (number | null)[]

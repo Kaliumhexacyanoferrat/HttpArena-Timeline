@@ -288,7 +288,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         Console.WriteLine($"  Wrote {totalFiles} files for {_data.Count} frameworks.");
 
         await _indicators.WriteAsync(outputPath);
-        Console.WriteLine($"  Wrote {_indicators.SeriesCount} indicator files for {_indicators.Scopes().Count()} scopes.");
+        Console.WriteLine($"  Wrote {_indicators.SeriesCount} indicator field logs ({_indicators.Scopes().Count()} scopes).");
 
         await WriteIndexAsync();
     }
@@ -312,8 +312,11 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         writer.WriteStartObject("frameworks");
         foreach (var (fw, (lang, tests)) in index.OrderBy(kv => kv.Key))
         {
+            var classification = _active.ClassificationOf(fw);
             writer.WriteStartObject(fw);
             writer.WriteString("language", lang);
+            writer.WriteString("type", classification.Type);
+            if (classification.Tuned) writer.WriteBoolean("tuned", true);
             writer.WriteStartArray("tests");
             foreach (var t in tests) writer.WriteStringValue(t);
             writer.WriteEndArray();
@@ -324,8 +327,9 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         foreach (var t in allTests) writer.WriteStringValue(t);
         writer.WriteEndArray();
 
-        // Aggregate scopes stored under data/indicators/<key>/. The SPA derives per-test
-        // availability and framework counts from the frameworks map above.
+        // Scopes the SPA aggregates data/indicators/<test>.json over. Type and tuned above let
+        // it apply HttpArena's type filter; it derives per-test availability and framework
+        // counts from the frameworks map as well.
         writer.WriteStartArray("indicators");
         foreach (var (key, label, language) in _indicators.Scopes())
         {
