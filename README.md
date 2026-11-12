@@ -6,7 +6,7 @@ A historical view of [HTTP Arena](https://www.http-arena.com) benchmark results,
 
 ---
 
-![Timeline screenshot showing RPS over time for genhttp on the crud-4096 test](docs/screenshot.png)
+![Timeline screenshot comparing the RPS of genhttp, actix and aspnet-minimal on json-tls-4096 with the median and maximum of all flagship and emerging frameworks](docs/screenshot.jpg)
 
 ---
 
