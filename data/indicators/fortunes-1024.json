@@ -1,6 +1,6 @@
 {
   "metrics": ["rps","avg_latency_ms","p99_latency_ms","p99_9_latency_ms","cpu_pct","cpu_per_req_us","memory_bytes","bandwidth_bps","input_bw_bps","reconnects","status_2xx","status_3xx","status_4xx","status_5xx"],
-  "frameworks": ["aspnet-minimal","ring-http-exchange","roadrunner","ktor","trillium","swerver","vanilla-epoll","vanilla-io_uring","oxpecker","bun","deno","elysia","hono-bun","node","quarkus-jvm","express","hyper-express","trillium-tuned","ultimate-express","mq-bridge","django","fulmine.js","aspnet-minimal-11","neton","feersum","morojs","cutelyst","dusty","aspnet-minimal-satorigc","spliffy","micronaut-production","micronaut-tuned","wastnet","dusty-tuned","mipyre","klite","ntex","paozhu"],
+  "frameworks": ["aspnet-minimal","ring-http-exchange","roadrunner","ktor","trillium","swerver","vanilla-epoll","vanilla-io_uring","oxpecker","bun","deno","elysia","hono-bun","node","quarkus-jvm","express","hyper-express","trillium-tuned","ultimate-express","mq-bridge","django","fulmine.js","aspnet-minimal-11","neton","feersum","morojs","cutelyst","dusty","aspnet-minimal-satorigc","spliffy","micronaut-production","micronaut-tuned","wastnet","dusty-tuned","mipyre","klite","ntex","paozhu","actix"],
   "days": [
     ["2026-05-01T12:47:47.0000000+00:00",[[0,78159,10.26,31.5,null,5182.9,null,602931200,1870000000,null,0,390798,0,0,0]],[]],
     ["2026-05-17T21:21:56.0000000+00:00",[[1,66355,15.39,25.2,null,6388.7,null,15139759718,1600000000,null,0,331778,0,0,0]],[]],
@@ -68,6 +68,7 @@
     ["2026-11-03T20:12:17.0000000+00:00",[[21,68918,13.54,25.5,null,6508.7,null,3972844748,1600000000,null,0,344590,0,0,0],[4,213988,3.5,5.65,null,4966.2,null,346030080,4990000000,null,0,1069944,0,0,0],[17,163669,5.89,9.41,null,4311.9,null,392167424,3820000000,null,0,818348,0,0,0]],[]],
     ["2026-11-07T11:53:01.0000000+00:00",[[3,61805,15.25,26.5,null,5159.1,null,11489037516,1770000000,null,0,309028,0,0,0],[34,39297,25.45,35.8,null,2799.9,null,934281216,932440000,null,0,196487,0,0,0]],[]],
     ["2026-11-09T16:23:23.0000000+00:00",[[35,56511,17.36,73.8,null,5927.7,null,17931488460,1270000000,null,24760,282556,0,0,0]],[]],
-    ["2026-11-11T15:57:40.0000000+00:00",[[34,33251,30.39,45.5,null,2865.2,null,1288490188,795080000,null,0,166256,0,0,0],[36,264736,2.19,4.79,null,5768.6,null,281018368,6160000000,null,0,1323681,0,0,0],[37,49685,19.63,96.3,null,2963,null,91226112,1150000000,null,0,248428,0,0,0]],[]]
+    ["2026-11-11T15:57:40.0000000+00:00",[[34,33251,30.39,45.5,null,2865.2,null,1288490188,795080000,null,0,166256,0,0,0],[36,264736,2.19,4.79,null,5768.6,null,281018368,6160000000,null,0,1323681,0,0,0],[37,49685,19.63,96.3,null,2963,null,91226112,1150000000,null,0,248428,0,0,0]],[]],
+    ["2026-11-13T23:53:32.0000000+00:00",[[38,267328,2.31,7,null,5072.5,null,450887680,6220000000,null,7,1336640,0,0,0],[34,33624,30.02,40.9,null,2908.6,null,917504000,803980000,null,0,168123,0,0,0],[36,266103,2.19,5.88,null,5327,null,483393536,6190000000,null,0,1330515,0,0,0],[37,52974,18.34,134.8,null,2778.6,null,144703488,1220000000,null,0,264871,0,0,0],[2,69357,13.66,40,null,6424.1,null,1503238553,1600000000,null,0,346785,0,0,0],[4,201737,3.68,6.01,null,4689.4,null,317718528,4700000000,null,0,1008685,0,0,0],[17,166211,5.64,9.34,null,4449.4,null,393216000,3870000000,null,0,831056,0,0,0]],[]]
   ]
 }
