@@ -29,7 +29,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -65,7 +64,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -106,7 +104,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -150,7 +147,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -183,7 +179,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -223,7 +218,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -257,7 +251,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -293,7 +286,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -332,7 +324,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -372,7 +363,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -425,7 +415,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -456,7 +445,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -477,7 +465,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -514,7 +501,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -534,7 +520,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -562,7 +547,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -604,7 +588,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -659,7 +642,6 @@
         "json-comp-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -700,7 +682,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096"
       ]
     },
@@ -717,7 +698,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -744,9 +724,9 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
-        "pipelined-4096"
+        "pipelined-4096",
+        "static-tls-1024"
       ]
     },
     "cnetmod": {
@@ -782,7 +762,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -809,7 +788,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -829,7 +807,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -846,7 +823,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -869,7 +845,6 @@
         "json-comp-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -906,7 +881,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -923,7 +897,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -950,7 +923,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -971,7 +943,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -990,7 +961,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1051,7 +1021,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1074,7 +1043,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1108,7 +1076,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1144,7 +1111,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1163,7 +1129,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1190,7 +1155,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1212,7 +1176,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -1257,7 +1220,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1294,7 +1256,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1329,7 +1290,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1363,7 +1323,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1383,7 +1342,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1438,7 +1396,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1464,7 +1421,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -1482,7 +1438,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -1500,7 +1455,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1553,7 +1507,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -1600,7 +1553,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1620,6 +1572,9 @@
         "baseline-h2c-256",
         "baseline-h2c-4096",
         "baseline-h3-64",
+        "connections-1m-1000000",
+        "connections-1m-tls-1000000",
+        "connections-5m-5000000",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -1635,7 +1590,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1668,7 +1622,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1697,7 +1650,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1724,7 +1676,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1743,7 +1694,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1762,7 +1712,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -1789,7 +1738,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1848,7 +1796,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1868,7 +1815,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -1901,7 +1847,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1942,7 +1887,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -1975,7 +1919,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2007,7 +1950,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -2029,7 +1971,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -2047,7 +1988,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2070,7 +2010,6 @@
         "json-comp-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2088,7 +2027,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2105,7 +2043,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2122,7 +2059,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2139,7 +2075,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "static-tls-1024"
       ]
@@ -2158,7 +2093,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2193,7 +2127,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -2215,7 +2148,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2235,7 +2167,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -2269,7 +2200,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096"
       ]
     },
@@ -2311,7 +2241,6 @@
         "fortunes-1024",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2328,7 +2257,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2387,7 +2315,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -2466,7 +2393,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -2502,7 +2428,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2514,7 +2439,6 @@
         "baseline-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2552,7 +2476,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -2574,7 +2497,6 @@
         "baseline-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096"
       ]
     },
@@ -2591,7 +2513,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -2626,7 +2547,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2661,7 +2581,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -2701,7 +2620,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -2754,7 +2672,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -2778,7 +2695,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2801,7 +2717,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "static-tls-1024"
       ]
@@ -2839,7 +2754,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -2876,7 +2790,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -2903,7 +2816,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -2926,7 +2838,6 @@
         "echo-ws-pipeline-512",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -2952,7 +2863,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -2996,7 +2906,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -3030,7 +2939,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -3071,7 +2979,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3105,7 +3012,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -3167,7 +3073,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -3205,7 +3110,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -3240,7 +3144,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -3269,7 +3172,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -3292,7 +3194,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -3333,7 +3234,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -3356,7 +3256,25 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "pipelined-4096"
+      ]
+    },
+    "proa": {
+      "language": "Rust",
+      "type": "emerging",
+      "tuned": true,
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "async-db-1024",
+        "baseline-4096",
+        "fortunes-1024",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3447,7 +3365,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -3515,7 +3432,6 @@
         "json-comp-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3533,7 +3449,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3565,7 +3480,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -3585,7 +3499,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096"
       ]
     },
@@ -3603,7 +3516,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "static-tls-1024"
       ]
@@ -3628,7 +3540,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3660,7 +3571,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -3714,7 +3624,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -3733,7 +3642,6 @@
         "baseline-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3750,7 +3658,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3766,7 +3673,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -3784,7 +3690,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096"
       ]
     },
@@ -3800,7 +3705,6 @@
         "json-comp-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3828,7 +3732,24 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
+        "limited-conn-4096",
+        "pipelined-4096",
+        "static-tls-1024"
+      ]
+    },
+    "sharaf": {
+      "language": "Scala",
+      "type": "experimental",
+      "tests": [
+        "async-32000",
+        "async-db-1024",
+        "baseline-4096",
+        "fortunes-1024",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -3853,7 +3774,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -3879,7 +3799,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -3898,7 +3817,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -3918,7 +3836,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3936,7 +3853,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3954,7 +3870,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -3997,7 +3912,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -4018,7 +3932,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -4039,7 +3952,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -4111,7 +4023,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -4135,7 +4046,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -4175,7 +4085,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -4299,7 +4208,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -4349,7 +4257,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -4385,7 +4292,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -4421,7 +4327,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -4440,7 +4345,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -4485,7 +4389,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -4517,7 +4420,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -4556,7 +4458,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "production-stack-1024",
@@ -4580,7 +4481,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -4654,7 +4554,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -4695,7 +4594,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -4720,7 +4618,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -4738,7 +4635,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -4756,7 +4652,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -4788,7 +4683,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -4833,7 +4727,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
@@ -4853,7 +4746,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096"
       ]
@@ -4914,7 +4806,6 @@
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
-        "latency-500k-8cpu-1024",
         "limited-conn-4096",
         "pipelined-4096",
         "static-tls-1024"
@@ -4971,6 +4862,9 @@
     "baseline-h2c-256",
     "baseline-h2c-4096",
     "baseline-h3-64",
+    "connections-1m-1000000",
+    "connections-1m-tls-1000000",
+    "connections-5m-5000000",
     "echo-ws-16384",
     "echo-ws-4096",
     "echo-ws-512",
@@ -4991,7 +4885,6 @@
     "json-tls-4096",
     "latency-10k-1024",
     "latency-1m-1024",
-    "latency-500k-8cpu-1024",
     "limited-conn-4096",
     "pipelined-4096",
     "production-stack-1024",
