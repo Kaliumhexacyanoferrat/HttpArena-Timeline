@@ -20,7 +20,7 @@ public record MetricsEntry(
     int Status3xx,
     int Status4xx,
     int Status5xx,
-    // Held-connection profiles (connections-1m, -1m-tls, -5m) only; null elsewhere and not written then.
+    // Fixed-rate profiles only (8gbit, latency, connections); null elsewhere.
     double? TargetRate,
     double? RateRatio,
     long? ConnectionsOpen,

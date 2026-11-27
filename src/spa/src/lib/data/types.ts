@@ -1,25 +1,27 @@
+/** A measurement. The importer leaves out fields without a value, so most are optional. */
 export interface Metrics {
   rps: number
-  avg_latency_ms: number | null
+  avg_latency_ms?: number
   /** Reported by the held-connection profiles (connections-*) only. */
-  p50_latency_ms?: number | null
-  p99_latency_ms: number | null
-  p99_9_latency_ms: number | null
-  cpu_pct: number | null
-  cpu_per_req_us: number | null
-  memory_bytes: number | null
+  p50_latency_ms?: number
+  p99_latency_ms?: number
+  /** Fixed-rate profiles only, like cpu_per_req_us. */
+  p99_9_latency_ms?: number
+  cpu_pct?: number
+  cpu_per_req_us?: number
+  memory_bytes?: number
   connections: number
   threads: number
-  duration_ms: number | null
+  duration_ms?: number
   pipeline: number
-  bandwidth_bps: number | null
-  input_bw_bps: number | null
+  bandwidth_bps?: number
+  input_bw_bps?: number
   reconnects: number
   status_2xx: number
   status_3xx: number
   status_4xx: number
   status_5xx: number
-  // Held-connection profiles only; absent elsewhere.
+  // Fixed-rate profiles only.
   target_rate?: number
   rate_ratio?: number
   connections_open?: number

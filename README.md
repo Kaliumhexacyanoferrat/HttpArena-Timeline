@@ -44,6 +44,8 @@ Each timeline file has the following structure:
 }
 ```
 
+A field a run did not report is left out rather than written as `null` (p50 and p99.9 latency, CPU per request and the rate fields come from the fixed-rate profiles only).
+
 An `index.json` at the root of `data/` lists all available frameworks (with language, HttpArena type and tuned flag), tests and indicator scopes for the SPA to enumerate.
 
 Indicator files are field logs: one entry per UTC day on which the test's results were touched, holding the rows set that day (`[frameworkIndex, value per metric...]`) and the frameworks removed that day. The SPA replays a log and aggregates whichever frameworks the type filter and scope select.

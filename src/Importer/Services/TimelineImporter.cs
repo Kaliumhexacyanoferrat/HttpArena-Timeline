@@ -404,25 +404,25 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
     {
         w.WriteStartObject();
         w.WriteNumber("rps",            m.Rps);
-        WriteNullable(w, "avg_latency_ms",    m.AvgLatencyMs);
-        WriteNullable(w, "p50_latency_ms",    m.P50LatencyMs);
-        WriteNullable(w, "p99_latency_ms",    m.P99LatencyMs);
-        WriteNullable(w, "p99_9_latency_ms",  m.P999LatencyMs);
-        WriteNullable(w, "cpu_pct",           m.CpuPct);
-        WriteNullable(w, "cpu_per_req_us",    m.CpuPerReqUs);
-        WriteNullable(w, "memory_bytes",      m.MemoryBytes);
+        WriteIfPresent(w, "avg_latency_ms",    m.AvgLatencyMs);
+        WriteIfPresent(w, "p50_latency_ms",    m.P50LatencyMs);
+        WriteIfPresent(w, "p99_latency_ms",    m.P99LatencyMs);
+        WriteIfPresent(w, "p99_9_latency_ms",  m.P999LatencyMs);
+        WriteIfPresent(w, "cpu_pct",           m.CpuPct);
+        WriteIfPresent(w, "cpu_per_req_us",    m.CpuPerReqUs);
+        WriteIfPresent(w, "memory_bytes",      m.MemoryBytes);
         w.WriteNumber("connections",    m.Connections);
         w.WriteNumber("threads",        m.Threads);
-        WriteNullable(w, "duration_ms",       m.DurationMs);
+        WriteIfPresent(w, "duration_ms",       m.DurationMs);
         w.WriteNumber("pipeline",       m.Pipeline);
-        WriteNullable(w, "bandwidth_bps",     m.BandwidthBytesPerSec);
-        WriteNullable(w, "input_bw_bps",      m.InputBwBytesPerSec);
+        WriteIfPresent(w, "bandwidth_bps",     m.BandwidthBytesPerSec);
+        WriteIfPresent(w, "input_bw_bps",      m.InputBwBytesPerSec);
         w.WriteNumber("reconnects",     m.Reconnects);
         w.WriteNumber("status_2xx",     m.Status2xx);
         w.WriteNumber("status_3xx",     m.Status3xx);
         w.WriteNumber("status_4xx",     m.Status4xx);
         w.WriteNumber("status_5xx",     m.Status5xx);
-        // Only the held-connection profiles report these; other rows leave them out.
+        // Reported by the fixed-rate profiles only.
         WriteIfPresent(w, "target_rate",           m.TargetRate);
         WriteIfPresent(w, "rate_ratio",            m.RateRatio);
         WriteIfPresent(w, "connections_open",      m.ConnectionsOpen);
@@ -430,18 +430,9 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         w.WriteEndObject();
     }
 
-    private static void WriteNullable(Utf8JsonWriter w, string name, double? v)
-    {
-        if (v.HasValue) w.WriteNumber(name, v.Value);
-        else w.WriteNull(name);
-    }
-
-    private static void WriteNullable(Utf8JsonWriter w, string name, long? v)
-    {
-        if (v.HasValue) w.WriteNumber(name, v.Value);
-        else w.WriteNull(name);
-    }
-
+    // A field without a value is left out rather than written as null: most are reported by a
+    // few profiles only (p50, p99.9, CPU per request, input bandwidth), and nulls on every other
+    // row would make up a large share of the data. Readers treat a missing field as no value.
     private static void WriteIfPresent(Utf8JsonWriter w, string name, double? v)
     {
         if (v.HasValue) w.WriteNumber(name, v.Value);

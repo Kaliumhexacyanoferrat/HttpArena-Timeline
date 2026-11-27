@@ -5,11 +5,8 @@
       {
         "rps": 1932947,
         "avg_latency_ms": 16.41,
-        "p50_latency_ms": null,
         "p99_latency_ms": 20.9,
-        "p99_9_latency_ms": null,
         "cpu_pct": 5872.9,
-        "cpu_per_req_us": null,
         "memory_bytes": 600834048,
         "connections": 32000,
         "threads": 64,
@@ -29,11 +26,8 @@
       {
         "rps": 1932947,
         "avg_latency_ms": 16.41,
-        "p50_latency_ms": null,
         "p99_latency_ms": 20.9,
-        "p99_9_latency_ms": null,
         "cpu_pct": 5872.9,
-        "cpu_per_req_us": null,
         "memory_bytes": 600834048,
         "connections": 32000,
         "threads": 64,

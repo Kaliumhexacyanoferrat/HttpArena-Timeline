@@ -5,7 +5,6 @@
       {
         "rps": 997766,
         "avg_latency_ms": 0.10790000000000001,
-        "p50_latency_ms": null,
         "p99_latency_ms": 0.193,
         "p99_9_latency_ms": 4.134,
         "cpu_pct": 2712,
@@ -16,7 +15,6 @@
         "duration_ms": 20000,
         "pipeline": 1,
         "bandwidth_bps": 116740000,
-        "input_bw_bps": null,
         "reconnects": 0,
         "status_2xx": 19958833,
         "status_3xx": 0,
@@ -31,7 +29,6 @@
       {
         "rps": 997573,
         "avg_latency_ms": 0.103,
-        "p50_latency_ms": null,
         "p99_latency_ms": 0.185,
         "p99_9_latency_ms": 0.292,
         "cpu_pct": 2793.2,
@@ -42,7 +39,6 @@
         "duration_ms": 20000,
         "pipeline": 1,
         "bandwidth_bps": 116720000,
-        "input_bw_bps": null,
         "reconnects": 0,
         "status_2xx": 19954360,
         "status_3xx": 0,
@@ -57,7 +53,6 @@
       {
         "rps": 997573,
         "avg_latency_ms": 0.103,
-        "p50_latency_ms": null,
         "p99_latency_ms": 0.185,
         "p99_9_latency_ms": 0.292,
         "cpu_pct": 2793.2,
@@ -68,7 +63,6 @@
         "duration_ms": 20000,
         "pipeline": 1,
         "bandwidth_bps": 116720000,
-        "input_bw_bps": null,
         "reconnects": 0,
         "status_2xx": 19954360,
         "status_3xx": 0,
@@ -83,7 +77,6 @@
       {
         "rps": 998182,
         "avg_latency_ms": 0.1018,
-        "p50_latency_ms": null,
         "p99_latency_ms": 0.188,
         "p99_9_latency_ms": 1.45,
         "cpu_pct": 2679.2,
@@ -94,7 +87,6 @@
         "duration_ms": 20000,
         "pipeline": 1,
         "bandwidth_bps": 116790000,
-        "input_bw_bps": null,
         "reconnects": 0,
         "status_2xx": 19966914,
         "status_3xx": 0,

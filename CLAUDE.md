@@ -78,7 +78,7 @@ The structure of the json files should look like this:
 }
 ```
 
-It is important to keep all data points for later (so all measured fields). If there are multiple result records per day (due to multiple commits), keep them with the commit timestamp.
+It is important to keep all data points for later (so all measured fields). A field without a value is omitted, not written as `null` (most of the newer fields exist for a few profiles only); readers treat a missing field as no value. If there are multiple result records per day (due to multiple commits), keep them with the commit timestamp.
 
 ### Import model (always a full rebuild)
 

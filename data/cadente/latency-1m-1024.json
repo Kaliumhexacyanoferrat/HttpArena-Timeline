@@ -5,7 +5,6 @@
       {
         "rps": 998426,
         "avg_latency_ms": 0.3034,
-        "p50_latency_ms": null,
         "p99_latency_ms": 3.183,
         "p99_9_latency_ms": 6.17,
         "cpu_pct": 3290.1,
@@ -16,7 +15,6 @@
         "duration_ms": 20000,
         "pipeline": 1,
         "bandwidth_bps": 133789999.99999999,
-        "input_bw_bps": null,
         "reconnects": 0,
         "status_2xx": 19972023,
         "status_3xx": 0,
