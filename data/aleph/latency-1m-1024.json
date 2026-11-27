@@ -15,12 +15,13 @@
         "duration_ms": 20000,
         "pipeline": 1,
         "bandwidth_bps": 155670000,
-        "input_bw_bps": null,
         "reconnects": 0,
         "status_2xx": 19961641,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 1000000,
+        "rate_ratio": 0.9979
       }
     ],
     [
@@ -38,12 +39,13 @@
         "duration_ms": 20000,
         "pipeline": 1,
         "bandwidth_bps": 155660000,
-        "input_bw_bps": null,
         "reconnects": 0,
         "status_2xx": 19960573,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 1000000,
+        "rate_ratio": 0.9978
       }
     ],
     [
@@ -61,12 +63,13 @@
         "duration_ms": 20000,
         "pipeline": 1,
         "bandwidth_bps": 155660000,
-        "input_bw_bps": null,
         "reconnects": 0,
         "status_2xx": 19960573,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 1000000,
+        "rate_ratio": 0.9978
       }
     ],
     [
@@ -84,12 +87,13 @@
         "duration_ms": 20000,
         "pipeline": 1,
         "bandwidth_bps": 64920000,
-        "input_bw_bps": null,
         "reconnects": 0,
         "status_2xx": 8326018,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 8
+        "status_5xx": 8,
+        "target_rate": 1000000,
+        "rate_ratio": 0.4162
       }
     ],
     [
@@ -107,12 +111,13 @@
         "duration_ms": 20000,
         "pipeline": 1,
         "bandwidth_bps": 63810000,
-        "input_bw_bps": null,
         "reconnects": 0,
         "status_2xx": 8183939,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 1000000,
+        "rate_ratio": 0.4091
       }
     ]
   ]

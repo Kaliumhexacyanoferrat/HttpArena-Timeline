@@ -86,13 +86,18 @@ export function markMetricsTouched(): void {
   metricsTouched.set(true)
 }
 
-// Some tests are not about throughput. For fixed-rate / bandwidth-saturation tests
-// (8gbit, latency) the score is driven by CPU cost per request and tail latency, so
-// default to those metrics rather than RPS.
+// Some tests are not about throughput. Fixed-rate tests default to what HttpArena scores
+// them on rather than RPS: 8gbit and latency on CPU per request, mean and p99 latency. The
+// held-connection tests (connections-*) are scored on CPU per request, memory, p50 and p99;
+// they default to the first two, what holding the fleet costs, to keep the chart readable.
 const TEST_METRIC_DEFAULTS: { match: (test: string) => boolean; metrics: string[] }[] = [
   {
     match: t => t.startsWith('8gbit') || t.startsWith('latency'),
-    metrics: ['cpu_per_req_us', 'p99_latency_ms', 'p99_9_latency_ms'],
+    metrics: ['cpu_per_req_us', 'avg_latency_ms', 'p99_latency_ms'],
+  },
+  {
+    match: t => t.startsWith('connections-'),
+    metrics: ['cpu_per_req_us', 'memory_bytes'],
   },
 ]
 

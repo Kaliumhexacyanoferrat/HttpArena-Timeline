@@ -4,16 +4,18 @@ export type Resolution = 'raw' | 'day' | 'week' | 'month' | 'quarter' | 'year'
 export interface ResolutionConfig {
   key: Resolution
   label: string
+  /** On the switch. */
+  short: string
   title: string
 }
 
 export const RESOLUTIONS: ResolutionConfig[] = [
-  { key: 'raw',     label: 'All points', title: 'Every measurement' },
-  { key: 'day',     label: 'Daily',     title: 'One point per day' },
-  { key: 'week',    label: 'Weekly',    title: 'One point per week (Monday to Sunday)' },
-  { key: 'month',   label: 'Monthly',   title: 'One point per month' },
-  { key: 'quarter', label: 'Quarterly', title: 'One point per quarter' },
-  { key: 'year',    label: 'Yearly',    title: 'One point per year' },
+  { key: 'raw',     label: 'All points', short: 'All', title: 'Every measurement' },
+  { key: 'day',     label: 'Daily', short: 'Day',     title: 'One point per day' },
+  { key: 'week',    label: 'Weekly', short: 'Week',    title: 'One point per week (Monday to Sunday)' },
+  { key: 'month',   label: 'Monthly', short: 'Month',   title: 'One point per month' },
+  { key: 'quarter', label: 'Quarterly', short: 'Quarter', title: 'One point per quarter' },
+  { key: 'year',    label: 'Yearly', short: 'Year',    title: 'One point per year' },
 ]
 
 export function parseResolution(value: string | null): Resolution {

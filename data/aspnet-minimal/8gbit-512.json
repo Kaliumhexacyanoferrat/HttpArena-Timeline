@@ -20,7 +20,9 @@
         "status_2xx": 246801,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9868
       }
     ],
     [
@@ -43,7 +45,9 @@
         "status_2xx": 246691,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9863
       }
     ],
     [
@@ -66,7 +70,9 @@
         "status_2xx": 246691,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9863
       }
     ],
     [
@@ -89,7 +95,9 @@
         "status_2xx": 246640,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9861
       }
     ],
     [
@@ -112,7 +120,9 @@
         "status_2xx": 246640,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9861
       }
     ]
   ]

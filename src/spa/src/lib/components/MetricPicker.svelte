@@ -83,8 +83,7 @@
     border: none;
     background: none;
     color: var(--text);
-    font: inherit;
-    font-size: 13px;
+    font: 500 .85rem var(--sans);
     text-align: left;
     cursor: pointer;
   }
@@ -96,8 +95,9 @@
     justify-content: center;
     width: 15px;
     height: 15px;
-    border-radius: 4px;
-    border: 1px solid var(--border);
+    border-radius: 2px;
+    border: 1px solid var(--bay-line);
+    background: var(--bay);
     font-size: 11px;
     font-weight: 700;
     line-height: 1;
@@ -105,5 +105,5 @@
   .metric.on .check { border-color: var(--accent); background: var(--accent-weak); color: var(--accent); }
 
   .name { flex: 1; }
-  .unit { font-size: 11px; color: var(--muted); }
+  .unit { font: 500 .72rem var(--mono); color: var(--muted); }
 </style>

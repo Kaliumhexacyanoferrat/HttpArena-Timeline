@@ -20,7 +20,9 @@
         "status_2xx": 246353,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9851
       }
     ],
     [
@@ -43,7 +45,9 @@
         "status_2xx": 246919,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9873
       }
     ]
   ]

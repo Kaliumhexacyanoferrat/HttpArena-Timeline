@@ -1,55 +1,66 @@
 <script lang="ts">
   import { selectedResolution } from '../stores/selection'
   import { RESOLUTIONS } from '../data/resolution'
-  import PickerPanel from './PickerPanel.svelte'
-
-  let open = false
-
-  $: current = RESOLUTIONS.find(r => r.key === $selectedResolution) ?? RESOLUTIONS[0]
-
-  function pick(key: typeof RESOLUTIONS[number]['key']) {
-    selectedResolution.set(key)
-    open = false
-  }
 </script>
 
-<PickerPanel
-  label={current.label}
-  dialogLabel="Choose the time resolution"
-  variant="menu"
-  searchable={false}
-  align="right"
-  width={270}
-  title="Time resolution: {current.title.toLowerCase()}"
-  bind:open
->
-  {#each RESOLUTIONS as r (r.key)}
-    {@const on = r.key === $selectedResolution}
-    <button class="row option" class:on role="menuitemradio" aria-checked={on} on:click={() => pick(r.key)}>
-      <span class="name">{r.label}</span>
-      <span class="hint">{r.title}</span>
-    </button>
-  {/each}
-</PickerPanel>
+<!-- One point per period, or every point: the board's segmented switch (its View row). -->
+<div class="res">
+  <span class="cap" id="res-cap">Resolution</span>
+  <div class="seg" role="radiogroup" aria-labelledby="res-cap">
+    {#each RESOLUTIONS as r (r.key)}
+      {@const on = r.key === $selectedResolution}
+      <button class:on role="radio" aria-checked={on} title={r.title} on:click={() => selectedResolution.set(r.key)}>{r.short}</button>
+    {/each}
+  </div>
+</div>
 
 <style>
-  .option {
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start !important;
-    gap: 0 !important;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border: none;
-    background: none;
-    color: var(--text);
-    font: inherit;
-    text-align: left;
+  .res {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    min-width: 0;
+  }
+
+  .cap {
+    font: 600 .8125rem/1 var(--sans);
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+
+  .seg {
+    display: inline-flex;
+    gap: 2px;
+    padding: 2px;
+    background: var(--bay);
+    border: 1px solid var(--bay-line);
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  button {
+    flex: none;
+    height: 30px;
+    padding: 0 .75rem;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-2);
+    font: 600 .8125rem/1 var(--sans);
+    white-space: nowrap;
     cursor: pointer;
   }
-  .option:first-child { margin-top: 4px; }
-  .option.on .name { color: var(--accent); font-weight: 600; }
+  button:hover { color: var(--text); }
+  button.on {
+    color: var(--text);
+    background: var(--face);
+    border-color: var(--edge-lo);
+    box-shadow: 0 1px 0 var(--edge-hi) inset;
+  }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
-  .name { font-size: 13px; }
-  .hint { font-size: 11.5px; color: var(--muted); }
+  @media (max-width: 639px) {
+    .cap { display: none; }
+    button { padding: 0 .55rem; }
+  }
 </style>

@@ -9,32 +9,29 @@ export type FrameworkType = 'flagship' | 'emerging' | 'experimental' | 'engine' 
 export interface TypeConfig {
   key: FrameworkType
   label: string
-  /** Swatch next to a framework name. */
+  /** The type's light: the lit key of the filter and the square next to a name (the board's colours). */
   color: string
-  /** Text and background of an active filter button (the board's dark theme). */
-  text: string
-  background: string
   tip: string
 }
 
 export const TYPES: TypeConfig[] = [
-  { key: 'flagship',       label: 'Flagship',     color: '#2e9e6a', text: '#5cc596', background: 'rgba(46,158,106,.24)',
+  { key: 'flagship',       label: 'Flagship',     color: '#22c55e',
     tip: 'Proven in production: real applications are built and operated on it at scale, and it is actively maintained.' },
-  { key: 'emerging',       label: 'Emerging',     color: '#3b73c4', text: '#9bbdec', background: 'rgba(59,115,196,.30)',
+  { key: 'emerging',       label: 'Emerging',     color: '#4c9bff',
     tip: 'A genuine, working server that is not yet production-proven: young, niche, or without real deployments to point to.' },
-  { key: 'experimental',   label: 'Experimental', color: '#d98e2b', text: '#e8b066', background: 'rgba(217,142,43,.28)',
+  { key: 'experimental',   label: 'Experimental', color: '#f5a524',
     tip: 'Very new, unproven work. Hidden until selected.' },
-  { key: 'engine',         label: 'Engine',       color: '#cb5f51', text: '#e89384', background: 'rgba(203,95,81,.24)',
+  { key: 'engine',         label: 'Engine',       color: '#ef5b4c',
     tip: 'An HTTP implementation applications are not written against: raw sockets, low-level I/O, or a WSGI/ASGI-style host. Shown on its own.' },
-  { key: 'infrastructure', label: 'Infra',        color: '#2f93a8', text: '#6cc3d2', background: 'rgba(47,147,168,.24)',
+  { key: 'infrastructure', label: 'Infra',        color: '#22b8cf',
     tip: 'Reverse proxies and static-file servers run without an application framework layer. Shown on its own.' },
 ]
 
 export const TYPE_BY_KEY = Object.fromEntries(TYPES.map(t => [t.key, t])) as Record<FrameworkType, TypeConfig>
 
+/** Tuned entries wear the hazard yellow on the board. */
 export const TUNED = {
-  text: '#d9bd6b',
-  background: 'rgba(200,154,60,.26)',
+  color: '#f2bd00',
   tip: 'Tuned: non-default configuration and hand optimizations.',
 }
 

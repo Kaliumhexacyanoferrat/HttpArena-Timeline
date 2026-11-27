@@ -20,7 +20,9 @@
         "status_2xx": 245992,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9837
       }
     ],
     [
@@ -43,7 +45,9 @@
         "status_2xx": 245864,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9832
       }
     ],
     [
@@ -66,7 +70,9 @@
         "status_2xx": 246403,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9853
       }
     ],
     [
@@ -89,7 +95,9 @@
         "status_2xx": 246403,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9853
       }
     ]
   ]

@@ -93,7 +93,7 @@
   {/each}
 
   <PickerPanel
-    label="+ Indicator"
+    label="Indicator"
     dialogLabel="Choose indicators"
     placeholder="Filter languages…"
     disabled={scopes.length === 0}
@@ -151,9 +151,11 @@
 
   .chip-scope { color: var(--text-2); }
 
+  .chip-scope::before { content: "·"; margin-right: 4px; color: var(--muted); }
+
   .field {
     margin: 2px 12px 4px;
-    font-size: 12px;
+    font-size: .75rem;
     color: var(--muted);
   }
 
@@ -165,7 +167,7 @@
   }
 
   .scope-name {
-    font-size: 13px;
+    font: 500 .85rem var(--sans);
     color: var(--text);
     white-space: nowrap;
     overflow: hidden;
@@ -173,7 +175,7 @@
   }
 
   .count {
-    font-size: 11px;
+    font: 500 .72rem var(--mono);
     color: var(--muted);
     font-variant-numeric: tabular-nums;
   }
@@ -187,12 +189,11 @@
   .stat {
     width: 42px;
     padding: 3px 0;
-    border-radius: 5px;
-    border: 1px solid var(--border);
-    background: none;
+    border-radius: 2px;
+    border: 1px solid var(--bay-line);
+    background: var(--bay);
     color: var(--text-2);
-    font-size: 12px;
-    font-family: inherit;
+    font: 600 .75rem var(--sans);
     cursor: pointer;
     transition: border-color .1s ease, color .1s ease, background .1s ease;
   }

@@ -8,77 +8,96 @@
   function toggle(t: string) {
     typeFilter.update(f => ({ ...f, types: toggleType(f.types, t) }))
   }
+
+  const hint = 'Shown in the framework list and aggregated by the indicators.'
 </script>
 
 <!--
-  HttpArena's type filter: the same buttons, colours and toggle rules as the leaderboard. Global:
-  it narrows the framework picker and decides which frameworks the indicators aggregate.
+  HttpArena's type filter: the same keys, lights and toggle rules as the board ("Show", then
+  the leagues as banks of keys; a key that is on is raised and lit). Global: it narrows the
+  framework picker and decides which frameworks the indicators aggregate.
 -->
 <div class="type-filter" role="group" aria-label="Framework types">
-  {#each frameworkTypes as t (t.key)}
-    {@const on = $typeFilter.types.includes(t.key)}
-    <button class:on aria-pressed={on} title="{t.tip} Shown in the framework list and aggregated by the indicators." style="--on-text: {t.text}; --on-bg: {t.background}" on:click={() => toggle(t.key)}>{t.label}</button>
-  {/each}
-  <span class="sep" aria-hidden="true"></span>
-  {#each exclusiveTypes as t (t.key)}
-    {@const on = $typeFilter.types.includes(t.key)}
-    <button class:on aria-pressed={on} title="{t.tip} Shown in the framework list and aggregated by the indicators." style="--on-text: {t.text}; --on-bg: {t.background}" on:click={() => toggle(t.key)}>{t.label}</button>
-  {/each}
-  <span class="sep" aria-hidden="true"></span>
-  <button
-    class:on={$typeFilter.showTuned}
-    aria-pressed={$typeFilter.showTuned}
-    title="Show tuned entries. {TUNED.tip}"
-    style="--on-text: {TUNED.text}; --on-bg: {TUNED.background}"
-    on:click={() => typeFilter.update(f => ({ ...f, showTuned: !f.showTuned }))}
-  >Tuned</button>
+  <span class="cap">Show</span>
+  <div class="banks">
+    {#each [frameworkTypes, exclusiveTypes] as bank}
+      <div class="kbank">
+        {#each bank as t (t.key)}
+          {@const on = $typeFilter.types.includes(t.key)}
+          <button class:on aria-pressed={on} title="{t.tip} {hint}" on:click={() => toggle(t.key)}>
+            <i class="kled" class:on style="--led: {t.color}"></i>{t.label}
+          </button>
+        {/each}
+      </div>
+    {/each}
+    <div class="kbank">
+      <button
+        class:on={$typeFilter.showTuned}
+        aria-pressed={$typeFilter.showTuned}
+        title="Show tuned entries. {TUNED.tip}"
+        on:click={() => typeFilter.update(f => ({ ...f, showTuned: !f.showTuned }))}
+      ><i class="kled" class:on={$typeFilter.showTuned} style="--led: {TUNED.color}"></i>Tuned</button>
+    </div>
+  </div>
 </div>
 
 <style>
-  /* Sized and placed like the leaderboard's top-bar filter. */
   .type-filter {
     display: flex;
     align-items: center;
-    gap: .25rem;
-    margin-right: auto;
-    padding: 3px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    gap: .6rem;
     min-width: 0;
-    overflow-x: auto;
-    scrollbar-width: none;
+  }
+
+  .cap {
+    font: 600 .8125rem/1 var(--sans);
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+
+  .banks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    min-width: 0;
+  }
+
+  /* a bank: keys in a recessed bay */
+  .kbank {
+    display: inline-flex;
+    align-items: stretch;
+    gap: 2px;
+    padding: 2px;
+    background: var(--bay);
+    border: 1px solid var(--bay-line);
   }
 
   button {
-    flex: none;
-    border: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    height: 30px;
+    padding: 0 .75rem;
+    border: 1px solid transparent;
     background: transparent;
-    color: var(--muted);
-    cursor: pointer;
-    font: inherit;
-    font-size: .8rem;
-    font-weight: 650;
-    padding: .36rem .72rem;
-    border-radius: 7px;
+    color: var(--text-2);
+    font: 600 .8125rem/1 var(--sans);
     white-space: nowrap;
-    transition: color .12s ease, background .12s ease;
+    cursor: pointer;
   }
-  button:hover { color: var(--text-2); }
-  button.on { color: var(--on-text); background: var(--on-bg); }
+  button:hover { color: var(--text); background: color-mix(in srgb, var(--text) 7%, transparent); }
+  button.on {
+    color: var(--text);
+    background: var(--face);
+    border-color: var(--edge-lo);
+    box-shadow: 0 1px 0 var(--edge-hi) inset, 0 1px 2px rgba(0,0,0,.25);
+  }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 
-  /* Phones: tighter, so all six fit on one row. */
+  /* Phones: tighter, so the banks take two rows at most. */
   @media (max-width: 639px) {
-    .type-filter { gap: 2px; }
-    button { font-size: 11.5px; padding: 5px 5px; }
-    .sep { margin: 0 1px; }
-  }
-
-  .sep {
-    flex: none;
-    width: 1px;
-    height: 18px;
-    margin: 0 .2rem;
-    background: var(--border);
+    .cap { display: none; }
+    .banks { gap: .35rem; }
+    button { height: 28px; padding: 0 .5rem; gap: .35rem; font-size: .75rem; }
   }
 </style>

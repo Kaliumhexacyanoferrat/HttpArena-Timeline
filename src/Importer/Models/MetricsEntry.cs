@@ -3,6 +3,7 @@ namespace Importer.Models;
 public record MetricsEntry(
     long Rps,
     double? AvgLatencyMs,
+    double? P50LatencyMs,
     double? P99LatencyMs,
     double? P999LatencyMs,
     double? CpuPct,
@@ -18,5 +19,10 @@ public record MetricsEntry(
     int Status2xx,
     int Status3xx,
     int Status4xx,
-    int Status5xx
+    int Status5xx,
+    // Fixed-rate profiles only (8gbit, latency, connections); null elsewhere.
+    double? TargetRate,
+    double? RateRatio,
+    long? ConnectionsOpen,
+    long? WindowConnectErrors
 );

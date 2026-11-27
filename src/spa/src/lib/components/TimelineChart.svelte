@@ -22,6 +22,8 @@
   /** The type filter the indicators aggregate over, and the classification to apply it to. */
   export let filter: TypeFilter
   export let frameworkInfo: Record<string, FrameworkInfo> = {}
+  /** The page's theme; the axes take their colours from it, so a change redraws the chart. */
+  export let theme: string = 'light'
 
   let container: HTMLDivElement
   let chart: uPlot | null = null
@@ -224,12 +226,12 @@
     return best.r
   }
 
-  $: rebuild(test, frameworks, indicators, metrics, resolution, filter)
+  $: rebuild(test, frameworks, indicators, metrics, resolution, filter, theme)
 
-  async function rebuild(t: string, fws: string[], inds: string[], mets: string[], res: Resolution, f: TypeFilter) {
+  async function rebuild(t: string, fws: string[], inds: string[], mets: string[], res: Resolution, f: TypeFilter, th: string) {
     if (!container) return
 
-    const key = `${t}|${fws.join(',')}|${inds.join(',')}|${mets.join(',')}|${res}|${f.types.join(',')}|${f.showTuned}`
+    const key = `${t}|${fws.join(',')}|${inds.join(',')}|${mets.join(',')}|${res}|${f.types.join(',')}|${f.showTuned}|${th}`
     currentKey = key
 
     if (!t || (fws.length === 0 && inds.length === 0) || mets.length === 0) {
@@ -302,7 +304,7 @@
     const { axes, scales } = buildAxesAndScales(activeScaleKeys)
 
     hoverSeries = series.map(s => ({
-      color:     colors[s.source.colorKey] ?? '#94a3b8',
+      color:     colors[s.source.colorKey] ?? '#8e98a2',
       label:     mets.length > 1 ? `${s.source.label} · ${METRIC_BY_KEY[s.metricKey]?.label ?? s.metricKey}` : s.source.label,
       scale:     METRIC_BY_KEY[s.metricKey]?.scale ?? 'count',
       dashed:    s.dash != null,
@@ -327,7 +329,7 @@
         { label: 'Time' },
         ...series.map(s => ({
           label:  `${s.source.label} — ${METRIC_BY_KEY[s.metricKey]?.label ?? s.metricKey}`,
-          stroke: colors[s.source.colorKey] ?? '#94a3b8',
+          stroke: colors[s.source.colorKey] ?? '#8e98a2',
           width:  s.source.indicator ? 1.5 : 2,
           dash:   s.dash,
           scale:  METRIC_BY_KEY[s.metricKey]?.scale ?? 'count',
@@ -391,14 +393,24 @@
     chart.setScale('x', { min, max })
   }
 
+  /** A colour of the theme on screen (app.css), read when the chart is built. */
+  function token(name: string, fallback: string): string {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback
+  }
+
   function buildAxesAndScales(scaleKeys: string[]) {
-    const GRID  = { stroke: '#1e293b', width: 1 }
-    const TICKS = { stroke: '#334155', width: 1, size: 4 }
+    const GRID  = { stroke: token('--grid', 'rgba(128,128,128,.15)'), width: 1 }
+    const TICKS = { stroke: token('--tick', '#8e98a2'), width: 1, size: 4 }
+    const TEXT  = token('--axis', '#47525e')
+    // The board's figures: the mono face with tabular numerals; captions in its label face.
+    const FONT  = '500 11.5px "Red Hat Mono", ui-monospace, monospace'
+    const LABEL = '600 12px "Saira SC", "Inter", sans-serif'
 
     const axes: uPlot.Axis[] = [
       {
         // x — time
-        stroke: '#64748b',
+        stroke: TEXT,
+        font:   FONT,
         grid:   GRID,
         ticks:  TICKS,
       }
@@ -413,13 +425,18 @@
       axes.push({
         scale,
         label:    SCALE_LABEL[scale] ?? scale,
+        labelFont: LABEL,
+        font:     FONT,
         side:     isLeft ? 3 : 1,
-        stroke:   '#64748b',
+        stroke:   TEXT,
         grid:     isLeft ? GRID : { show: false },
         ticks:    TICKS,
-        gap:      i > 1 ? (i - 1) * 52 : 0,
+        gap:      6,
         values:   (_u: uPlot, ticks: number[]) => ticks.map(v => formatValue(scale, v)),
-        size:     52,
+        // As wide as its longest figure in the mono face (about 7px a character), so axes on the
+        // same side sit next to each other instead of over each other.
+        size:     (_u: uPlot, values: string[] | null) =>
+          values?.length ? Math.max(40, Math.ceil(Math.max(...values.map(v => v.length)) * 7) + 16) : 40,
       })
       scales[scale] = { auto: true }
     })
@@ -438,7 +455,9 @@
       }
     })
     observer.observe(container)
-    rebuild(test, frameworks, indicators, metrics, resolution, filter)
+    // The canvas draws its axes with whatever font is loaded; redraw them in the board's once it is.
+    document.fonts?.ready.then(() => chart?.redraw(false, true))
+    rebuild(test, frameworks, indicators, metrics, resolution, filter, theme)
   })
 
   onDestroy(() => {
@@ -492,7 +511,7 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
-    padding: 8px 16px 0;
+    padding: 12px 14px 0 8px;
   }
 
   .chart-container {
@@ -503,16 +522,20 @@
   }
 
   @media (max-width: 639px) {
-    .chart-wrap { flex: none; }
+    .chart-wrap { flex: none; padding: 10px 6px 0 2px; }
     .chart-container { flex: none; height: clamp(260px, 52vh, 440px); }
   }
 
+  /* the screen's foot: a strip like the rack's caption */
   .foot {
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    padding: 2px 24px 12px;
-    font-size: 12px;
+    padding: .45rem .9rem;
+    border-top: 1px solid var(--line-soft);
+    font: 600 .7rem/1.2 var(--label);
+    letter-spacing: .1em;
+    text-transform: uppercase;
     color: var(--muted);
   }
 
@@ -520,24 +543,29 @@
     .drag-hint { display: none; }
   }
 
+  /* the hover card: a popup of the board */
   .card {
     position: absolute;
     z-index: 10;
-    min-width: 180px;
-    max-width: 340px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    background: rgba(17, 24, 39, .94);
-    border: 1px solid var(--border);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .4);
-    font-size: 12px;
+    min-width: 190px;
+    max-width: 360px;
+    padding: .5rem .65rem;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--panel) 96%, transparent);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    font-size: .78rem;
     pointer-events: none;
   }
 
   .card-title {
-    margin-bottom: 4px;
+    margin-bottom: .3rem;
+    padding-bottom: .3rem;
+    border-bottom: 1px solid var(--line-soft);
+    font: 600 .7rem/1.2 var(--label);
+    letter-spacing: .1em;
+    text-transform: uppercase;
     color: var(--text-2);
-    font-variant-numeric: tabular-nums;
   }
 
   .card-row {
@@ -569,24 +597,25 @@
   .card-value {
     margin-left: 12px;
     color: var(--text);
-    font-weight: 600;
+    font: 600 .8rem var(--mono);
     font-variant-numeric: tabular-nums;
   }
 
-  .card-note { color: var(--muted); }
+  .card-note { color: var(--muted); font-family: var(--mono); font-size: .72rem; }
 
-  /* uPlot overrides for dark theme */
   :global(.uplot) {
     background: transparent !important;
-    color: #94a3b8;
-    font-family: inherit;
+    color: var(--axis);
+    font-family: var(--sans);
   }
 
   :global(.u-select) {
-    background: color-mix(in srgb, var(--accent) 18%, transparent) !important;
+    background: color-mix(in srgb, var(--accent) 16%, transparent) !important;
     border-left: 1px solid var(--accent);
     border-right: 1px solid var(--accent);
   }
+
+  :global(.u-cursor-x) { border-right-color: var(--muted) !important; }
 
   .overlay {
     position: absolute;
@@ -594,15 +623,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
-    color: #e2e8f0;
-    background: rgba(15, 23, 42, 0.7);
-    border-radius: 4px;
+    padding: 1rem;
+    text-align: center;
+    font: 600 .85rem/1.4 var(--label);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: color-mix(in srgb, var(--panel) 70%, transparent);
     pointer-events: none;
   }
 
   .overlay.muted {
-    color: #64748b;
+    color: var(--muted);
     background: transparent;
   }
 </style>
