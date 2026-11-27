@@ -1,7 +1,7 @@
 <script lang="ts">
   import { tick } from 'svelte'
 
-  /** Text of the toggle button, e.g. "+ framework". */
+  /** Text of the toggle button, e.g. "Framework" (an "add" button draws its own plus). */
   export let label: string
   export let title = ''
   export let placeholder = 'Filter…'
@@ -10,7 +10,7 @@
   export let dialogLabel = label
   export let query = ''
   export let open = false
-  /** "add": a quiet "+ something" text button; "menu": a value with a caret, for view settings. */
+  /** "add": a tool button with a plus, adding to the chart; "menu": a value with a caret, for view settings. */
   export let variant: 'add' | 'menu' = 'add'
   /** Short lists (menus) need no search box. */
   export let searchable = true
@@ -56,6 +56,9 @@
     {disabled}
     {title}
   >
+    {#if variant === 'add'}
+      <svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+    {/if}
     <slot name="trigger">{label}</slot>
     {#if variant === 'menu'}<span class="caret" aria-hidden="true"></span>{/if}
   </button>
@@ -96,27 +99,31 @@
 <style>
   .wrap { position: relative; }
 
+  /* "add": the board's tool button (its Compare / Thermal camera keys) */
   .trigger {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    height: 26px;
-    padding: 0 8px;
-    border: none;
-    border-radius: 6px;
-    background: none;
-    color: var(--text-2);
-    font-size: 13px;
-    font-family: inherit;
+    gap: .45rem;
+    height: 32px;
+    padding: 0 .75rem;
+    border: 1px solid var(--bay-line);
+    background: var(--panel-2);
+    color: var(--text);
+    font: 600 .8125rem/1 var(--sans);
     white-space: nowrap;
     cursor: pointer;
-    transition: background .12s ease, color .12s ease;
   }
-  .trigger:hover:not(:disabled), .trigger.active { background: var(--surface); color: var(--text); }
+  .trigger:hover:not(:disabled), .trigger.active { background: var(--panel); border-color: var(--muted); }
   .trigger:disabled { opacity: .5; cursor: default; }
+  .plus { width: 14px; height: 14px; flex: none; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
   .trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 
-  .menu { color: var(--text); }
+  /* "menu": a value in a recessed bay, like the board's sort select */
+  .menu {
+    background: var(--bay);
+    font-weight: 600;
+  }
+  .menu:hover:not(:disabled), .menu.active { background: var(--bay); border-color: var(--accent); }
 
   .caret {
     width: 6px;
@@ -125,42 +132,46 @@
     border-right: 1.5px solid var(--text-2);
     border-bottom: 1.5px solid var(--text-2);
     transform: rotate(45deg);
+    transition: transform .2s ease;
   }
+  .active .caret { transform: translateY(3px) rotate(-135deg); }
 
   .panel {
     position: absolute;
-    top: calc(100% + 4px);
+    top: calc(100% + 6px);
     left: 0;
     z-index: 100;
     display: flex;
     flex-direction: column;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, .45);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: var(--shadow);
     outline: none;
+    animation: popIn .16s cubic-bezier(.2,.6,.2,1);
   }
   .panel.right { left: auto; right: 0; }
+  @keyframes popIn { from { opacity: 0; transform: translateY(-5px) } to { opacity: 1; transform: none } }
 
   .search {
-    margin: 8px 8px 4px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    margin: .45rem .45rem .25rem;
+    height: 34px;
+    padding: 0 .65rem;
+    background: var(--bay);
+    border: 1px solid var(--bay-line);
     color: var(--text);
-    font-size: 13px;
-    font-family: inherit;
-    padding: 5px 10px;
+    font: 500 .85rem var(--sans);
     outline: none;
   }
-  .search:focus { border-color: var(--accent); }
+  .search::placeholder { color: var(--muted); opacity: 1; }
+  .search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-weak); }
 
   .list {
     max-height: min(380px, 60vh);
     overflow-y: auto;
-    padding: 0 4px 6px;
+    padding: 0 .35rem .4rem;
     scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+    scrollbar-color: var(--line) transparent;
   }
 
   .list :global(.group-title) {
@@ -169,11 +180,12 @@
     z-index: 1;
     display: flex;
     justify-content: space-between;
-    background: var(--surface);
-    padding: 8px 8px 4px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--muted);
+    background: var(--panel);
+    padding: .55rem .5rem .3rem;
+    font: 600 .68rem/1 var(--label);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-2);
   }
 
   .list :global(.row) {
@@ -182,16 +194,16 @@
     justify-content: space-between;
     gap: 10px;
     padding: 3px 4px 3px 8px;
-    border-radius: 6px;
+    border-radius: 3px;
   }
-  .list :global(.row:hover) { background: var(--surface-hover); }
+  .list :global(.row:hover) { background: var(--panel-2); }
 
   .list :global(.empty), .panel :global(.footnote) {
-    padding: 8px 12px;
-    font-size: 12px;
+    padding: .5rem .75rem;
+    font-size: .75rem;
     color: var(--muted);
   }
-  .panel :global(.footnote) { border-top: 1px solid var(--border); }
+  .panel :global(.footnote) { border-top: 1px solid var(--line-soft); }
 
   @media (max-width: 639px) {
     /* Pin the panel to the viewport so it never runs off the right edge. */

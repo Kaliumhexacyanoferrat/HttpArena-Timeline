@@ -107,16 +107,18 @@ How the values are derived — keep these semantics when changing it:
 * Results are merged one framework PR at a time, so the field is recorded **once per UTC day** (timestamp = last data commit that day) for the tests touched that day, not per commit. Every touched day is logged, even without net change; the SPA skips unchanged aggregates unless 7+ days passed, like the framework files.
 * Frameworks are aggregated in ordinal name order; min/max name the first framework with the extreme value (indices into the log's `frameworks`, first-seen order so appending history doesn't renumber). Ties where every framework has the same value name nobody. The average is summed in ascending value order.
 
-In the SPA, indicators are selected via the "+ indicator" picker (`IndicatorPicker.svelte`), stored in the URL as `indicators=median.all,max.rust`, and drawn as step lines sharing the framework color palette.
+In the SPA, indicators are selected via the "Indicator" picker (`IndicatorPicker.svelte`), stored in the URL as `indicators=median.all,max.rust`, and drawn as step lines sharing the framework color palette.
 
-The **type filter** sits in the page header like on the leaderboard (`TypeFilterBar.svelte`, rules in `src/spa/src/lib/data/classification.ts`): same buttons, colors and toggle rules (flagship/emerging/experimental combine, engine and infra are exclusive, never empty, separate tuned toggle). It narrows the framework picker and decides what the indicators aggregate. Default: flagship + emerging **without** tuned (`DEFAULT_SHOW_TUNED`); the board's own code defaults to showing tuned, so this is a deliberate difference. Like the board it is remembered in localStorage and, when not the default, written to the URL with the board's parameter names (`type=engine&tuned=0`).
+The **type filter** sits in the controls panel like on the leaderboard ("Show" and its banks of keys; `TypeFilterBar.svelte`, rules in `src/spa/src/lib/data/classification.ts`): same buttons, colors and toggle rules (flagship/emerging/experimental combine, engine and infra are exclusive, never empty, separate tuned toggle). It narrows the framework picker and decides what the indicators aggregate. Default: flagship + emerging **without** tuned (`DEFAULT_SHOW_TUNED`); the board's own code defaults to showing tuned, so this is a deliberate difference. Like the board it is remembered in localStorage and, when not the default, written to the URL with the board's parameter names (`type=engine&tuned=0`).
 
 ### Adding a new test to the timeline
 
-The importer picks up new tests automatically once they are active on HttpArena main (a base test in `profiles.sh` referenced by an enabled framework's `meta.json` `tests`), so **no importer code change is needed**. The only manual step is the UI grouping:
+The importer picks up new tests automatically once they are active on HttpArena main (a base test in `profiles.sh` referenced by an enabled framework's `meta.json` `tests`), so **no importer code change is needed**. The manual steps are all in the UI:
 
-1. Add the concrete `<test>-<concurrency>` key(s) to the matching category's `tests` array in `src/spa/src/lib/data/categories.ts`. Check HttpArena's docs under `../HttpArena/site/content/docs/test-profiles/` (h1/h2/h3/gateway/grpc/ws) for the right category, and `scripts/lib/profiles.sh` for the concurrency level(s).
-2. Re-run the importer. Keep `categories.ts` and `data/index.json` in agreement — every test in one should appear in the other.
+1. Add the concrete `<test>-<concurrency>` key(s) to the matching category's `tests` array in `src/spa/src/lib/data/categories.ts`. The categories and their order mirror the board's scopes (H/1.1, H/2, H/3, Gateway, gRPC, WebSocket, Database) and the `PROFILES` list in HttpArena's `scripts/gen_leaderboard_data.py`; `scripts/lib/profiles.sh` has the concurrency level(s). Note the board's grouping can differ from the docs folders (the database tests keep their docs under `h1/` but form their own DB scope).
+2. Add the base test to `PROFILES` in the same file: the board's column name, its one-line description and its Knowledge Base path (`PROFILE_DOC` in `gen_leaderboard_data.py`). Optional — without it the rail and title show the raw key.
+3. If HttpArena scores the test on something other than throughput, give it default metrics in `TEST_METRIC_DEFAULTS` (`src/spa/src/lib/stores/selection.ts`).
+4. Re-run the importer. Keep `categories.ts` and `data/index.json` in agreement — every test in one should appear in the other.
 
 ## SPA
 
@@ -129,6 +131,10 @@ in the future, but for now, the user can:
 4. Optionally drag across the chart to filter a time range (whole UTC days, stored in the URL as `from`/`to`; shown as a removable chip after the indicators, double-click the chart to reset)
 5. Optionally pick a time resolution (All, Day, Week, Month, Quarter, Year; URL param `res`). This is aggregated client-side in `TimelineChart.svelte` (`bucket`), not at ingestion: framework runs in a period are averaged; indicators are states, so median/avg are time-weighted over how long each value held and min/max take the extreme held in the period. Points sit at the period start (UTC); the chart axis is UTC throughout
 
-and see the changes of the metrics over time. All of the supported metrics can be selected, but by default only RPS is enabled.
+and see the changes of the metrics over time. All of the supported metrics can be selected, but by default only RPS is enabled (fixed-rate tests default to what HttpArena scores them on, see `TEST_METRIC_DEFAULTS`).
+
+### Design
+
+The SPA follows HttpArena's "Server Room" design (`site/root/assets/sr/sr.css` and `site/leaderboard/index.html` in HttpArena): its fonts (Inter, Red Hat Mono, Saira Semi Condensed, self-hosted in `src/spa/src/assets/fonts/`), its colour tokens for light and dark (`src/spa/src/app.css`), the metal header with the hazard stripe and the site's navigation (Timeline lit), the views rail (test list), the placard and asset plate (test title), the controls panel with banks of keys, and name plates for the series. When HttpArena is restyled, update from those two files. The theme follows the system until toggled and is stored under the board's key `lb-theme` (`src/spa/src/lib/stores/theme.ts`, applied before first paint in `index.html`); the chart reads its axis colours from the tokens and redraws on a theme change.
 
 Keep in mind that the website will be hosted on GitHub Pages, so we cannot use additional infrastructure such as database servers or anything else. 

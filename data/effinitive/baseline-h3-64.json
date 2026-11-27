@@ -5,6 +5,7 @@
       {
         "rps": 100377,
         "avg_latency_ms": 39.56,
+        "p50_latency_ms": null,
         "p99_latency_ms": 125.07,
         "p99_9_latency_ms": null,
         "cpu_pct": 1950.7,
@@ -28,6 +29,7 @@
       {
         "rps": 100377,
         "avg_latency_ms": 39.56,
+        "p50_latency_ms": null,
         "p99_latency_ms": 125.07,
         "p99_9_latency_ms": null,
         "cpu_pct": 1950.7,
@@ -51,6 +53,7 @@
       {
         "rps": 100377,
         "avg_latency_ms": 39.56,
+        "p50_latency_ms": null,
         "p99_latency_ms": 125.07,
         "p99_9_latency_ms": null,
         "cpu_pct": 1950.7,
@@ -74,6 +77,7 @@
       {
         "rps": 166856,
         "avg_latency_ms": 23.8,
+        "p50_latency_ms": null,
         "p99_latency_ms": 74.99,
         "p99_9_latency_ms": null,
         "cpu_pct": 1953.2,
@@ -97,6 +101,7 @@
       {
         "rps": 166856,
         "avg_latency_ms": 23.8,
+        "p50_latency_ms": null,
         "p99_latency_ms": 74.99,
         "p99_9_latency_ms": null,
         "cpu_pct": 1953.2,
@@ -120,6 +125,7 @@
       {
         "rps": 166856,
         "avg_latency_ms": 23.8,
+        "p50_latency_ms": null,
         "p99_latency_ms": 74.99,
         "p99_9_latency_ms": null,
         "cpu_pct": 1953.2,
@@ -143,6 +149,7 @@
       {
         "rps": 167138,
         "avg_latency_ms": 23.45,
+        "p50_latency_ms": null,
         "p99_latency_ms": 78.04,
         "p99_9_latency_ms": null,
         "cpu_pct": 2000.1,
@@ -166,6 +173,7 @@
       {
         "rps": 783878,
         "avg_latency_ms": 5.3,
+        "p50_latency_ms": null,
         "p99_latency_ms": 31.1,
         "p99_9_latency_ms": null,
         "cpu_pct": 6045.9,
@@ -189,6 +197,7 @@
       {
         "rps": 740032,
         "avg_latency_ms": 5.5,
+        "p50_latency_ms": null,
         "p99_latency_ms": 32.82,
         "p99_9_latency_ms": null,
         "cpu_pct": 6130.7,
@@ -212,6 +221,7 @@
       {
         "rps": 740032,
         "avg_latency_ms": 5.5,
+        "p50_latency_ms": null,
         "p99_latency_ms": 32.82,
         "p99_9_latency_ms": null,
         "cpu_pct": 6130.7,

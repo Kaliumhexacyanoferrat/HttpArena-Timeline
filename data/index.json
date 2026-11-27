@@ -572,6 +572,21 @@
         "static-tls-1024"
       ]
     },
+    "bt-ye": {
+      "language": "C++",
+      "type": "experimental",
+      "tests": [
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "json-h2c-1024",
+        "json-h2c-4096",
+        "static-h2-1024",
+        "static-h2-256"
+      ]
+    },
     "bun": {
       "language": "TS",
       "type": "flagship",

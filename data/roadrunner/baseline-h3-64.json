@@ -5,6 +5,7 @@
       {
         "rps": 56956,
         "avg_latency_ms": 70.99,
+        "p50_latency_ms": null,
         "p99_latency_ms": 97.46,
         "p99_9_latency_ms": null,
         "cpu_pct": 5837.1,
@@ -28,6 +29,7 @@
       {
         "rps": 59922,
         "avg_latency_ms": 62.28,
+        "p50_latency_ms": null,
         "p99_latency_ms": 71.52,
         "p99_9_latency_ms": null,
         "cpu_pct": 5876.1,
@@ -51,6 +53,7 @@
       {
         "rps": 110588,
         "avg_latency_ms": 35.49,
+        "p50_latency_ms": null,
         "p99_latency_ms": 42.76,
         "p99_9_latency_ms": null,
         "cpu_pct": 5437.7,
@@ -74,6 +77,7 @@
       {
         "rps": 110588,
         "avg_latency_ms": 35.49,
+        "p50_latency_ms": null,
         "p99_latency_ms": 42.76,
         "p99_9_latency_ms": null,
         "cpu_pct": 5437.7,
@@ -97,6 +101,7 @@
       {
         "rps": 110588,
         "avg_latency_ms": 35.49,
+        "p50_latency_ms": null,
         "p99_latency_ms": 42.76,
         "p99_9_latency_ms": null,
         "cpu_pct": 5437.7,
@@ -120,6 +125,7 @@
       {
         "rps": 110588,
         "avg_latency_ms": 35.49,
+        "p50_latency_ms": null,
         "p99_latency_ms": 42.76,
         "p99_9_latency_ms": null,
         "cpu_pct": 5437.7,
@@ -143,6 +149,7 @@
       {
         "rps": 110588,
         "avg_latency_ms": 35.49,
+        "p50_latency_ms": null,
         "p99_latency_ms": 42.76,
         "p99_9_latency_ms": null,
         "cpu_pct": 5437.7,
@@ -166,6 +173,7 @@
       {
         "rps": 110588,
         "avg_latency_ms": 35.49,
+        "p50_latency_ms": null,
         "p99_latency_ms": 42.76,
         "p99_9_latency_ms": null,
         "cpu_pct": 5437.7,
@@ -189,6 +197,7 @@
       {
         "rps": 101860,
         "avg_latency_ms": 39.83,
+        "p50_latency_ms": null,
         "p99_latency_ms": 46.98,
         "p99_9_latency_ms": null,
         "cpu_pct": 5958.5,
@@ -212,6 +221,7 @@
       {
         "rps": 98264,
         "avg_latency_ms": 41.21,
+        "p50_latency_ms": null,
         "p99_latency_ms": 49.29,
         "p99_9_latency_ms": null,
         "cpu_pct": 5539,
@@ -235,6 +245,7 @@
       {
         "rps": 111504,
         "avg_latency_ms": 35.71,
+        "p50_latency_ms": null,
         "p99_latency_ms": 42.23,
         "p99_9_latency_ms": null,
         "cpu_pct": 5376,
@@ -258,6 +269,7 @@
       {
         "rps": 101529,
         "avg_latency_ms": 39.92,
+        "p50_latency_ms": null,
         "p99_latency_ms": 46.85,
         "p99_9_latency_ms": null,
         "cpu_pct": 5651,
@@ -281,6 +293,7 @@
       {
         "rps": 125317,
         "avg_latency_ms": 32.13,
+        "p50_latency_ms": null,
         "p99_latency_ms": 39.56,
         "p99_9_latency_ms": null,
         "cpu_pct": 5212.4,
@@ -304,6 +317,7 @@
       {
         "rps": 198309,
         "avg_latency_ms": 20.25,
+        "p50_latency_ms": null,
         "p99_latency_ms": 36.97,
         "p99_9_latency_ms": null,
         "cpu_pct": 4746.5,
@@ -327,6 +341,7 @@
       {
         "rps": 204023,
         "avg_latency_ms": 20.14,
+        "p50_latency_ms": null,
         "p99_latency_ms": 32.41,
         "p99_9_latency_ms": null,
         "cpu_pct": 4879.4,
@@ -350,6 +365,7 @@
       {
         "rps": 183623,
         "avg_latency_ms": 23.03,
+        "p50_latency_ms": null,
         "p99_latency_ms": 36.37,
         "p99_9_latency_ms": null,
         "cpu_pct": 3801.8,
@@ -373,6 +389,7 @@
       {
         "rps": 184160,
         "avg_latency_ms": 22.97,
+        "p50_latency_ms": null,
         "p99_latency_ms": 34.59,
         "p99_9_latency_ms": null,
         "cpu_pct": 4100.3,
@@ -396,6 +413,7 @@
       {
         "rps": 180097,
         "avg_latency_ms": 23.17,
+        "p50_latency_ms": null,
         "p99_latency_ms": 31.79,
         "p99_9_latency_ms": null,
         "cpu_pct": 3903.1,
@@ -419,6 +437,7 @@
       {
         "rps": 180097,
         "avg_latency_ms": 23.17,
+        "p50_latency_ms": null,
         "p99_latency_ms": 31.79,
         "p99_9_latency_ms": null,
         "cpu_pct": 3903.1,

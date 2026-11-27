@@ -80,7 +80,7 @@
   {/each}
 
   <PickerPanel
-    label="+ Framework"
+    label="Framework"
     dialogLabel="Choose frameworks"
     placeholder="Filter frameworks or languages…"
     title="Add frameworks to the chart"
@@ -111,7 +111,7 @@
           ></span>
           <span class="fw-name">{row.name}</span>
           {#if row.info.tuned}
-            <span class="tuned" style="--on-text: {TUNED.text}; --on-bg: {TUNED.background}" title={TUNED.tip}>tuned</span>
+            <span class="tuned" style="--tuned: {TUNED.color}" title={TUNED.tip}>Tuned</span>
           {/if}
           {#if !row.hasData}
             <span class="tag">no results</span>
@@ -163,8 +163,7 @@
     border: none;
     background: none;
     color: var(--text);
-    font-size: 13px;
-    font-family: inherit;
+    font: 500 .85rem var(--sans);
     text-align: left;
     cursor: pointer;
   }
@@ -177,8 +176,9 @@
     justify-content: center;
     width: 15px;
     height: 15px;
-    border-radius: 4px;
-    border: 1px solid var(--border);
+    border-radius: 2px;
+    border: 1px solid var(--bay-line);
+    background: var(--bay);
     font-size: 11px;
     font-weight: 700;
     line-height: 1;
@@ -199,26 +199,28 @@
     white-space: nowrap;
   }
 
+  /* the type's light, as on the rack's name plates */
   .swatch {
     flex-shrink: 0;
-    width: 8px;
-    height: 8px;
-    border-radius: 2px;
+    width: 7px;
+    height: 7px;
+    border-radius: 1px;
   }
 
+  /* the board's tuned tag: hazard yellow */
   .tuned {
     flex-shrink: 0;
-    padding: 0 5px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 650;
-    letter-spacing: .02em;
-    color: var(--on-text);
-    background: var(--on-bg);
+    padding: .14rem .32rem;
+    border-radius: 1px;
+    background: var(--tuned);
+    color: #1b1700;
+    font: 700 .62rem/1 var(--label);
+    letter-spacing: .1em;
+    text-transform: uppercase;
   }
 
   .tag {
-    font-size: 11px;
+    font-size: .72rem;
     color: var(--muted);
     white-space: nowrap;
   }

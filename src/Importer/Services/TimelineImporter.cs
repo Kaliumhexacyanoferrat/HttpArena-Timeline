@@ -230,10 +230,12 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         long    L(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.Number ? v.GetInt64() : 0;
         int     I(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.Number ? v.GetInt32() : 0;
         double? D(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.Number ? v.GetDouble() : null;
+        long?   N(string key) => e.TryGetProperty(key, out var v) && v.ValueKind == JsonValueKind.Number && v.TryGetInt64(out var n) ? n : null;
 
         return new MetricsEntry(
             Rps:                  L("rps"),
             AvgLatencyMs:         ValueParser.ParseLatencyMs(S("avg_latency")),
+            P50LatencyMs:         ValueParser.ParseLatencyMs(S("p50_latency")),
             P99LatencyMs:         ValueParser.ParseLatencyMs(S("p99_latency")),
             P999LatencyMs:        ValueParser.ParseLatencyMs(S("p99_9_latency")),
             CpuPct:               ValueParser.ParseCpuPct(S("cpu")),
@@ -249,7 +251,11 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
             Status2xx:            I("status_2xx"),
             Status3xx:            I("status_3xx"),
             Status4xx:            I("status_4xx"),
-            Status5xx:            I("status_5xx")
+            Status5xx:            I("status_5xx"),
+            TargetRate:           D("target_rate"),
+            RateRatio:            D("rate_ratio"),
+            ConnectionsOpen:      N("connections_open"),
+            WindowConnectErrors:  N("window_connect_errors")
         );
     }
 
@@ -399,6 +405,7 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         w.WriteStartObject();
         w.WriteNumber("rps",            m.Rps);
         WriteNullable(w, "avg_latency_ms",    m.AvgLatencyMs);
+        WriteNullable(w, "p50_latency_ms",    m.P50LatencyMs);
         WriteNullable(w, "p99_latency_ms",    m.P99LatencyMs);
         WriteNullable(w, "p99_9_latency_ms",  m.P999LatencyMs);
         WriteNullable(w, "cpu_pct",           m.CpuPct);
@@ -415,6 +422,11 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
         w.WriteNumber("status_3xx",     m.Status3xx);
         w.WriteNumber("status_4xx",     m.Status4xx);
         w.WriteNumber("status_5xx",     m.Status5xx);
+        // Only the held-connection profiles report these; other rows leave them out.
+        WriteIfPresent(w, "target_rate",           m.TargetRate);
+        WriteIfPresent(w, "rate_ratio",            m.RateRatio);
+        WriteIfPresent(w, "connections_open",      m.ConnectionsOpen);
+        WriteIfPresent(w, "window_connect_errors", m.WindowConnectErrors);
         w.WriteEndObject();
     }
 
@@ -428,6 +440,16 @@ public class TimelineImporter(string repoPath, string outputPath, string startin
     {
         if (v.HasValue) w.WriteNumber(name, v.Value);
         else w.WriteNull(name);
+    }
+
+    private static void WriteIfPresent(Utf8JsonWriter w, string name, double? v)
+    {
+        if (v.HasValue) w.WriteNumber(name, v.Value);
+    }
+
+    private static void WriteIfPresent(Utf8JsonWriter w, string name, long? v)
+    {
+        if (v.HasValue) w.WriteNumber(name, v.Value);
     }
 
     // Framework names must map to a single directory regardless of casing seen in the source

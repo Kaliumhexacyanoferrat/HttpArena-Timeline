@@ -12,6 +12,7 @@ export const METRIC_CONFIGS: MetricConfig[] = [
   { key: 'bandwidth_bps',    label: 'Bandwidth',       scale: 'bps',   group: 'Throughput' },
   { key: 'input_bw_bps',     label: 'Input bandwidth', scale: 'bps',   group: 'Throughput' },
   { key: 'avg_latency_ms',   label: 'Avg latency',     scale: 'ms',    group: 'Latency' },
+  { key: 'p50_latency_ms',   label: 'P50 latency',     scale: 'ms',    group: 'Latency' },
   { key: 'p99_latency_ms',   label: 'P99 latency',     scale: 'ms',    group: 'Latency' },
   { key: 'p99_9_latency_ms', label: 'P99.9 latency',   scale: 'ms',    group: 'Latency' },
   { key: 'cpu_pct',          label: 'CPU',             scale: 'pct',   group: 'Resources' },

@@ -13,6 +13,16 @@
     <meta name="twitter:title" content="HTTP Arena Timeline" />
     <meta name="twitter:description" content="Track HTTP framework benchmark results over time. Compare throughput, latency, CPU and memory metrics across dozens of frameworks from the HTTP Arena project." />
     <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- The theme before the first paint: the saved choice (the board's key), else the system's. -->
+    <script>
+      (function () {
+        var t = null
+        try { t = localStorage.getItem('lb-theme') } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', t)
+      })()
+    </script>
   </head>
   <body>
     <div id="app"></div>

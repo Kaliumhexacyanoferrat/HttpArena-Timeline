@@ -5,6 +5,7 @@
       {
         "rps": 49081,
         "avg_latency_ms": 0.1056,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.142,
         "p99_9_latency_ms": 6.51,
         "cpu_pct": 236.5,
@@ -20,7 +21,9 @@
         "status_2xx": 245475,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 50000,
+        "rate_ratio": 0.9816
       }
     ]
   ]

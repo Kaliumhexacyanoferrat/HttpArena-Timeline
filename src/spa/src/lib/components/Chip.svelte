@@ -25,19 +25,22 @@
 </span>
 
 <style>
+  /* a name plate, as on the rack's units */
   .chip {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    height: 26px;
-    padding: 0 2px 0 6px;
-    border-radius: 6px;
-    font-size: 13px;
+    gap: .45rem;
+    height: 32px;
+    padding: 0 2px 0 .55rem;
+    background: var(--plate);
+    border: 1px solid var(--plate-line);
+    border-radius: 2px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.12);
+    font: 600 .95rem/1 var(--label);
+    letter-spacing: .01em;
     color: var(--text);
     white-space: nowrap;
-    transition: background .12s ease;
   }
-  .chip:hover { background: var(--surface); }
 
   .swatch {
     width: 16px;
@@ -53,23 +56,17 @@
   .label { display: inline-flex; align-items: center; gap: 4px; }
 
   .remove {
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
     border: none;
-    border-radius: 4px;
+    border-radius: 2px;
     background: none;
     color: var(--muted);
-    font-size: 15px;
-    line-height: 1;
+    font: 400 15px/1 var(--sans);
     cursor: pointer;
-    opacity: 0;
-    transition: opacity .12s ease, color .12s ease;
+    opacity: .55;
+    transition: opacity .12s ease, color .12s ease, background .12s ease;
   }
   .chip:hover .remove, .remove:focus-visible { opacity: 1; }
-  .remove:hover { color: var(--text); }
-
-  /* No hover on touch screens: keep the remove button visible. */
-  @media (hover: none) {
-    .remove { opacity: .7; }
-  }
+  .remove:hover { color: var(--led-r); background: var(--bay); }
 </style>

@@ -5,6 +5,7 @@
       {
         "rps": 9982,
         "avg_latency_ms": 0.0874,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.118,
         "p99_9_latency_ms": 0.202,
         "cpu_pct": 66.6,
@@ -20,7 +21,9 @@
         "status_2xx": 199668,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 10000,
+        "rate_ratio": 0.9982
       }
     ],
     [
@@ -28,6 +31,7 @@
       {
         "rps": 9982,
         "avg_latency_ms": 0.0872,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.115,
         "p99_9_latency_ms": 0.248,
         "cpu_pct": 69.1,
@@ -43,7 +47,9 @@
         "status_2xx": 199657,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 10000,
+        "rate_ratio": 0.9982
       }
     ],
     [
@@ -51,6 +57,7 @@
       {
         "rps": 9980,
         "avg_latency_ms": 0.0874,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.116,
         "p99_9_latency_ms": 2.609,
         "cpu_pct": 52.9,
@@ -66,7 +73,9 @@
         "status_2xx": 199628,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 10000,
+        "rate_ratio": 0.998
       }
     ],
     [
@@ -74,6 +83,7 @@
       {
         "rps": 9982,
         "avg_latency_ms": 0.0844,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.117,
         "p99_9_latency_ms": 1.694,
         "cpu_pct": 53.8,
@@ -89,7 +99,9 @@
         "status_2xx": 199665,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 10000,
+        "rate_ratio": 0.9982
       }
     ],
     [
@@ -97,6 +109,7 @@
       {
         "rps": 9982,
         "avg_latency_ms": 0.0844,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.117,
         "p99_9_latency_ms": 1.694,
         "cpu_pct": 53.8,
@@ -112,7 +125,9 @@
         "status_2xx": 199665,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 10000,
+        "rate_ratio": 0.9982
       }
     ]
   ]

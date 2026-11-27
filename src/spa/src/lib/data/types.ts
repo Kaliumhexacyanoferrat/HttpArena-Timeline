@@ -1,6 +1,8 @@
 export interface Metrics {
   rps: number
   avg_latency_ms: number | null
+  /** Reported by the held-connection profiles (connections-*) only. */
+  p50_latency_ms?: number | null
   p99_latency_ms: number | null
   p99_9_latency_ms: number | null
   cpu_pct: number | null
@@ -17,6 +19,11 @@ export interface Metrics {
   status_3xx: number
   status_4xx: number
   status_5xx: number
+  // Held-connection profiles only; absent elsewhere.
+  target_rate?: number
+  rate_ratio?: number
+  connections_open?: number
+  window_connect_errors?: number
 }
 
 export interface TimelineFile {

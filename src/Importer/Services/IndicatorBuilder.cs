@@ -38,6 +38,7 @@ public sealed class IndicatorBuilder(Func<string, string> languageOf)
     [
         ("rps",              m => m.Rps),
         ("avg_latency_ms",   m => m.AvgLatencyMs),
+        ("p50_latency_ms",   m => m.P50LatencyMs),
         ("p99_latency_ms",   m => m.P99LatencyMs),
         ("p99_9_latency_ms", m => m.P999LatencyMs),
         ("cpu_pct",          m => m.CpuPct),

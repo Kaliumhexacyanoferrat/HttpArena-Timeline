@@ -5,6 +5,7 @@
       {
         "rps": 1753370,
         "avg_latency_ms": 17.71,
+        "p50_latency_ms": null,
         "p99_latency_ms": 64.8,
         "p99_9_latency_ms": null,
         "cpu_pct": 6404.7,
@@ -28,6 +29,7 @@
       {
         "rps": 1753370,
         "avg_latency_ms": 17.71,
+        "p50_latency_ms": null,
         "p99_latency_ms": 64.8,
         "p99_9_latency_ms": null,
         "cpu_pct": 6404.7,
@@ -51,6 +53,7 @@
       {
         "rps": 1439917,
         "avg_latency_ms": 24.33,
+        "p50_latency_ms": null,
         "p99_latency_ms": 74.1,
         "p99_9_latency_ms": null,
         "cpu_pct": 4244.5,
@@ -74,6 +77,7 @@
       {
         "rps": 1398906,
         "avg_latency_ms": 41.57,
+        "p50_latency_ms": null,
         "p99_latency_ms": 94.3,
         "p99_9_latency_ms": null,
         "cpu_pct": 4384,

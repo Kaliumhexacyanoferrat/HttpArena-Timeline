@@ -5,6 +5,7 @@
       {
         "rps": 9984,
         "avg_latency_ms": 0.065,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.102,
         "p99_9_latency_ms": 0.137,
         "cpu_pct": 32.7,
@@ -20,7 +21,9 @@
         "status_2xx": 199697,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 10000,
+        "rate_ratio": 0.9984
       }
     ],
     [
@@ -28,6 +31,7 @@
       {
         "rps": 9983,
         "avg_latency_ms": 0.0737,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.1,
         "p99_9_latency_ms": 5.066,
         "cpu_pct": 25.7,
@@ -43,7 +47,9 @@
         "status_2xx": 199690,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 10000,
+        "rate_ratio": 0.9983
       }
     ],
     [
@@ -51,6 +57,7 @@
       {
         "rps": 9983,
         "avg_latency_ms": 0.07540000000000001,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.1,
         "p99_9_latency_ms": 5.522,
         "cpu_pct": 24.5,
@@ -66,7 +73,9 @@
         "status_2xx": 199680,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 10000,
+        "rate_ratio": 0.9983
       }
     ],
     [
@@ -74,6 +83,7 @@
       {
         "rps": 9983,
         "avg_latency_ms": 0.069,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.102,
         "p99_9_latency_ms": 0.153,
         "cpu_pct": 26.2,
@@ -89,7 +99,9 @@
         "status_2xx": 199680,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 10000,
+        "rate_ratio": 0.9983
       }
     ],
     [
@@ -97,6 +109,7 @@
       {
         "rps": 9981,
         "avg_latency_ms": 0.0726,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.1,
         "p99_9_latency_ms": 1.115,
         "cpu_pct": 25.3,
@@ -112,7 +125,9 @@
         "status_2xx": 199636,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 10000,
+        "rate_ratio": 0.9981
       }
     ]
   ]

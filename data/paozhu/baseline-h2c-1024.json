@@ -5,6 +5,7 @@
       {
         "rps": 447320,
         "avg_latency_ms": 219.36,
+        "p50_latency_ms": null,
         "p99_latency_ms": 1810,
         "p99_9_latency_ms": null,
         "cpu_pct": 3820.6,
@@ -28,6 +29,7 @@
       {
         "rps": 2020208,
         "avg_latency_ms": 46.22,
+        "p50_latency_ms": null,
         "p99_latency_ms": 731.32,
         "p99_9_latency_ms": null,
         "cpu_pct": 5945.1,

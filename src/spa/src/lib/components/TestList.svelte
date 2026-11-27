@@ -1,37 +1,23 @@
 <script lang="ts">
   import { selectedTest } from '../stores/selection'
-  import { CATEGORIES } from '../data/categories'
+  import { CATEGORIES, profileOf, splitTest, formatConnections } from '../data/categories'
 
   export let tests: string[]
 
   $: testSet = new Set(tests)
 
-  $: groups = (() => {
-    const result: { name: string; tests: string[]; color: string; bg: string }[] = []
-    const seen = new Set<string>()
-
-    for (const cat of CATEGORIES) {
-      const matching = cat.tests.filter(t => testSet.has(t)).sort()
-      if (matching.length > 0) {
-        result.push({ name: cat.name, tests: matching, color: cat.color, bg: cat.bg })
-        matching.forEach(t => seen.add(t))
-      }
-    }
-
-    return result
-  })()
+  // In the board's order, which categories.ts keeps.
+  $: groups = CATEGORIES
+    .map(c => ({ name: c.name, short: c.short, tests: c.tests.filter(t => testSet.has(t)) }))
+    .filter(g => g.tests.length > 0)
 
   let expanded = new Set<string>()
   let autoExpandedForTest: string | null = null
 
   $: if ($selectedTest && $selectedTest !== autoExpandedForTest) {
     autoExpandedForTest = $selectedTest
-    for (const group of groups) {
-      if (group.tests.includes($selectedTest)) {
-        expanded = new Set([...expanded, group.name])
-        break
-      }
-    }
+    const group = groups.find(g => g.tests.includes($selectedTest))
+    if (group) expanded = new Set([...expanded, group.name])
   }
 
   function toggle(name: string) {
@@ -42,26 +28,33 @@
   }
 </script>
 
-<nav class="test-list">
+<!-- The board's views rail, opened: a key per family, its tests listed under it by name. -->
+<nav class="rail" aria-label="Tests">
+  <div class="rail-h">Tests</div>
   {#each groups as group (group.name)}
-    <div class="nav-grp" class:open={expanded.has(group.name)}>
-      <button class="nav-grp-h" on:click={() => toggle(group.name)}>
-        <span class="grp-label">
-          <span class="cat-dot" style="background:{group.color}" aria-hidden="true"></span>
-          {group.name}
-        </span>
+    {@const open = expanded.has(group.name)}
+    {@const current = group.tests.includes($selectedTest)}
+    <div class="fam" class:open>
+      <button class="fam-key" class:current on:click={() => toggle(group.name)} aria-expanded={open}>
+        <i class="kled" class:on={current}></i>
+        <span class="fam-name">{group.name}</span>
+        <span class="fam-n">{group.tests.length}</span>
         <span class="caret" aria-hidden="true">▸</span>
       </button>
 
-      <div class="nav-grp-body">
-        <div class="nav-grp-inner">
+      <div class="fam-body">
+        <div class="fam-inner">
           {#each group.tests as test (test)}
+            {@const { connections } = splitTest(test)}
             <button
-              class="nav-item"
-              class:active={$selectedTest === test}
+              class="item"
+              class:on={$selectedTest === test}
+              aria-current={$selectedTest === test ? 'true' : undefined}
+              title={test}
               on:click={() => selectedTest.set(test)}
             >
-              {test}
+              <span class="item-t">{profileOf(test)?.label ?? test}</span>
+              {#if connections != null}<span class="item-c">{formatConnections(connections)}</span>{/if}
             </button>
           {/each}
         </div>
@@ -71,156 +64,112 @@
 </nav>
 
 <style>
-  .test-list {
+  .rail {
     display: flex;
     flex-direction: column;
-    padding: .4rem .7rem 3rem;
+    padding: 1.1rem .55rem 3rem;
   }
 
-  .nav-grp {
-    display: flex;
-    flex-direction: column;
+  .rail-h {
+    margin: 0 .2rem .55rem;
+    font: 600 .75rem/1.2 var(--sans);
+    color: var(--text-2);
   }
 
-  /* Category header — nav-grp-h style */
-  .nav-grp-h {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: .4rem;
-    width: 100%;
-    padding: .44rem .55rem;
-    border: none;
-    border-radius: 7px;
-    background: none;
-    color: var(--text);
-    font-size: .86rem;
-    font-weight: 650;
-    font-family: inherit;
-    cursor: pointer;
-    text-align: left;
-    user-select: none;
-    transition: background .12s ease, color .12s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .nav-grp-h:hover { background: var(--panel-2); }
+  .fam { margin-bottom: 3px; }
 
-  .grp-label {
+  /* a family: a key on the rail */
+  .fam-key {
     display: flex;
     align-items: center;
     gap: .5rem;
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width: 100%;
+    min-height: 32px;
+    padding: .35rem .5rem;
+    border: 1px solid var(--edge-lo);
+    background: var(--face);
+    box-shadow: 0 1px 0 var(--edge-hi) inset;
+    color: var(--text-2);
+    font: 600 .8rem/1 var(--label);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-align: left;
     white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  .fam-key:hover, .fam.open > .fam-key { color: var(--text); background: var(--face-h); }
+  .fam-key.current { color: var(--text); }
+  .fam-key:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  .fam-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+  .fam-n {
+    font: 500 .7rem/1 var(--mono);
+    letter-spacing: 0;
+    color: var(--muted);
   }
 
-  .cat-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* Rotating caret — matches .caret in the new leaderboard */
   .caret {
     display: inline-flex;
-    align-items: center;
     justify-content: center;
-    width: .85rem;
-    font-size: .62rem;
+    width: .7rem;
+    font-size: .6rem;
     color: var(--muted);
     transition: transform .22s cubic-bezier(.4,0,.2,1);
-    flex-shrink: 0;
   }
-  .nav-grp.open > .nav-grp-h .caret { transform: rotate(90deg); }
+  .fam.open > .fam-key .caret { transform: rotate(90deg); }
 
-  /* Accordion body with tree line — border-left pattern from new leaderboard */
-  .nav-grp-body {
-    margin-left: .8rem;
-    border-left: 1px solid var(--border);
-    padding-left: .5rem;
+  /* smooth accordion: the row track 0fr -> 1fr, the contents fade */
+  .fam-body {
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows .22s cubic-bezier(.4,0,.2,1);
   }
-  .nav-grp.open > .nav-grp-body { grid-template-rows: 1fr; }
+  .fam.open > .fam-body { grid-template-rows: 1fr; }
 
-  .nav-grp-inner {
+  .fam-inner {
     overflow: hidden;
     min-height: 0;
     display: flex;
     flex-direction: column;
-    gap: 1px;
     opacity: 0;
     transition: opacity .16s ease .04s;
   }
-  .nav-grp.open > .nav-grp-body > .nav-grp-inner { opacity: 1; }
+  .fam.open > .fam-body > .fam-inner { opacity: 1; padding: .2rem 0 .5rem; }
 
-  /* Test item — nav-item style */
-  .nav-item {
-    display: block;
+  /* a test: a line of the list, lit on the left when on screen */
+  .item {
+    display: flex;
+    align-items: baseline;
+    gap: .5rem;
     width: 100%;
-    text-align: left;
-    padding: .4rem .6rem;
-    border: none;
-    border-radius: 7px;
+    padding: .36rem .55rem .36rem .9rem;
+    border: 0;
+    border-left: 3px solid transparent;
     background: none;
     color: var(--text-2);
+    font: 500 .86rem/1.3 var(--sans);
+    text-align: left;
     cursor: pointer;
-    font-size: .85rem;
-    font-weight: 500;
-    font-family: inherit;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: background .12s ease, color .12s ease, box-shadow .12s ease, transform .12s ease;
     -webkit-tap-highlight-color: transparent;
   }
-  .nav-item:hover {
-    background: var(--panel-2);
-    color: var(--text);
-    transform: translateX(2px);
-  }
-  .nav-item.active {
+  .item:hover { background: var(--panel-2); color: var(--text); }
+  .item.on {
+    border-left-color: var(--led-g);
     background: var(--accent-weak);
-    color: var(--accent);
-    font-weight: 600;
-    box-shadow: inset 2px 0 0 var(--accent);
+    color: var(--text);
+    font-weight: 650;
   }
+  .item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
-  @media (max-width: 639px) {
-    .test-list {
-      flex-direction: row;
-      overflow-x: auto;
-      padding: 6px 8px;
-      scrollbar-width: none;
-      gap: 4px;
-      align-items: center;
-    }
-    .test-list::-webkit-scrollbar { display: none; }
-    .nav-grp { flex-direction: row; flex-shrink: 0; }
-    .nav-grp-h { display: none; }
-    .nav-grp-body {
-      display: flex;
-      flex-direction: row;
-      border-left: none;
-      padding-left: 0;
-      margin-left: 0;
-      grid-template-rows: none;
-    }
-    .nav-grp-inner {
-      display: flex;
-      flex-direction: row;
-      opacity: 1;
-      gap: 4px;
-    }
-    .nav-item {
-      flex-shrink: 0;
-      overflow: visible;
-      text-overflow: unset;
-      transform: none !important;
-    }
+  .item-t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .item-c {
+    flex: none;
+    font: 500 .74rem/1 var(--mono);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
   }
+  .item.on .item-c { color: var(--text-2); }
 </style>

@@ -5,6 +5,7 @@
       {
         "rps": 675784,
         "avg_latency_ms": 3111.9607,
+        "p50_latency_ms": null,
         "p99_latency_ms": 6375.424,
         "p99_9_latency_ms": 6498.304,
         "cpu_pct": 3123.7,
@@ -20,7 +21,9 @@
         "status_2xx": 13520776,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 1000000,
+        "rate_ratio": 0.6758
       }
     ],
     [
@@ -28,6 +31,7 @@
       {
         "rps": 952413,
         "avg_latency_ms": 437.6475,
+        "p50_latency_ms": null,
         "p99_latency_ms": 1686.016,
         "p99_9_latency_ms": 2223.104,
         "cpu_pct": 4187.5,
@@ -43,7 +47,9 @@
         "status_2xx": 19055148,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 1000000,
+        "rate_ratio": 0.9524
       }
     ],
     [
@@ -51,6 +57,7 @@
       {
         "rps": 998149,
         "avg_latency_ms": 0.1133,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.204,
         "p99_9_latency_ms": 4.041,
         "cpu_pct": 3436.9,
@@ -66,7 +73,9 @@
         "status_2xx": 19966576,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 1000000,
+        "rate_ratio": 0.9981
       }
     ],
     [
@@ -74,6 +83,7 @@
       {
         "rps": 998045,
         "avg_latency_ms": 0.1143,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.211,
         "p99_9_latency_ms": 0.324,
         "cpu_pct": 3959.7,
@@ -89,7 +99,9 @@
         "status_2xx": 19963697,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 1000000,
+        "rate_ratio": 0.998
       }
     ],
     [
@@ -97,6 +109,7 @@
       {
         "rps": 997778,
         "avg_latency_ms": 0.1149,
+        "p50_latency_ms": null,
         "p99_latency_ms": 0.202,
         "p99_9_latency_ms": 0.889,
         "cpu_pct": 3963.4,
@@ -112,7 +125,9 @@
         "status_2xx": 19958972,
         "status_3xx": 0,
         "status_4xx": 0,
-        "status_5xx": 0
+        "status_5xx": 0,
+        "target_rate": 1000000,
+        "rate_ratio": 0.9978
       }
     ]
   ]
