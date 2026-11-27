@@ -51,6 +51,8 @@
         "baseline-h2c-256",
         "baseline-h2c-4096",
         "baseline-h3-64",
+        "connections-1m-1000000",
+        "connections-1m-tls-1000000",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -194,6 +196,7 @@
       "tests": [
         "8gbit-512",
         "async-32000",
+        "async-db-1024",
         "baseline-4096",
         "baseline-h2-1024",
         "baseline-h2-256",
@@ -201,6 +204,8 @@
         "baseline-h2c-256",
         "baseline-h2c-4096",
         "baseline-h3-64",
+        "connections-1m-1000000",
+        "connections-1m-tls-1000000",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -471,6 +476,46 @@
         "pipelined-4096"
       ]
     },
+    "barejs": {
+      "language": "TS",
+      "type": "emerging",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "async-db-1024",
+        "baseline-4096",
+        "baseline-h2-1024",
+        "baseline-h2-256",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "baseline-h3-64",
+        "connections-1m-1000000",
+        "connections-1m-tls-1000000",
+        "echo-ws-16384",
+        "echo-ws-4096",
+        "echo-ws-512",
+        "echo-ws-limited-4096",
+        "echo-ws-limited-512",
+        "echo-ws-pipeline-16384",
+        "echo-ws-pipeline-4096",
+        "echo-ws-pipeline-512",
+        "fortunes-1024",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-h2c-1024",
+        "json-h2c-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "limited-conn-4096",
+        "pipelined-4096",
+        "static-h2-1024",
+        "static-h2-256",
+        "static-h3-64",
+        "static-tls-1024"
+      ]
+    },
     "beskar-websocket": {
       "language": "C#",
       "type": "emerging",
@@ -713,6 +758,8 @@
         "8gbit-512",
         "async-32000",
         "baseline-4096",
+        "connections-1m-1000000",
+        "connections-1m-tls-1000000",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -885,6 +932,23 @@
         "latency-1m-1024",
         "limited-conn-4096",
         "pipelined-4096"
+      ]
+    },
+    "doba": {
+      "language": "C++",
+      "type": "experimental",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "baseline-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "limited-conn-4096",
+        "pipelined-4096",
+        "static-tls-1024"
       ]
     },
     "drogon": {
@@ -2451,6 +2515,8 @@
         "8gbit-512",
         "async-32000",
         "baseline-4096",
+        "connections-1m-1000000",
+        "connections-1m-tls-1000000",
         "json-comp-16384",
         "json-comp-4096",
         "json-tls-4096",
@@ -3039,6 +3105,8 @@
         "baseline-h2c-1024",
         "baseline-h2c-256",
         "baseline-h2c-4096",
+        "connections-1m-1000000",
+        "connections-1m-tls-1000000",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -3980,8 +4048,15 @@
         "async-32000",
         "async-db-1024",
         "baseline-4096",
+        "baseline-h2c-1024",
+        "baseline-h2c-256",
+        "baseline-h2c-4096",
+        "connections-1m-1000000",
+        "connections-1m-tls-1000000",
         "json-comp-16384",
         "json-comp-4096",
+        "json-h2c-1024",
+        "json-h2c-4096",
         "json-tls-4096",
         "latency-10k-1024",
         "latency-1m-1024",
@@ -4514,12 +4589,16 @@
       "tests": [
         "8gbit-512",
         "async-32000",
+        "async-db-1024",
         "baseline-4096",
         "baseline-h2-1024",
         "baseline-h2-256",
         "baseline-h2c-1024",
         "baseline-h2c-256",
         "baseline-h2c-4096",
+        "baseline-h3-64",
+        "connections-1m-1000000",
+        "connections-1m-tls-1000000",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -4528,6 +4607,7 @@
         "echo-ws-pipeline-16384",
         "echo-ws-pipeline-4096",
         "echo-ws-pipeline-512",
+        "fortunes-1024",
         "json-comp-16384",
         "json-comp-4096",
         "json-h2c-1024",
@@ -4539,7 +4619,12 @@
         "pipelined-4096",
         "static-h2-1024",
         "static-h2-256",
-        "static-tls-1024"
+        "static-h3-64",
+        "static-tls-1024",
+        "unary-grpc-1024",
+        "unary-grpc-256",
+        "unary-grpc-tls-1024",
+        "unary-grpc-tls-256"
       ]
     },
     "vanilla-epoll": {
@@ -4757,6 +4842,26 @@
         "static-tls-1024"
       ]
     },
+    "vertx-graalvm": {
+      "language": "Java",
+      "type": "flagship",
+      "tests": [
+        "8gbit-512",
+        "async-32000",
+        "async-db-1024",
+        "baseline-4096",
+        "json-comp-16384",
+        "json-comp-4096",
+        "json-h2c-1024",
+        "json-h2c-4096",
+        "json-tls-4096",
+        "latency-10k-1024",
+        "latency-1m-1024",
+        "limited-conn-4096",
+        "pipelined-4096",
+        "static-tls-1024"
+      ]
+    },
     "vibe.d": {
       "language": "D",
       "type": "emerging",
@@ -4779,12 +4884,15 @@
       "tests": [
         "8gbit-512",
         "async-32000",
+        "async-db-1024",
         "baseline-4096",
         "baseline-h2-1024",
         "baseline-h2-256",
         "baseline-h2c-1024",
         "baseline-h2c-256",
         "baseline-h2c-4096",
+        "connections-1m-1000000",
+        "connections-1m-tls-1000000",
         "echo-ws-16384",
         "echo-ws-4096",
         "echo-ws-512",
@@ -4793,6 +4901,7 @@
         "echo-ws-pipeline-16384",
         "echo-ws-pipeline-4096",
         "echo-ws-pipeline-512",
+        "fortunes-1024",
         "json-comp-16384",
         "json-comp-4096",
         "json-h2c-1024",
@@ -4803,7 +4912,8 @@
         "limited-conn-4096",
         "pipelined-4096",
         "static-h2-1024",
-        "static-h2-256"
+        "static-h2-256",
+        "static-tls-1024"
       ]
     },
     "vinyl cache": {
